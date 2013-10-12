@@ -1,4 +1,4 @@
-package app.views;
+package app.uitoolkit;
 
 import app.helpers.*;
 
