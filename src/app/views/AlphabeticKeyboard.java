@@ -9,8 +9,8 @@ import javax.swing.*;
  * Implements an alphabetic keyboard.
  *
  *  [Q,     W, E, R, T, Y, U, I, O, P,     BKSP]
- *  [A,     S, D, F, G, H, J, K, L, +,    ENTER]
- *  [SHIFT, Z, X, C, V, B, N, M, ., -, !, SHIFT]
+ *  [CAPS,  A, S, D, F, G, H, J, K, L,    ENTER]
+ *  [SHIFT, Z, X, C, V, B, N, M, ., -, +, SHIFT]
  *  [CLRS,  @, SPACE,     , _, .COM, PREV, NEXT]
  */
 class AlphabeticKeyboard extends Keyboard implements ActionListener {
@@ -18,13 +18,13 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
 	// Array of key arrangements
 	private static final String[][] KEYS = {
         {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "BKSP"},
-        {"A", "S", "D", "F", "G", "H", "J", "K", "L", "+", "ENTER"},
-        {"SHIFT", "Z", "X", "C", "V", "B", "N", "M", ".", "-", "!", "SHIFT"},
+        {"CAPS", "A", "S", "D", "F", "G", "H", "J", "K", "L", "ENTER"},
+        {"SHIFT", "Z", "X", "C", "V", "B", "N", "M", ".", "-", "+", "SHIFT"},
         {"CLEAR", "@", "SPACE", "_", ".COM", "PREV", "NEXT"}
     };
 
 	private static final int KEYBOARD_WIDTH; 									// Total width of the keyboard in pixel
-	private static final String[] SYMBOLS = {"+", ".", "-", "!", "@", "_"}; 	// List of key symbols
+	private static final String[] SYMBOLS = {"+", ".", "-", "@", "_"}; 	        // List of key symbols
     private static final String[] ALPHABET = new String[26];					// List of alphabets, for shiftKey
     static {
     	KEYBOARD_WIDTH = (KEY_WIDTH + KEY_SPACING) * KEYS[0].length + KEY_SPACING;
@@ -39,8 +39,10 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
      * @param field 			text input associated with the keyboard.
      * @param enableSymbols		flag for enabling or disabling the symbols
      * 							on the keyboard. Default: true.
+     * @param showCapsLock		flag for enabling or disabling the caps lock
+     * 							button on the keyboard. Default: true.
      */
-    public AlphabeticKeyboard(JTextField field, boolean enableSymbols) {
+    public AlphabeticKeyboard(JTextField field, boolean enableSymbols, boolean showCapsLock) {
     	super(field);
         JPanel inner = new JPanel();
             inner.setLayout(new GridLayout(4, 1));
@@ -48,7 +50,7 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
                 JPanel rp = new JPanel();
                 for (String key : row) {
                     AbstractButton ab;
-                    if (key == "SHIFT") {
+                    if (key == "SHIFT" || key == "CAPS") {
                         ab = new JToggleButton();
                     } else {
                         ab = new JButton();
@@ -63,14 +65,29 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
                         ab.setPreferredSize(new Dimension(
                             KEYBOARD_WIDTH - 7 * (KEY_WIDTH + KEY_SPACING) - KEY_SPACING * 2,
                             KEY_HEIGHT));
-                    } else if (key == "BKSP" || key == "ENTER" || key == ".COM" || key == "CLEAR") {
+                    } else if (key == "BKSP" || key == ".COM" || key == "CLEAR") {
                         ab.setPreferredSize(new Dimension(
                             KEY_WIDTH * 2 + KEY_SPACING,
+                            KEY_HEIGHT));
+                    } else if (key == "ENTER" || key == "CAPS") {
+                        ab.setPreferredSize(new Dimension(
+                            (int)(KEY_WIDTH * 1.5 + KEY_SPACING),
                             KEY_HEIGHT));
                     } else {
                         ab.setPreferredSize(new Dimension(
                             KEY_WIDTH,
                             KEY_HEIGHT));
+                    }
+
+                    // Hide caps lock, disabled
+                    if (!showCapsLock) {
+	                    if (key == "ENTER") {
+	                    	ab.setPreferredSize(new Dimension(
+	                            KEY_WIDTH * 2 + KEY_SPACING,
+	                            KEY_HEIGHT));
+	                    } else if (key == "CAPS") {
+	                    	continue;
+	                    }
                     }
 
                     // Add key to lookup 
@@ -86,7 +103,7 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
         setSymbolsEnabled(enableSymbols);
     }
     public AlphabeticKeyboard(JTextField field) {
-    	this(field, true);
+    	this(field, true, true);
     }
 
     /**
@@ -126,10 +143,18 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
     	String name = ab.getName();
     	AbstractButton s1 = BLOOKUP.get("SHIFT");
     	AbstractButton s2 = BLOOKUP.get("SHIFT[1]");
+    	AbstractButton caps = BLOOKUP.get("CAPS");
 
     	if (name.startsWith("SHIFT")) {
-    		(ab == s1 ? s2 : s1).setSelected(ab.isSelected());
-    		shiftKey(ab.isSelected());
+    		if (!caps.isSelected()) {
+	    		(ab == s1 ? s2 : s1).setSelected(ab.isSelected());
+	    		shiftKey(ab.isSelected());
+    		} else {
+    			ab.setSelected(false);
+    		}
+    	} else if (name.startsWith("CAPS")) {
+    		shiftKey(caps.isSelected());
+    		caps.setText(caps.isSelected() ? "CAPS" : "caps");
     	} else if (name.equals("CLEAR")) {
     		field.setText("");
     	} else if (name.equals("ENTER")) {
@@ -167,17 +192,23 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
     			add = ab.getText();
     		}
      		String text = field.getText();
-    		int caret = field.getCaretPosition();
-    		field.setText(
-				text.substring(0, caret) + add +
-				text.substring(caret, text.length()));
-			field.setCaretPosition(caret + add.length());
+     		if (field.getSelectedText() == null) {
+	    		int caret = field.getCaretPosition();
+	    		field.setText(
+					text.substring(0, caret) + add +
+					text.substring(caret, text.length()));
+				field.setCaretPosition(caret + add.length());
+     		} else {
+     			field.replaceSelection(add);
+     		}
     	}
     	// release the shift keys
     	if (ab != s1 && ab != s2 && s1.isSelected()) {
 			s1.setSelected(false);
 			s2.setSelected(false);
-			shiftKey(false);
+			if (!caps.isSelected()) {
+				shiftKey(false);
+			}
 		}
     } // actionPerformed
 
@@ -189,7 +220,7 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
         JTextField tf = new JTextField();
         tf.setFont(MyFont.HEADER_FONT.deriveFont(Font.PLAIN, 36));
         frame.add(tf);
-        frame.add(new AlphabeticKeyboard(tf, true));
+        frame.add(new AlphabeticKeyboard(tf));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

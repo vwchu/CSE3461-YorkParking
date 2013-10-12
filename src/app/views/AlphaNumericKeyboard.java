@@ -9,8 +9,8 @@ import javax.swing.*;
  * Implements an alphanumeric keyboard.
  *
  *  [Q,     W, E, R, T, Y, U, I, O, P,     BKSP] [7, 8, 9]
- *  [A,     S, D, F, G, H, J, K, L, +,    ENTER] [4, 5, 6]
- *  [SHIFT, Z, X, C, V, B, N, M, ., -, !, SHIFT] [1, 2, 3]
+ *  [CAPS,  A, S, D, F, G, H, J, K, L,    ENTER] [4, 5, 6]
+ *  [SHIFT, Z, X, C, V, B, N, M, ., -, +, SHIFT] [1, 2, 3]
  *  [CLRS,  @, SPACE,     , _, .COM, PREV, NEXT] [0,    .]
  */
 class AlphaNumericKeyboard extends Keyboard implements ActionListener {
