@@ -15,8 +15,8 @@ import javax.swing.*;
  */
 class AlphaNumericKeyboard extends Keyboard implements ActionListener {
 
-	private final AlphabeticKeyboard AK;
-	private final NumericKeyboard NK;
+	private final AlphabeticKeyboard AK;	// reference to alphabetic keyboard
+	private final NumericKeyboard NK;		// reference to numeric keyboard
 
 	/**
 	 * Create and layout the alphabetic (QWERTY) keyboard with
@@ -47,8 +47,13 @@ class AlphaNumericKeyboard extends Keyboard implements ActionListener {
             ab.removeActionListener(NK);
             ab.addActionListener(this);
         }
-    }
+    } // AlphaNumericKeyboard
 
+    /**
+     * Associates the text input with the keyboard.
+     *  
+     * @param field 	text input to link to the keyboard.
+     */
 	@Override
     public void setInputComponent(JTextField field) {
         // Check to protect against null pointer exception
@@ -60,6 +65,13 @@ class AlphaNumericKeyboard extends Keyboard implements ActionListener {
         }
     }
 
+    /**
+     * Invoked when an action occurs.
+     * Use the alphabetic keyboard's.
+     * 
+     * @param event		the event object.
+     */
+	@Override
 	public void actionPerformed(ActionEvent event) {
 		AK.actionPerformed(event);
 	}

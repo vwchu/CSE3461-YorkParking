@@ -30,11 +30,11 @@ class NumericKeyboard extends Keyboard implements ActionListener {
     /**
      * Create and layout the numeric keyboard.
      * 
-     * @param field text input
-     * @param showControls flag for enabling or disabling the
-     * controls (clear, backspace) on the keyboard. Default: true.
-     * @param showDecimalPoint flag for enabling or disabling the
-     * decimal point button on the keyboard. Default: false.
+     * @param field 			text input associated with the keyboard.
+     * @param showControls 		flag for enabling or disabling the controls
+     * 							(clear, backspace) on the keyboard. Default: true.
+     * @param showDecimalPoint 	flag for enabling or disabling the decimal point
+     * 							button on the keyboard. Default: false.
      */
 	public NumericKeyboard(JTextField field, boolean showControls, boolean showDecimalPoint) {
 		super(field);
@@ -49,7 +49,7 @@ class NumericKeyboard extends Keyboard implements ActionListener {
                     AbstractButton ab = new JButton();
 
                     ab.addActionListener(this);
-                    setKeyLookAndFeel(ab, key);
+                    setKeyLookAndFeel(ab, key, true);
                     setEnabled(ab, field != null);
 
                     // Set key size
@@ -82,6 +82,12 @@ class NumericKeyboard extends Keyboard implements ActionListener {
     	this(field, true, false);
     }
 
+    /**
+     * Invoked when an action occurs.
+     * Perform updates on the text field given a specific key pressed.
+     * 
+     * @param event		the event object.
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
     	AbstractButton ab = (AbstractButton)event.getSource();
@@ -111,7 +117,7 @@ class NumericKeyboard extends Keyboard implements ActionListener {
 				text.substring(caret, text.length()));
 			field.setCaretPosition(caret + add.length());
     	}
-    }
+    } // actionPerformed
 
     // FOR TESTING PURPOSES ONLY
 

@@ -20,7 +20,7 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
         {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "BKSP"},
         {"A", "S", "D", "F", "G", "H", "J", "K", "L", "+", "ENTER"},
         {"SHIFT", "Z", "X", "C", "V", "B", "N", "M", ".", "-", "!", "SHIFT"},
-        {"CLEAR", "@", "SPACE", "_", ".COM", "BACK", "FORW"}
+        {"CLEAR", "@", "SPACE", "_", ".COM", "PREV", "NEXT"}
     };
 
 	private static final int KEYBOARD_WIDTH; 									// Total width of the keyboard in pixel
@@ -36,9 +36,9 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
     /**
      * Create and layout the alphabetic (QWERTY) keyboard.
      * 
-     * @param field text input
-     * @param enableSymbols	flag for enabling or disabling the
-     * symbols on the keyboard. Default: true.
+     * @param field 			text input associated with the keyboard.
+     * @param enableSymbols		flag for enabling or disabling the symbols
+     * 							on the keyboard. Default: true.
      */
     public AlphabeticKeyboard(JTextField field, boolean enableSymbols) {
     	super(field);
@@ -113,6 +113,13 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
     	}
     }
 
+    /**
+     * Invoked when an action occurs.
+     * Perform updates on the text field given a specific key pressed.
+     * Synchronize the shift keys.
+     * 
+     * @param event		the event object.
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
     	AbstractButton ab = (AbstractButton)event.getSource();
@@ -140,12 +147,12 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
     		} else {
     			field.replaceSelection("");
     		}
-    	} else if (name.equals("BACK")) {
+    	} else if (name.equals("PREV")) {
     		int caret = field.getCaretPosition();
     		if (caret > 0) {
     			field.setCaretPosition(caret - 1);
     		}
-    	} else if (name.equals("FORW")) {
+    	} else if (name.equals("NEXT")) {
     		int caret = field.getCaretPosition();
     		if (caret < field.getText().length()) {
     			field.setCaretPosition(caret + 1);
@@ -159,20 +166,20 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
     		} else {
     			add = ab.getText();
     		}
-    		
-    		String text = field.getText();
+     		String text = field.getText();
     		int caret = field.getCaretPosition();
     		field.setText(
 				text.substring(0, caret) + add +
 				text.substring(caret, text.length()));
 			field.setCaretPosition(caret + add.length());
     	}
-		if (ab != s1 && ab != s2 && s1.isSelected()) {
+    	// release the shift keys
+    	if (ab != s1 && ab != s2 && s1.isSelected()) {
 			s1.setSelected(false);
 			s2.setSelected(false);
 			shiftKey(false);
 		}
-    }
+    } // actionPerformed
 
     // FOR TESTING PURPOSES ONLY
 

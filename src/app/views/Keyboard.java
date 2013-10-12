@@ -16,27 +16,26 @@ abstract class Keyboard extends JPanel implements ActionListener {
     public static final int FONT_SIZE    = 20; // font size of keys
     public static final int KEY_SPACING  = 5;  // spacing between the keys horizontally
 
-    // A mapping of special key code names to the icon symbols
-    protected static final Map<String, String> specialKeys = new HashMap<String, String>();
-    static {
-        specialKeys.put("SPACE", " ");
-        specialKeys.put("BKSP", "\ue004");
-        specialKeys.put("SHIFT", "\ue005");
-        specialKeys.put("ENTER", "\ue006");
-        specialKeys.put("BACK", "\ue000");
-        specialKeys.put("FORW", "\ue001");
-    }
-
     // Reference to the input field being modified
     protected JTextField field = null;
     
     // A mapping of key code names and the Button objects
     public final Map<String, AbstractButton> BLOOKUP = new HashMap<String, AbstractButton>();
 
+    /**
+     * Default constructor of a keyboard.
+     * 
+     * @param field 	text input linked to the keyboard.
+     */
     protected Keyboard(JTextField field) {
     	setInputComponent(field);
     }
 
+    /**
+     * Associates the text input with the keyboard.
+     *  
+     * @param field 	text input to link to the keyboard.
+     */
     public void setInputComponent(JTextField field) {
         this.field = field;
     	for (String name : BLOOKUP.keySet()) {
@@ -44,28 +43,47 @@ abstract class Keyboard extends JPanel implements ActionListener {
     	}
     }
 
+    /**
+     * Enable or disable the button on the keyboard.
+     * 
+     * @param ab 		button to enable or disable.
+     * @param enable 	if true, enable, else disable.
+     */
     protected void setEnabled(AbstractButton ab, boolean enable) {
-    	ab.setEnabled(enable);
     	ab.setEnabled(enable);
 		ab.setOpaque(enable);
 		ab.setContentAreaFilled(enable);
 		ab.setForeground(enable ? Color.BLACK : Color.LIGHT_GRAY);
     }
 
+    /**
+     * Add the panel to the outer panel and box.
+     * This fixes the size of the panel, so it does not
+     * expand when resized.
+     * 
+     * @param inner 	panel to add to the outer.
+     */
     protected void addPanelToBox(JPanel inner) {
         Box box = Box.createVerticalBox();
         box.add(inner);
         add(box);
     }
 
-    protected void setKeyLookAndFeel(AbstractButton ab, String key) {
+    /**
+     * Style the keyboard button.
+     * 
+     * @param ab 	button to style.
+     * @param key 	text on the button.
+     * @param caps 	if true, upper case, else lower case. Default: false
+     */
+    protected void setKeyLookAndFeel(AbstractButton ab, String key, boolean caps) {
         // Set font
         Font font = MyFont.BODYTEXT_FONT;
-        if (specialKeys.containsKey(key)) {
+        if (MyFont.ICONS.containsKey(key)) {
             font = MyFont.ICON_FONT;
-            ab.setText(specialKeys.get(key));
+            ab.setText(MyFont.ICONS.get(key));
         } else {
-        	ab.setText(key.toLowerCase());
+        	ab.setText(caps ? key.toUpperCase() : key.toLowerCase());
         }
         ab.setFont(font.deriveFont(Font.PLAIN, FONT_SIZE));
 
@@ -74,7 +92,16 @@ abstract class Keyboard extends JPanel implements ActionListener {
         ab.setBackground(Color.WHITE);
         ab.setForeground(Color.BLACK);
     }
+    protected void setKeyLookAndFeel(AbstractButton ab, String key) {
+    	setKeyLookAndFeel(ab, key, false);
+    }
 
+    /**
+     * Invoked when an action occurs.
+     * 
+     * @param event		the event object.
+     */
+    @Override
     public abstract void actionPerformed(ActionEvent event);
 
 }
