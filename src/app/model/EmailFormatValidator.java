@@ -1,7 +1,6 @@
 package app.model;
 
-import java.util.regex.Matcher; 
-import java.util.regex.Pattern; 
+import java.util.regex.*; 
 
 /**
  * This class provides validation for email addresses.
