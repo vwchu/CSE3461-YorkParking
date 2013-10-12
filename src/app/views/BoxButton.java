@@ -13,6 +13,7 @@ import javax.swing.border.*;
  * consisting of a large icon and a label text. 
  */
 public class BoxButton extends JPanel implements MouseListener {
+
 	private static final int SIZE = 200;										// Button size (width and height)
 	private static final int ICON_SIZE = 100;									// Icon font size
 	private static final int LABEL_SIZE = 16;									// Label font size
