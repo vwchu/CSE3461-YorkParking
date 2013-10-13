@@ -1,10 +1,7 @@
 package app.uitoolkit;
 
 import app.helpers.*;
-
-import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 /**

@@ -1,8 +1,6 @@
 package app.helpers;
 
-import java.awt.Component;
-import java.awt.Dimension;
-
+import java.awt.*;
 import javax.swing.*;
 
 /**
@@ -13,6 +11,15 @@ import javax.swing.*;
 public class UITools {
 
 	private UITools() { } // static class, no constructor
+
+	/**
+	 * Return the screen size.
+	 * 
+	 * @return the screen size.
+	 */
+	public static Dimension getScreenSize() {
+		return Toolkit.getDefaultToolkit().getScreenSize();  
+	}
 
     /**
      * Add the panel to the outer panel and box.
@@ -43,6 +50,6 @@ public class UITools {
 		comp.setMaximumSize(size);
 		comp.setSize(size);
 		return comp;
-	}    
+	}
 
 }

@@ -1,8 +1,10 @@
 package app.uitoolkit;
 
 import app.helpers.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 /**
@@ -68,8 +70,9 @@ public class BoxButtonSmall extends BoxButton {
         };
         frame.add(new BoxButtonSmall("HOME", "HOME", "Home", al));
         frame.add(new BoxButtonSmall("BACK", "BACK", "Back", al));
-        frame.add(new BoxButtonSmall("PREV", "PREV", "Prev", al));
-        frame.add(new BoxButtonSmall("NEXT", "NEXT", "Next", al, true));
+        frame.add(new BoxButtonSmall("PREV", "PREV", "Prev", al, 200));
+        frame.add(new PageCounter(5, 10, 400));
+        frame.add(new BoxButtonSmall("NEXT", "NEXT", "Next", al, 200, true));
         frame.add(new BoxButtonSmall("CONTINUE", "FORW", "Continue", al, true));
         frame.add(new BoxButtonSmall("EXIT", "EXIT", "Exit", al, true));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
