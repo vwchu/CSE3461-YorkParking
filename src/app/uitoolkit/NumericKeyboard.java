@@ -16,7 +16,7 @@ import javax.swing.*;
  *  [1,  2, 3]
  *  [0,     .]
  */
-class NumericKeyboard extends Keyboard implements ActionListener {
+public class NumericKeyboard extends Keyboard implements ActionListener {
     
 	// Array of key arrangements
 	private static final String[][] KEYS = {
@@ -110,12 +110,16 @@ class NumericKeyboard extends Keyboard implements ActionListener {
     		}
     	} else {
     		String add = ab.getText();
-    		String text = field.getText();
-    		int caret = field.getCaretPosition();
-    		field.setText(
-				text.substring(0, caret) + add +
-				text.substring(caret, text.length()));
-			field.setCaretPosition(caret + add.length());
+			if (field.getSelectedText() == null) {
+				String text = field.getText();
+	    		int caret = field.getCaretPosition();
+	    		field.setText(
+					text.substring(0, caret) + add +
+					text.substring(caret, text.length()));
+				field.setCaretPosition(caret + add.length());
+     		} else {
+     			field.replaceSelection(add);
+     		}
     	}
     } // actionPerformed
 

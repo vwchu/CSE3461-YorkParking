@@ -15,7 +15,7 @@ import javax.swing.*;
  *  [SHIFT, Z, X, C, V, B, N, M, ., -, +, SHIFT]
  *  [CLRS,  @, SPACE,     , _, .COM, PREV, NEXT]
  */
-class AlphabeticKeyboard extends Keyboard implements ActionListener {
+public class AlphabeticKeyboard extends Keyboard implements ActionListener {
 
 	// Array of key arrangements
 	private static final String[][] KEYS = {

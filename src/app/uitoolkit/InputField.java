@@ -36,9 +36,9 @@ public class InputField extends JPanel {
 			INNER.add(label, labelOnTop ? BorderLayout.NORTH : BorderLayout.SOUTH);
 				input.setFont(MyFont.REGULAR_FONT.deriveFont((float)isize));
 				ih = input.getFontMetrics(input.getFont()).getHeight() + 20;
-				UIToolbox.setSize(input, new Dimension(WIDTH + 20, ih));
+				UIToolbox.setSize(input, new Dimension(width + 20, ih));
 			INNER.add(input, BorderLayout.CENTER);
-		UIToolbox.setSize(this, new Dimension(WIDTH + 20, ih + lh + 10));
+		UIToolbox.setSize(this, new Dimension(width + 20, ih + lh + 10));
 		UIToolbox.box(this, INNER);
 	}
 	public InputField(Component input, String text, boolean labelOnTop) {

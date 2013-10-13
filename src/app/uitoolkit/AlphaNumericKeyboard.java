@@ -12,7 +12,7 @@ import javax.swing.*;
  *  [SHIFT, Z, X, C, V, B, N, M, ., -, +, SHIFT] [1, 2, 3]
  *  [CLRS,  @, SPACE,     , _, .COM, PREV, NEXT] [0,    .]
  */
-class AlphaNumericKeyboard extends Keyboard implements ActionListener {
+public class AlphaNumericKeyboard extends Keyboard implements ActionListener {
 
 	private final AlphabeticKeyboard AK;	// reference to alphabetic keyboard
 	private final NumericKeyboard NK;		// reference to numeric keyboard
