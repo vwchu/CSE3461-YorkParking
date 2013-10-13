@@ -1,7 +1,6 @@
 package app.uitoolkit;
 
 import app.helpers.*;
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
@@ -51,9 +50,9 @@ abstract class Keyboard extends JPanel implements ActionListener {
      */
     protected void setEnabled(AbstractButton ab, boolean enable) {
     	ab.setEnabled(enable);
-		ab.setOpaque(enable);
-		ab.setContentAreaFilled(enable);
-		ab.setForeground(enable ? Color.BLACK : Color.LIGHT_GRAY);
+    	//ab.setOpaque(enable);
+		//ab.setContentAreaFilled(enable);
+		//ab.setForeground(enable ? Color.BLACK : Color.LIGHT_GRAY);
     }
 
     /**
@@ -64,20 +63,13 @@ abstract class Keyboard extends JPanel implements ActionListener {
      * @param caps 	if true, upper case, else lower case. Default: false
      */
     protected void setKeyLookAndFeel(AbstractButton ab, String key, boolean caps) {
-        // Set font
-        Font font = MyFont.BODYTEXT_FONT;
         if (MyFont.ICONS.containsKey(key)) {
-            font = MyFont.ICON_FONT;
             ab.setText(MyFont.ICONS.get(key));
         } else {
         	ab.setText(caps ? key.toUpperCase() : key.toLowerCase());
         }
-        ab.setFont(font.deriveFont(Font.PLAIN, FONT_SIZE));
-
-        // Set look and feel
+        ab.setFont(MyFont.REGULAR_FONT.deriveFont((float)FONT_SIZE));
         ab.setFocusable(false);
-        ab.setBackground(Color.WHITE);
-        ab.setForeground(Color.BLACK);
     }
     protected void setKeyLookAndFeel(AbstractButton ab, String key) {
     	setKeyLookAndFeel(ab, key, false);

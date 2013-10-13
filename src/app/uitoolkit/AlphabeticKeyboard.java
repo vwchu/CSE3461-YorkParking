@@ -1,8 +1,10 @@
 package app.uitoolkit;
 
 import app.helpers.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 /**
@@ -215,10 +217,11 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
     // FOR TESTING PURPOSES ONLY
 
     public static void main(String[] args) throws Exception {
-        JFrame frame = new JFrame();
+    	UITheme.setLookAndFeel();
+    	JFrame frame = new JFrame();
         frame.setLayout(new java.awt.GridLayout(2, 1));
         JTextField tf = new JTextField();
-        tf.setFont(MyFont.HEADER_FONT.deriveFont(Font.PLAIN, 36));
+        tf.setFont(MyFont.LIGHT_FONT.deriveFont((float)36));
         frame.add(tf);
         frame.add(new AlphabeticKeyboard(tf));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

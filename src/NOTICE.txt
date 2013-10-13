@@ -1,3 +1,11 @@
+DO NOT TRANSLATE OR LOCALIZE.
+-----------------------------
+
+%% This notice is provided with respect to Open Sans Regular,
+   which is included with YorkParking.app v1.0.
+
+--- begin of LICENSE ---
+
 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -199,3 +207,18 @@ Apache License
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+--- end of LICENSE ---
+
+%% This notice is provided with respect to IcoMoon and Iconic,
+   which is included with YorkParking.app v1.0.
+
+--- begin of LICENSE ---
+
+Icon Set: IcoMoon - Free -- http://keyamoon.com/icomoon/
+License:  CC BY 3.0 -- http://creativecommons.org/licenses/by/3.0/
+
+Icon Set: Iconic -- http://somerandomdude.com/work/iconic/
+License:  CC BY-SA 3.0 -- http://creativecommons.org/licenses/by-sa/3.0/us/
+
+--- end of LICENSE ---
