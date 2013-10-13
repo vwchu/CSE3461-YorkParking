@@ -40,7 +40,7 @@ public class BoxButton extends JButton {
 		if (listener != null) {
 			addActionListener(listener);
 		}
-		UITools.setSize(this, new Dimension(SIZE, SIZE));
+		UIToolbox.setSize(this, new Dimension(SIZE, SIZE));
 	}
 	public BoxButton(String name, String icon, String label) {
 		this(name, icon, label, null);}
@@ -63,7 +63,7 @@ public class BoxButton extends JButton {
 	        inner.add(new BoxButton("NEW_PERMIT", "NEW", "Get Permit", al));
 	        inner.add(new BoxButton("HISTORY", "FILES", "History", al));
 	        inner.add(new BoxButton("PAY_NOW", "DOLLAR", "Pay Now", al));
-        frame.add(UITools.box(new JPanel(), inner));
+        frame.add(UIToolbox.box(new JPanel(), inner));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

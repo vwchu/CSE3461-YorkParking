@@ -8,9 +8,9 @@ import javax.swing.*;
  * used methods for constructing, displaying, manipulating
  * user interface components.
  */
-public class UITools {
+public class UIToolbox {
 
-	private UITools() { } // static class, no constructor
+	private UIToolbox() { } // static class, no constructor
 
 	/**
 	 * Return the screen size.

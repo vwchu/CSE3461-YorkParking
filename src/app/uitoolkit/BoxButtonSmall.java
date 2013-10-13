@@ -44,7 +44,7 @@ public class BoxButtonSmall extends BoxButton {
 		setHorizontalAlignment(SwingConstants.CENTER);
 		setVerticalAlignment(SwingConstants.CENTER);
 		if (width == -1) {width = getFontMetrics(getFont()).stringWidth(label) + 60;}
-		UITools.setSize(this, new Dimension(width, HEIGHT));
+		UIToolbox.setSize(this, new Dimension(width, HEIGHT));
 	}
 	public BoxButtonSmall(String name, String icon, String label, ActionListener listener, int width) {
 		this(name, icon, label, listener, width, false);}
@@ -71,7 +71,7 @@ public class BoxButtonSmall extends BoxButton {
         frame.add(new BoxButtonSmall("HOME", "HOME", "Home", al));
         frame.add(new BoxButtonSmall("BACK", "BACK", "Back", al));
         frame.add(new BoxButtonSmall("PREV", "PREV", "Prev", al, 200));
-        frame.add(new PageCounter(5, 10, 400));
+        //frame.add(new PageCounter(5, 10, 400));
         frame.add(new BoxButtonSmall("NEXT", "NEXT", "Next", al, 200, true));
         frame.add(new BoxButtonSmall("CONTINUE", "FORW", "Continue", al, true));
         frame.add(new BoxButtonSmall("EXIT", "EXIT", "Exit", al, true));

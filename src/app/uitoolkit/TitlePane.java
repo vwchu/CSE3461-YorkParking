@@ -29,11 +29,11 @@ public class TitlePane extends JPanel {
 				subtitle.setText(SUBTITLE_TEXT.toUpperCase());
 			inner.add(subtitle, BorderLayout.NORTH);
 			inner.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
-			UITools.setSize(inner, new Dimension(
-				UITools.getScreenSize().width - HORIZONTAL_MARGIN * 2,
+			UIToolbox.setSize(inner, new Dimension(
+				UIToolbox.getScreenSize().width - HORIZONTAL_MARGIN * 2,
 				TITLE.getFontMetrics(TITLE.getFont()).getHeight() +
 				subtitle.getFontMetrics(subtitle.getFont()).getHeight() + PADDING * 2));
-		UITools.box(this, inner);
+		UIToolbox.box(this, inner);
 	}
 
 	private void setText(String text) {

@@ -31,8 +31,8 @@ public class PageCounter extends JPanel {
 			inner.add(TOTAL);
 			inner.setAlignmentY(CENTER_ALIGNMENT);
 			inner.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));	
-			UITools.setSize(inner, new Dimension(width, HEIGHT));
-		UITools.box(this, inner);
+			UIToolbox.setSize(inner, new Dimension(width, HEIGHT));
+		UIToolbox.box(this, inner);
 		setBorder(new LineBorder(Color.BLACK));
 	}
 	public PageCounter(int current, int total) {

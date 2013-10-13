@@ -36,10 +36,10 @@ public class InputField extends JPanel {
 			INNER.add(label, labelOnTop ? BorderLayout.NORTH : BorderLayout.SOUTH);
 				input.setFont(MyFont.REGULAR_FONT.deriveFont((float)isize));
 				ih = input.getFontMetrics(input.getFont()).getHeight() + 20;
-				UITools.setSize(input, new Dimension(WIDTH + 20, ih));
+				UIToolbox.setSize(input, new Dimension(WIDTH + 20, ih));
 			INNER.add(input, BorderLayout.CENTER);
-		UITools.setSize(this, new Dimension(WIDTH + 20, ih + lh + 10));
-		UITools.box(this, INNER);
+		UIToolbox.setSize(this, new Dimension(WIDTH + 20, ih + lh + 10));
+		UIToolbox.box(this, INNER);
 	}
 	public InputField(Component input, String text, boolean labelOnTop) {
 		this(input, text, -1, -1, -1, labelOnTop);}
@@ -58,12 +58,12 @@ public class InputField extends JPanel {
 	        	inner.setLayout(new BoxLayout(inner, BoxLayout.PAGE_AXIS));
 	        	inner.add(new InputField(new JTextField(), "Student ID:"));
 	        	inner.add(new InputField(new JPasswordField(), "PIN:"));
-	        frame.add(UITools.box(new JPanel(), inner));}
+	        frame.add(UIToolbox.box(new JPanel(), inner));}
         {JPanel inner = new JPanel();
 	        	inner.setLayout(new BoxLayout(inner, BoxLayout.PAGE_AXIS));
 	        	inner.add(new InputField(new JComboBox<String>((new java.text.DateFormatSymbols()).getMonths()), "Months:"));
 	        	inner.add(new InputField(new JSpinner(), "Year:"));
-	        frame.add(UITools.box(new JPanel(), inner));}
+	        frame.add(UIToolbox.box(new JPanel(), inner));}
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

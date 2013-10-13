@@ -54,15 +54,15 @@ class NumericKeyboard extends Keyboard implements ActionListener {
 
                     // Set key size
                     if (key == "BKSP") {
-                        UITools.setSize(ab, new Dimension(
+                        UIToolbox.setSize(ab, new Dimension(
                             KEY_WIDTH * 2 + KEY_SPACING,
                             KEY_HEIGHT));
                     } else if (key == "0") {
-                        UITools.setSize(ab, new Dimension(
+                        UIToolbox.setSize(ab, new Dimension(
                         	showDecimalPoint ? KEY_WIDTH * 2 + KEY_SPACING : KEY_WIDTH * 3 + KEY_SPACING * 2,
                             KEY_HEIGHT));
                     } else {
-                        UITools.setSize(ab, new Dimension(
+                        UIToolbox.setSize(ab, new Dimension(
                             KEY_WIDTH,
                             KEY_HEIGHT));
                     }
@@ -76,7 +76,7 @@ class NumericKeyboard extends Keyboard implements ActionListener {
                 }
                 inner.add(rp);
             }
-        UITools.box(this, inner);
+        UIToolbox.box(this, inner);
     }
     public NumericKeyboard(JTextField field) {
     	this(field, true, false);
