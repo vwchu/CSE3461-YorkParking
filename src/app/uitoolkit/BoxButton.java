@@ -1,10 +1,8 @@
 package app.uitoolkit;
 
 import app.helpers.*;
-
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -62,9 +60,9 @@ public class BoxButton extends JPanel implements MouseListener {
 					lb.addActionListener(listener);
 					makeTransparentButton(lb);					
 				INNER.add(lb, BorderLayout.SOUTH);
-			setPanelSize(INNER, new Dimension(SIZE, SIZE));
+			UITools.setSize(INNER, new Dimension(SIZE, SIZE));
 			INNER.setOpaque(true);
-		addPanelToBox(INNER);
+		UITools.box(this, INNER);
 		styleButton(BG_COLOR, FG_COLOR, BORDER_COLOR, 1);
 	}
 
@@ -80,30 +78,6 @@ public class BoxButton extends JPanel implements MouseListener {
 		b.setBorderPainted(false);
 		b.setFocusable(false);
 	}
-
-	/**
-	 * Set the size of the given of the component.
-	 * 
-	 * @param comp	component to set the size of
-	 * @param size	width and height of the panel 
-	 */
-	protected void setPanelSize(Component comp, Dimension size) {
-		comp.setPreferredSize(size);
-		comp.setMinimumSize(size);
-		comp.setMaximumSize(size);
-		comp.setSize(size);
-	}
-
-	/**
-	 * Add the inner to the outer box.
-	 * 
-	 * @param inner	panel to add to the outer. 
-	 */
-    protected void addPanelToBox(JPanel inner) {
-    	Box box = Box.createVerticalBox();
-        box.add(inner);
-        add(box);
-    }	
 
     /**
      * Style the button with a look and feel.

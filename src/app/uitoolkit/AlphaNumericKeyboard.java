@@ -31,7 +31,7 @@ class AlphaNumericKeyboard extends Keyboard implements ActionListener {
         JPanel inner = new JPanel();
             inner.add(AK);
             inner.add(NK);
-        addPanelToBox(inner);
+        UITools.box(this, inner);
         for (String key : AK.BLOOKUP.keySet()) {
         	AbstractButton ab = AK.BLOOKUP.get(key);
             BLOOKUP.put(key, ab);

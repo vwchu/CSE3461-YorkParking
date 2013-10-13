@@ -57,19 +57,6 @@ abstract class Keyboard extends JPanel implements ActionListener {
     }
 
     /**
-     * Add the panel to the outer panel and box.
-     * This fixes the size of the panel, so it does not
-     * expand when resized.
-     * 
-     * @param inner 	panel to add to the outer.
-     */
-    protected void addPanelToBox(JPanel inner) {
-        Box box = Box.createVerticalBox();
-        box.add(inner);
-        add(box);
-    }
-
-    /**
      * Style the keyboard button.
      * 
      * @param ab 	button to style.

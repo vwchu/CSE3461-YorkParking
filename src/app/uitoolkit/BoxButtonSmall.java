@@ -84,7 +84,7 @@ public class BoxButtonSmall extends BoxButton {
 				width = lb.getFontMetrics(lb.getFont()).stringWidth(label) + 40;
 			}
 		}
-		setPanelSize(INNER, new Dimension(width, HEIGHT));
+		UITools.setSize(INNER, new Dimension(width, HEIGHT));
 	}
 	public BoxButtonSmall(String name, String icon, String label, ActionListener listener, int width) {
 		this(name, icon, label, listener, width, false);}

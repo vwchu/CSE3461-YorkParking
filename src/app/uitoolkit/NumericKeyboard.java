@@ -1,10 +1,8 @@
 package app.uitoolkit;
 
 import app.helpers.*;
-
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 /**
@@ -54,15 +52,15 @@ class NumericKeyboard extends Keyboard implements ActionListener {
 
                     // Set key size
                     if (key == "BKSP") {
-                        ab.setPreferredSize(new Dimension(
+                        UITools.setSize(ab, new Dimension(
                             KEY_WIDTH * 2 + KEY_SPACING,
                             KEY_HEIGHT));
                     } else if (key == "0") {
-                        ab.setPreferredSize(new Dimension(
+                        UITools.setSize(ab, new Dimension(
                         	showDecimalPoint ? KEY_WIDTH * 2 + KEY_SPACING : KEY_WIDTH * 3 + KEY_SPACING * 2,
                             KEY_HEIGHT));
                     } else {
-                        ab.setPreferredSize(new Dimension(
+                        UITools.setSize(ab, new Dimension(
                             KEY_WIDTH,
                             KEY_HEIGHT));
                     }
@@ -76,7 +74,7 @@ class NumericKeyboard extends Keyboard implements ActionListener {
                 }
                 inner.add(rp);
             }
-        addPanelToBox(inner);
+        UITools.box(this, inner);
     }
     public NumericKeyboard(JTextField field) {
     	this(field, true, false);

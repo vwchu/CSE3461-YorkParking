@@ -62,19 +62,19 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
 
                     // Set key size
                     if (key == "SPACE") {
-                        ab.setPreferredSize(new Dimension(
+                        UITools.setSize(ab, new Dimension(
                             KEYBOARD_WIDTH - 7 * (KEY_WIDTH + KEY_SPACING) - KEY_SPACING * 2,
                             KEY_HEIGHT));
                     } else if (key == "BKSP" || key == ".COM" || key == "CLEAR") {
-                        ab.setPreferredSize(new Dimension(
+                        UITools.setSize(ab, new Dimension(
                             KEY_WIDTH * 2 + KEY_SPACING,
                             KEY_HEIGHT));
                     } else if (key == "ENTER" || key == "CAPS") {
-                        ab.setPreferredSize(new Dimension(
+                        UITools.setSize(ab, new Dimension(
                             (int)(KEY_WIDTH * 1.5 + KEY_SPACING),
                             KEY_HEIGHT));
                     } else {
-                        ab.setPreferredSize(new Dimension(
+                        UITools.setSize(ab, new Dimension(
                             KEY_WIDTH,
                             KEY_HEIGHT));
                     }
@@ -82,7 +82,7 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
                     // Hide caps lock, disabled
                     if (!showCapsLock) {
 	                    if (key == "ENTER") {
-	                    	ab.setPreferredSize(new Dimension(
+	                    	UITools.setSize(ab, new Dimension(
 	                            KEY_WIDTH * 2 + KEY_SPACING,
 	                            KEY_HEIGHT));
 	                    } else if (key == "CAPS") {
@@ -99,7 +99,7 @@ class AlphabeticKeyboard extends Keyboard implements ActionListener {
                 }
                 inner.add(rp);
             }
-        addPanelToBox(inner);
+        UITools.box(this, inner);
         setSymbolsEnabled(enableSymbols);
     }
     public AlphabeticKeyboard(JTextField field) {
