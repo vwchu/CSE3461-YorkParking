@@ -1,6 +1,7 @@
 package app.uitoolkit;
 
 import app.helpers.*;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
@@ -63,12 +64,14 @@ abstract class Keyboard extends JPanel implements ActionListener {
      * @param caps 	if true, upper case, else lower case. Default: false
      */
     protected void setKeyLookAndFeel(AbstractButton ab, String key, boolean caps) {
-        if (MyFont.ICONS.containsKey(key)) {
+    	Font font = MyFont.REGULAR_FONT;
+    	if (MyFont.ICONS.containsKey(key)) {
+    		font = MyFont.ICON_FONT;
             ab.setText(MyFont.ICONS.get(key));
         } else {
         	ab.setText(caps ? key.toUpperCase() : key.toLowerCase());
         }
-        ab.setFont(MyFont.REGULAR_FONT.deriveFont((float)FONT_SIZE));
+        ab.setFont(font.deriveFont((float)FONT_SIZE));
         ab.setFocusable(false);
     }
     protected void setKeyLookAndFeel(AbstractButton ab, String key) {

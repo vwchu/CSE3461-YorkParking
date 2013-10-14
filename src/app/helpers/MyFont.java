@@ -7,32 +7,34 @@ import java.util.*;
 /**
  * This class provides access to custom font faces.
  * Custom font faces include:
- *  - Open Sans Regular + Icons
- *  - Open Sans Light + Icons
- *  - Open Sans Semibold + Icons
- *  - Open Sans Bold + Icons
+ *  - Open Sans Regular
+ *  - Open Sans Light
+ *  - Open Sans Semibold
+ *  - Open Sans Bold
  */
 public class MyFont {
 
-    private static final MyFont my;                                                                 // Reference to singleton instance
-    private static final String FONT_PATH           = "/assets/fonts";                              // Folder path to fonts files
-    private static final String LIGHT_FONT_URI      = FONT_PATH + "/OpenSans-Light-Icons.ttf";   	// TrueType fonts: OpenSans Light + Icons
-    private static final String SEMIBOLD_FONT_URI   = FONT_PATH + "/OpenSans-Semibold-Icons.ttf";   // TrueType fonts: OpenSans Semibold + Icons
-    private static final String REGULAR_FONT_URI    = FONT_PATH + "/OpenSans-Regular-Icons.ttf";    // TrueType fonts: OpenSans Regular + Icons
-    private static final String BOLD_FONT_URI       = FONT_PATH + "/OpenSans-Bold-Icons.ttf";       // TrueType fonts: OpenSans Bold + Icons
+    private static final MyFont my;                                                         // Reference to singleton instance
+    private static final String FONT_PATH           = "/assets/fonts";                      // Folder path to fonts files
+    private static final String REGULAR_FONT_URI    = FONT_PATH + "/OpenSans-Regular.ttf";  // TrueType fonts: OpenSans Regular
+    private static final String LIGHT_FONT_URI      = FONT_PATH + "/OpenSans-Light.ttf";   	// TrueType fonts: OpenSans Light
+    private static final String SEMIBOLD_FONT_URI   = FONT_PATH + "/OpenSans-Semibold.ttf";	// TrueType fonts: OpenSans Semibold
+    private static final String BOLD_FONT_URI       = FONT_PATH + "/OpenSans-Bold.ttf";     // TrueType fonts: OpenSans Bold
+    private static final String ICON_FONT_URI       = FONT_PATH + "/MyIcons.ttf";     		// TrueType fonts: MyIcons
 
-    // Setup the fonts families for the
-    // header, body text, and icons
+    // Setup the fonts families
+    public static final Font REGULAR_FONT;
     public static final Font LIGHT_FONT;
     public static final Font SEMIBOLD_FONT;
-    public static final Font REGULAR_FONT;
     public static final Font BOLD_FONT;
+    public static final Font ICON_FONT;
     static {
         my = new MyFont();
+        REGULAR_FONT = my.makeFont(REGULAR_FONT_URI);
         LIGHT_FONT = my.makeFont(LIGHT_FONT_URI);
         SEMIBOLD_FONT = my.makeFont(SEMIBOLD_FONT_URI);
-        REGULAR_FONT = my.makeFont(REGULAR_FONT_URI);
         BOLD_FONT = my.makeFont(BOLD_FONT_URI);
+        ICON_FONT = my.makeFont(ICON_FONT_URI);
     }
 
     // A mapping of special icon names to the icon symbols (unicode)
