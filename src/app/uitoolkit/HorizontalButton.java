@@ -7,18 +7,22 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+/**
+ * This class implements a small horizontally oriented button.
+ * consisting of an icon and a label text. 
+ */
 public class HorizontalButton extends JButton {
 
 	// Default values
 
-	protected static final int HEIGHT     = 50;	// Button size (width and height)
-	protected static final int ICON_SIZE  = 20;	// Icon font size
-	protected static final int LABEL_SIZE = 18;	// Label font size
-	protected static final String HTML =		// HTML for button formatting
+	private static final int HEIGHT     = 50;	// Button size (width and height)
+	private static final int ICON_SIZE  = 20;	// Icon font size
+	private static final int LABEL_SIZE = 18;	// Label font size
+	private static final String HTML =			// HTML for button formatting
 		"<html><body>"
 		+ "{PART1}&nbsp;&nbsp;&nbsp;&nbsp;{PART2}"
 		+ "</body></html>";	
-	protected static final String PART =		// HTML for each part (icon and label)
+	private static final String PART =			// HTML for each part (icon and label)
 		"<span style=\"font-family: {FONT}; font-size: {SIZE}pt; line-height: {HEIGHT};\">{TEXT}</span>";
 
 	/**
@@ -53,7 +57,7 @@ public class HorizontalButton extends JButton {
 	public HorizontalButton(String name, String icon, String label) {
 		this(name, icon, label, null);}
 
-	protected String getHTML(String icon, String label, int height, boolean rightIcon) {
+	private String getHTML(String icon, String label, int height, boolean rightIcon) {
 		String p1, p2;
 		p1 = PART.replace("{FONT}", "MyIcons")
 				 .replace("{SIZE}", ""+((int) (((double) height/HEIGHT) * ICON_SIZE)))

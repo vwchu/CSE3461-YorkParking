@@ -65,7 +65,7 @@ public class SquareButton extends JButton {
 	        	}
 	        };
 	        inner.add(new SquareButton("USER", "USER", "My Profile", al));
-	        inner.add(new SquareButton("VEHICLES", "CAR", "My Vehicles", al, 200));
+	        inner.add(new SquareButton("VEHICLES", "CAR", "My Vehicles", al));
 	        inner.add(new SquareButton("SUBSCIPTION", "MAIL", "Subscription", al));
 	        inner.add(new SquareButton("NEW_PERMIT", "NEW", "Get Permit", al));
 	        inner.add(new SquareButton("HISTORY", "FILES", "History", al));

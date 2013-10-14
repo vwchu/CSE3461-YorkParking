@@ -12,6 +12,7 @@ public class TitlePane extends JPanel {
 	private static final int SUBTITLE_SIZE     = 20;
 	private static final int TITLE_SIZE        = 60;
 	private static final String SUBTITLE_TEXT  = "York Parking";
+	private static String HTML                 = null;
 
 	private final JLabel TITLE;
 	
@@ -28,6 +29,9 @@ public class TitlePane extends JPanel {
 				subtitle.setHorizontalAlignment(SwingConstants.LEFT);
 				subtitle.setText(SUBTITLE_TEXT.toUpperCase());
 			inner.add(subtitle, BorderLayout.NORTH);
+			JLabel build = new JLabel();
+				build.setText(getHTML());
+			inner.add(build, BorderLayout.EAST);
 			inner.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
 			UIToolbox.setSize(inner, new Dimension(
 				UIToolbox.getScreenSize().width - HORIZONTAL_MARGIN * 2,
@@ -36,7 +40,13 @@ public class TitlePane extends JPanel {
 		UIToolbox.box(this, inner);
 	}
 
-	private void setText(String text) {
+	private String getHTML() {
+		if (HTML != null) {return HTML;}
+		HTML = UIToolbox.getHTML("/assets/htdocs/about.html");
+		return HTML;
+	}
+
+	public void setText(String text) {
 		TITLE.setText(text);
 	}
 

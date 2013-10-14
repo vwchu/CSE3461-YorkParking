@@ -9,7 +9,6 @@ public class PageCounter extends JPanel {
 
 	private static final int HEIGHT    = 35;	// panel height
 	private static final int FONT_SIZE = 20;	// label font size
-	private static final int PADDING   = 3;
 
 	private final JLabel TOTAL;
 	private final JLabel CURRENT;
@@ -29,8 +28,7 @@ public class PageCounter extends JPanel {
 				TOTAL.setFont(MyFont.SEMIBOLD_FONT.deriveFont((float)FONT_SIZE));
 				TOTAL.setText("" + total);
 			inner.add(TOTAL);
-			inner.setAlignmentY(CENTER_ALIGNMENT);
-			inner.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));	
+			inner.setAlignmentY(CENTER_ALIGNMENT);	
 			UIToolbox.setSize(inner, new Dimension(width, HEIGHT));
 		UIToolbox.box(this, inner);
 		setBorder(new LineBorder(Color.BLACK));
@@ -38,7 +36,7 @@ public class PageCounter extends JPanel {
 	public PageCounter(int current, int total) {
 		this(current, total, 200);
 	}
-	
+
 	public void setCurrent(int current) {
 		CURRENT.setText("" + current);
 	}
