@@ -29,7 +29,10 @@ public class AlphaNumericKeyboard extends Keyboard implements ActionListener {
         NK = new NumericKeyboard(field, false, true);
         JPanel inner = new JPanel();
             inner.add(AK);
+            	AK.setBorder(null);
             inner.add(NK);
+            	NK.setBorder(null);
+            inner.setOpaque(false);
         UIToolbox.box(this, inner);
         for (String key : AK.BLOOKUP.keySet()) {
         	AbstractButton ab = AK.BLOOKUP.get(key);

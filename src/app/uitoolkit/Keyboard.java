@@ -4,6 +4,7 @@ import app.helpers.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.*;
 import java.util.*;
 
 /**
@@ -29,6 +30,8 @@ abstract class Keyboard extends JPanel implements ActionListener {
      */
     protected Keyboard(JTextField field) {
     	setInputComponent(field);
+    	setBorder(new LineBorder(Color.LIGHT_GRAY));
+    	//setBackground(Color.LIGHT_GRAY);
     }
 
     /**

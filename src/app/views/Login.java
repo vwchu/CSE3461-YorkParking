@@ -16,7 +16,8 @@ public class Login extends JPanel implements FocusListener, ActionListener {
 	public Login() {
 		// construct the components
 		setLayout(new BorderLayout());
-		add(new TitlePane("Login"), BorderLayout.NORTH);
+		TitlePane tp = new TitlePane(); tp.setText("Login"); // TODO
+		add(tp, BorderLayout.NORTH);
 		JPanel main = new JPanel();
 			main.setLayout(new GridBagLayout());
 			JPanel inner = new JPanel();

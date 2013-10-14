@@ -1,0 +1,26 @@
+<html>
+    <head><style type="text/css">
+        body { text-align: right; font-family: OpenSansRegular; }
+        table { border: 0px; border-collapse: collapse; }
+        th, td { padding: 0; margin: 0; }
+        b { font-family: OpenSansBold; text-transform: uppercase; }
+        td.head { font-size: larger; }
+        span.icon { font-size: 50pt; font-family: MyIcons; padding-right: 10px; }
+        .dates td { padding-right: 10px; }
+        .dates .values { font-size: 16pt; }
+        .dates .head { text-transform: uppercase; font-size: smaller; }
+    </style></head>
+    <body>
+        <table><tr>
+          <td rowspan="3"><span class="icon">&#xe015;</span></td>
+          <td colspan="3"><b class="head">{MAKE} {MODEL}</b>, {PLATE}</td>
+        </tr><tr class="dates">
+          <td><span class="values">{ISSUED_YEAR}-{ISSUED_MONTH}-{ISSUED_DATE}</span><br/>
+              <span class="head">Issued date</span></td>
+          <td><span class="values">{EXPIRY_YEAR}-{EXPIRY_MONTH}-{EXPIRY_DATE}</span><br/>
+              <span class="head">Expiry date</span></td>
+          <td><span class="values">{DAYS_LEFT}</span><br/>
+              <span class="head">Days left</span></td>
+        </tr></table>
+    </body>
+</html>

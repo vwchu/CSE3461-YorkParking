@@ -72,10 +72,12 @@ public class NumericKeyboard extends Keyboard implements ActionListener {
                     BLOOKUP.put(key, ab);
                     ab.setName(key);
 
+                    rp.setOpaque(false);
                     rp.add(ab);
                 }
                 inner.add(rp);
             }
+            inner.setOpaque(false);
         UIToolbox.box(this, inner);
     }
     public NumericKeyboard(JTextField field) {

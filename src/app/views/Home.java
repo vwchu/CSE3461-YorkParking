@@ -2,15 +2,18 @@ package app.views;
 
 import app.helpers.*;
 import app.uitoolkit.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class Home extends JPanel implements ActionListener {
 	
 	public Home() {
 		setLayout(new BorderLayout());
-		add(new TitlePane("Login"), BorderLayout.NORTH);
+		TitlePane tp = new TitlePane(); tp.setText("Home"); // TODO
+		add(tp, BorderLayout.NORTH);
 		JPanel main = new JPanel();
 			main.setLayout(new GridBagLayout());
 			JPanel inner = new JPanel(new GridLayout(2, 3));
