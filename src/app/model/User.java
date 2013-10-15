@@ -13,10 +13,6 @@ public class User extends Observable {
     private double fines;				// outstanding fines
     private boolean ftime;              // first time using the application
 
-    // A mapping of the user's vehicles
-    // License plate -> Vehicle object
-    private Map<String, Vehicle> vehicles = new HashMap<String, Vehicle>();
-
     /**
      * Construct a new user object.
      *
@@ -34,7 +30,6 @@ public class User extends Observable {
         this.email = email;
         this.fines = fines;
         this.ftime = ftime;
-        //DBManager.getVehicles(id, vehicles);
     }
 
     // Getters
@@ -110,7 +105,7 @@ public class User extends Observable {
     	}
         return change;
     }
-
+   
     // Methods for observer pattern
 
     /**
