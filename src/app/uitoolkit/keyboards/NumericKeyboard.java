@@ -1,4 +1,4 @@
-package app.uitoolkit;
+package app.uitoolkit.keyboards;
 
 import app.helpers.*;
 
@@ -16,7 +16,7 @@ import javax.swing.*;
  *  [1,  2, 3]
  *  [0,     .]
  */
-public class NumericKeyboard extends Keyboard implements ActionListener {
+public class NumericKeyboard extends Keyboard {
     
 	// Array of key arrangements
 	private static final String[][] KEYS = {

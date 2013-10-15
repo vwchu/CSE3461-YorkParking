@@ -1,19 +1,18 @@
 package app.views;
 
 import app.helpers.*;
+import app.model.User;
 import app.uitoolkit.*;
-
 import java.awt.*;
-import java.awt.event.*;
-
+import java.util.*;
 import javax.swing.*;
 
-public class Home extends JPanel implements ActionListener {
-	
-	public Home() {
-		setLayout(new BorderLayout());
-		TitlePane tp = new TitlePane(); tp.setText("Home"); // TODO
-		add(tp, BorderLayout.NORTH);
+public class HomePage extends AbstractView {
+
+	private final SquareButton PAY_NOW; // Reference to Pay Now button
+
+	public HomePage() {
+		super("HOME", "Home");
 		JPanel main = new JPanel();
 			main.setLayout(new GridBagLayout());
 			JPanel inner = new JPanel(new GridLayout(2, 3));
@@ -22,28 +21,23 @@ public class Home extends JPanel implements ActionListener {
 		        inner.add(new SquareButton("SUBSCIPTION", "MAIL", "Subscription", this));
 		        inner.add(new SquareButton("NEW_PERMIT", "NEW", "Get Permit", this));
 		        inner.add(new SquareButton("HISTORY", "FILES", "History", this));
-		        inner.add(new SquareButton("PAY_NOW", "DOLLAR", "Pay Now", this));
+		        inner.add(PAY_NOW = new SquareButton("PAY_NOW", "DOLLAR", "Pay Now", this));
 	    add(UIToolbox.box(main, inner), BorderLayout.CENTER);
 		JPanel nav = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 			nav.add(new HorizontalButton("EXIT", "EXIT", "Logout", this, true));
 		add(nav, BorderLayout.SOUTH);
+		PAY_NOW.setVisible(false);
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println(((JComponent)e.getSource()).getName());
-		// TODO
+	public void update(Observable o, Object arg)  {
+		User user = (User)o;
+		String opcode = (String)arg;
+
+		if ((opcode.equals("ATTACH") || opcode.equals("FINES")) && user.hasFines()) {
+			PAY_NOW.setVisible(true);
+		} else if (opcode.equals("DETACH")) {
+			PAY_NOW.setVisible(false);
+		}
 	}
-
-    // FOR TESTING PURPOSES ONLY
-
-    public static void main(String[] args) throws Exception {
-    	UITheme.setLookAndFeel();
-        JFrame frame = new JFrame();
-        UIToolbox.fullscreen(frame);
-        frame.add(new Home());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
 }

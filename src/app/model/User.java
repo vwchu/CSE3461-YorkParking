@@ -77,7 +77,7 @@ public class User extends Observable {
      * @param fines		the outstanding fines
      */
     public void setFines(double fines) {
-    	if (fines >= 0) {
+    	if (fines < 0) {
     		throw new RuntimeException("Fines must be non-negative.");
     	}
     	this.fines = fines;

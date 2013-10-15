@@ -59,6 +59,7 @@ public class TitlePane extends JPanel implements Observer {
 		TITLE.setText(text);
 	}
 
+	@Override
 	public void update(Observable o, Object arg)  {
 		User user = (User)o;
 		String opcode = (String)arg;

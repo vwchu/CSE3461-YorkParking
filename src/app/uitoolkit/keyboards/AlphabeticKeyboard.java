@@ -1,4 +1,4 @@
-package app.uitoolkit;
+package app.uitoolkit.keyboards;
 
 import app.helpers.*;
 
@@ -15,7 +15,7 @@ import javax.swing.*;
  *  [SHIFT, Z, X, C, V, B, N, M, ., -, +, SHIFT]
  *  [CLRS,  @, SPACE,     , _, .COM, PREV, NEXT]
  */
-public class AlphabeticKeyboard extends Keyboard implements ActionListener {
+public class AlphabeticKeyboard extends Keyboard {
 
 	// Array of key arrangements
 	private static final String[][] KEYS = {
@@ -25,6 +25,7 @@ public class AlphabeticKeyboard extends Keyboard implements ActionListener {
         {"CLEAR", "@", "SPACE", "_", ".COM", "PREV", "NEXT"}
     };
 
+	private static boolean ENABLE_SYMBOL;                                       // Flag for enabling symbols
 	private static final int KEYBOARD_WIDTH; 									// Total width of the keyboard in pixel
 	private static final String[] SYMBOLS = {"+", ".", "-", "@", "_"}; 	        // List of key symbols
     private static final String[] ALPHABET = new String[26];					// List of alphabets, for shiftKey
@@ -127,11 +128,26 @@ public class AlphabeticKeyboard extends Keyboard implements ActionListener {
      * 
      * @param enable the symbol keys if true, else disable them.
      */
+    @Override
     public void setSymbolsEnabled(boolean enable) {
+    	ENABLE_SYMBOL = enable;
     	for (String sym : SYMBOLS) {
     		 AbstractButton ab = BLOOKUP.get(sym);
     		 setEnabled(ab, field != null && enable);
     	}
+    }
+
+    /**
+     * Associates the text input with the keyboard.
+     *  
+     * @param field 	text input to link to the keyboard.
+     */
+	@Override
+    public void setInputComponent(JTextField field) {
+		super.setInputComponent(field);
+		if (!ENABLE_SYMBOL && field != null) {
+			setSymbolsEnabled(false);
+		}
     }
 
     /**

@@ -1,16 +1,19 @@
-package app.uitoolkit;
+package app.uitoolkit.keyboards;
 
 import app.helpers.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
 import java.util.*;
 
 /**
  * This class provides at abstract definition of a keyboard.
  */
-abstract class Keyboard extends JPanel implements ActionListener {
+public abstract class Keyboard extends JPanel implements ActionListener, FocusListener {
 
 	public static final int KEY_HEIGHT   = 45; // height of each key
     public static final int KEY_WIDTH    = 75; // width of standard keys
@@ -53,7 +56,9 @@ abstract class Keyboard extends JPanel implements ActionListener {
      * @param enable 	if true, enable, else disable.
      */
     protected void setEnabled(AbstractButton ab, boolean enable) {
-    	ab.setEnabled(enable);
+    	if (ab != null) {
+    		ab.setEnabled(enable);
+    	}
     	//ab.setOpaque(enable);
 		//ab.setContentAreaFilled(enable);
 		//ab.setForeground(enable ? Color.BLACK : Color.LIGHT_GRAY);
@@ -89,4 +94,19 @@ abstract class Keyboard extends JPanel implements ActionListener {
     @Override
     public abstract void actionPerformed(ActionEvent event);
 
+    /**
+     * Enables or disables the symbol keys on the keyboard.
+     * 
+     * @param enable the symbol keys if true, else disable them.
+     */
+	public void setSymbolsEnabled(boolean b) {} // Do nothing
+
+	@Override public void focusLost(FocusEvent e) {} 			// Do nothing
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		if (e.getSource() instanceof JTextField) {
+			this.setInputComponent((JTextField)e.getSource());
+		}
+	}
 }

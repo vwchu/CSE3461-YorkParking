@@ -1,7 +1,9 @@
-package app.uitoolkit;
+package app.uitoolkit.keyboards;
 
 import app.helpers.*;
+
 import java.awt.event.*;
+
 import javax.swing.*;
 
 /**
@@ -12,7 +14,7 @@ import javax.swing.*;
  *  [SHIFT, Z, X, C, V, B, N, M, ., -, +, SHIFT] [1, 2, 3]
  *  [CLRS,  @, SPACE,     , _, .COM, PREV, NEXT] [0,    .]
  */
-public class AlphaNumericKeyboard extends Keyboard implements ActionListener {
+public class AlphaNumericKeyboard extends Keyboard {
 
 	private final AlphabeticKeyboard AK;	// reference to alphabetic keyboard
 	private final NumericKeyboard NK;		// reference to numeric keyboard
@@ -66,6 +68,16 @@ public class AlphaNumericKeyboard extends Keyboard implements ActionListener {
         	NK.setInputComponent(field);
         }
     }
+
+    /**
+     * Enables or disables the symbol keys on the keyboard.
+     * 
+     * @param enable the symbol keys if true, else disable them.
+     */
+	@Override
+    public void setSymbolsEnabled(boolean enable) {
+    	AK.setSymbolsEnabled(enable);
+    }	
 
     /**
      * Invoked when an action occurs.
