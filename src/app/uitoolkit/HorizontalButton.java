@@ -1,10 +1,8 @@
 package app.uitoolkit;
 
 import app.helpers.*;
-
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 /**
@@ -20,7 +18,7 @@ public class HorizontalButton extends JButton {
 	private static final int LABEL_SIZE = 18;	// Label font size
 	private static final String HTML =			// HTML for button formatting
 		"<html><body>"
-		+ "{PART1}&nbsp;&nbsp;&nbsp;&nbsp;{PART2}"
+		+ "{PART1}{SPACE}{PART2}"
 		+ "</body></html>";	
 	private static final String PART =			// HTML for each part (icon and label)
 		"<span style=\"font-family: {FONT}; font-size: {SIZE}pt; line-height: {HEIGHT};\">{TEXT}</span>";
@@ -59,7 +57,8 @@ public class HorizontalButton extends JButton {
 
 	private String getHTML(String icon, String label, int height, boolean rightIcon) {
 		String p1, p2;
-		p1 = PART.replace("{FONT}", "MyIcons")
+		p1 = (icon == null) ? "" :
+			 PART.replace("{FONT}", "MyIcons")
 				 .replace("{SIZE}", ""+((int) (((double) height/HEIGHT) * ICON_SIZE)))
 				 .replace("{HEIGHT}", ""+height)
 				 .replace("{TEXT}", (MyFont.ICONS.containsKey(icon)) ? MyFont.ICONS.get(icon) : " ");
@@ -68,6 +67,7 @@ public class HorizontalButton extends JButton {
 				 .replace("{HEIGHT}", ""+height)
 				 .replace("{TEXT}", label);
 		return HTML.replace("{PART1}", rightIcon ? p2 : p1)
+				   .replace("{SPACE}", (icon == null) ? "" : "&nbsp;&nbsp;&nbsp;&nbsp;")
 				   .replace("{PART2}", rightIcon ? p1 : p2);
 	}
 

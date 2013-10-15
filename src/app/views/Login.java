@@ -11,7 +11,6 @@ public class Login extends JPanel implements FocusListener, ActionListener {
 	private final JTextField 	  USER_FIELD   = new JTextField();
 	private final JPasswordField  PIN_FIELD    = new JPasswordField();
 	private final NumericKeyboard KB           = new NumericKeyboard(null);
-	private final JButton 		  ENTER_BUTTON;
 
 	public Login() {
 		// construct the components
@@ -29,12 +28,11 @@ public class Login extends JPanel implements FocusListener, ActionListener {
 				inner.add(KB);
 		add(UIToolbox.box(main, inner), BorderLayout.CENTER);
 		JPanel nav = new JPanel();
-			nav.add(ENTER_BUTTON = new HorizontalButton("ENTER", "CHECK", "Enter", null, UIToolbox.getScreenSize().width - 10));
+			nav.add(new HorizontalButton("ENTER", "CHECK", "Enter", this, UIToolbox.getScreenSize().width - 10));
 		add(nav, BorderLayout.SOUTH);
 		// attach event listeners
 		USER_FIELD.addFocusListener(this);
 		PIN_FIELD.addFocusListener(this);
-		ENTER_BUTTON.addActionListener(this);
 	}
 
 	@Override
@@ -47,6 +45,7 @@ public class Login extends JPanel implements FocusListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(((JComponent)e.getSource()).getName());
 		// TODO
 	}
 
