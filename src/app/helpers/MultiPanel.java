@@ -1,10 +1,8 @@
 package app.helpers;
 
 import app.views.*;
-
 import java.awt.*;
 import java.util.*;
-
 import javax.swing.*;
 
 /**
@@ -16,8 +14,9 @@ public class MultiPanel extends CardLayout {
 
 	public static final MultiPanel SELF = new MultiPanel(); // Reference to singleton
 
-	private final Map<String, AbstractView> VIEWS  = new HashMap<String, AbstractView>();	// Map of view name to views
-	private JFrame  						parent = null;									// Reference to parent container 
+	private final Map<String, AbstractView> VIEWS =
+		new HashMap<String, AbstractView>(); 		// Map of view name to views
+	private JFrame parent = null; 				 	// Reference to parent container         
 
 	private MultiPanel() { } // private constructor
 
@@ -66,6 +65,7 @@ public class MultiPanel extends CardLayout {
 	public boolean show(String name) {
 		if (parent != null && VIEWS.containsKey(name)) {
 			show(parent.getContentPane(), name);
+			VIEWS.get(name).prepareView();
 			return true;
 		}
 		return false;

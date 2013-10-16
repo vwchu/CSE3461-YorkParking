@@ -1,12 +1,9 @@
 package app.model;
 
-import java.util.*;
-
 /**
  * In-memory representation of an user.
- * Is an observable object, observer pattern.
  */
-public class User extends Observable {
+public class User {
 
     private long id;					// user student ID
     private String fname, sname, email;	// first name, surname, email address
@@ -57,7 +54,21 @@ public class User extends Observable {
         this.fname = fname;
         this.sname = sname;
         //DBManager.updateName(id, fname, sname);
-        notify("NAME");
+    }
+
+    /**
+     * Check if the given pin matches that stored in the
+     * database for the given user. Then changes the PIN
+     * if the two given new pins match.
+     * 
+     * @param pin		the given pin to check
+     * @param newpin	the 
+     * @return			true, if valid, otherwise false.
+     */
+    public boolean changePIN(int pin, int newpin, int newpin2) {
+    	//if (DBManager.authenticate(id, pin) == null || newpin != newpin2) {return false;}
+    	//DBManager.setPIN(id, newpin);
+    	return true;
     }
 
     /**
@@ -68,7 +79,6 @@ public class User extends Observable {
     public void setEmail(String email) {
         this.email = email;
         //DBManager.updateEmail(id, email);
-        notify("EMAIL");
     }
 
     /**
@@ -82,7 +92,6 @@ public class User extends Observable {
     	}
     	this.fines = fines;
     	//DBManager.updateFines(id, fines);
-        notify("FINES");
     }
 
     /**
@@ -104,29 +113,5 @@ public class User extends Observable {
     		setFines(fines - payment);
     	}
         return change;
-    }
-   
-    // Methods for observer pattern
-
-    /**
-     * Notify observers with the given opcode
-     *
-     * @param opcode	to pass to the observers
-     */
-    public void notify(String opcode) {
-    	setChanged();
-    	notifyObservers(opcode);
-    }
-
-    @Override
-    public void addObserver(Observer o) {
-    	super.addObserver(o);
-    	notify("ATTACH");
-    }
-
-    @Override
-    public void deleteObserver(Observer o) {
-    	notify("DETACH");
-    	super.deleteObserver(o);
     }
 }

@@ -3,18 +3,21 @@ package app.uitoolkit;
 import app.helpers.*;
 import app.model.*;
 import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class TitlePane extends JPanel implements Observer {
+/**
+ * This class provides the title pane for the views.
+ * Dynamically updates when user logged in.
+ */
+public class TitlePane extends JPanel {
 
-	private static final int HORIZONTAL_MARGIN = 100; 
-	private static final int PADDING           = 20;
-	private static final int SUBTITLE_SIZE     = 20;
-	private static final int TITLE_SIZE        = 60;
-	private static final String SUBTITLE_TEXT  = "York Parking";
-	private static String HTML                 = null;
+	private static final int HORIZONTAL_MARGIN = 100;				// Horizontal padding on the left and right edges 
+	private static final int PADDING           = 20;				// Internal padding
+	private static final int SUBTITLE_SIZE     = 20;				// Font size of the subtitle
+	private static final int TITLE_SIZE        = 60;				// Font size of the title
+	private static final String SUBTITLE_TEXT  = "York Parking";	// Text for the subtitle
+	private static String HTML                 = null;				// HTML for about label 
 
 	private final JLabel TITLE;		// label of the title of the view.
 	private final JLabel USER_TAG;	// label of the name of the user logged in.
@@ -54,21 +57,11 @@ public class TitlePane extends JPanel implements Observer {
 		HTML = UIToolbox.getHTML("/assets/htdocs/about.html");
 		return HTML;
 	}
-
 	public void setText(String text) {
 		TITLE.setText(text);
 	}
-
-	@Override
-	public void update(Observable o, Object arg)  {
-		User user = (User)o;
-		String opcode = (String)arg;
-
-		if (opcode.equals("ATTACH") || opcode.equals("NAME")) {
-			USER_TAG.setText("Logged in: " + user.getFirstName() + " " + user.getSurName());
-		} else if (opcode.equals("DETACH")) {
-			USER_TAG.setText("");
-		}
+	public void setUserTag(User user) {
+		USER_TAG.setText((user == null) ? "" : "Logged in: " + user.getFirstName() + " " + user.getSurName());
 	}
 
     // FOR TESTING PURPOSES ONLY
@@ -78,18 +71,9 @@ public class TitlePane extends JPanel implements Observer {
         JFrame frame = new JFrame();
         TitlePane tp = new TitlePane();
         	tp.setText("Welcome");
-        	User u = new User(0, "Bob", "Smith", null, 0, true);
-        	u.addObserver(tp);
         frame.add(tp);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
-        // Simulate name change
-	        Thread.sleep(2000L);
-	    	u.setName("John", "McDonald");
-	    // Simulate logout
-	    	Thread.sleep(2000L);
-        	u.deleteObserver(tp);
     }
 }

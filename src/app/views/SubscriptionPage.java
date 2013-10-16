@@ -1,6 +1,7 @@
 package app.views;
 
 import app.helpers.*;
+import app.model.*;
 import app.uitoolkit.*;
 import app.uitoolkit.keyboards.*;
 import java.awt.*;
@@ -8,29 +9,23 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-/**
- * This class provides the view to display and 
- * allow editing of user information.
- */
-public class UserPage extends AbstractView {
+public class SubscriptionPage extends AbstractView {
 
-	private final JLabel USER_ID          = new JLabel();		// User ID
-	private final JTextField FIRST_NAME   = new JTextField();	// the user's first name field
-	private final JTextField SURNAME      = new JTextField();	// the user's surname field
+	private final JTextField EMAIL = new JTextField(); 	// User's email address
+	private final SquareButton UNSUBSCRIBE;				// Unsubscribe from email
+	private final InputField EMAIL_FIELD;               // Input field for user's email address
 
-	public UserPage() {
-		super("USER", "My Profile");
-		AlphabeticKeyboard kb = new AlphabeticKeyboard(null, false, true);
+	public SubscriptionPage() {
+		super("SUBSCRIPTION", "Subscription");
+		AlphaNumericKeyboard kb = new AlphaNumericKeyboard(null);
 		JPanel main = new JPanel(new BorderLayout());
 			JPanel inner = new JPanel(new FlowLayout(FlowLayout.LEFT, 50, 0));
-				JPanel form = new JPanel(new GridLayout(2, 2, 20, 0));
-					form.add(new InputField(USER_ID, "Student ID", 40, 16, 300, false));
-					form.add(new JPanel()); // dummy
-					form.add(new InputField(FIRST_NAME, "Given Name", 40, 16, 300, false));
-					form.add(new InputField(SURNAME, "Surname", 40, 16, 300, false));
+				JPanel form = new JPanel(new GridLayout(1, 1));
+					form.add(EMAIL_FIELD = new InputField(EMAIL, "Email", 40, 16, 500, false));
 				inner.add(form);
 				JPanel options = new JPanel();
-					options.add(new SquareButton("CHANGE_PIN", "KEY", "Change PIN", this));
+					options.add(UNSUBSCRIBE = new SquareButton("UNSUBSCRIBE", "MAIL", "Unsubscribe", this));
+					UNSUBSCRIBE.setVisible(false);
 				inner.add(options);
 			main.add(UIToolbox.box(new JPanel(new GridBagLayout()), inner), BorderLayout.CENTER);
 			main.add(kb, BorderLayout.SOUTH);
@@ -47,18 +42,17 @@ public class UserPage extends AbstractView {
 				navRight.add(new HorizontalButton("EXIT", "EXIT", "Logout", this, true));
 			nav.add(navRight, BorderLayout.EAST);
 		add(nav, BorderLayout.SOUTH);
-		UIToolbox.setSize(USER_ID, new Dimension(USER_ID.getWidth(), USER_ID.getHeight() - 20));
 		// attach event listeners
-		FIRST_NAME.addFocusListener(kb);
-		SURNAME.addFocusListener(kb);
+		EMAIL.addFocusListener(kb);		
 	}
 
 	@Override
-	public void prepareView()  {
+	public void prepareView() {
 		super.prepareView();
-		USER_ID.setText("" + USER_OBJ.getID());
-		FIRST_NAME.setText(USER_OBJ.getFirstName());
-		SURNAME.setText(USER_OBJ.getSurName());
+		EMAIL_FIELD.showError(false);
+		UNSUBSCRIBE.setVisible(USER_OBJ.hasEmail());
+		EMAIL.setText(USER_OBJ.hasEmail() ? USER_OBJ.getEmail() : "");
+		EMAIL.requestFocusInWindow();
 	}
 
 	@Override
@@ -66,12 +60,19 @@ public class UserPage extends AbstractView {
 		JButton button = (JButton)e.getSource();
 		String name = button.getName();
 		if (name == "SUBMIT") {
-			USER_OBJ.setName(FIRST_NAME.getText(), SURNAME.getText());
+			String email = EMAIL.getText();
+			if (!EmailFormatValidator.validate(email)) {
+				EMAIL_FIELD.showError(true);
+			} else {
+				USER_OBJ.setEmail(email.isEmpty() ? null : email);
+				MultiPanel.SELF.show("HOME");
+			}
+		} else if (name == "UNSUBSCRIBE") {
+			USER_OBJ.setEmail(null);
 			MultiPanel.SELF.show("HOME");
-		} else if (name == "CHANGE_PIN") {
-			MultiPanel.SELF.show("CHANGE_PIN");
 		} else {
 			super.actionPerformed(e);
 		}
 	}
+
 }

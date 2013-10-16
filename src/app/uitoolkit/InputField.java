@@ -1,8 +1,11 @@
 package app.uitoolkit;
 
 import app.helpers.*;
+
 import java.awt.*;
+
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 /**
  * Base definition of the an input field. 
@@ -13,10 +16,10 @@ public class InputField extends JPanel {
 	private static final int LABEL_SIZE = 14;	// label font size
 	private static final int INPUT_SIZE = 24;	// input field font size
 	private static final int WIDTH 		= 300;	// total width of this component
-	
-	public final Component INPUT;	// reference to the input field
-	public final String LABEL;		// the label string
+
 	public final JPanel INNER;		// reference to the inner panel
+	public final JLabel LABEL;		// reference to the label object
+	public final JComponent INPUT;	// reference to the input object
 
 	public InputField(JComponent input, String text, int isize, int lsize, int width, boolean labelOnTop) {
 		int ih, lh;
@@ -25,19 +28,18 @@ public class InputField extends JPanel {
 		if (isize <= 0) {isize = INPUT_SIZE;}
 		if (width <= 0) {width = WIDTH;} 
 		// store references and construct components
-		this.INPUT = input;
-		this.LABEL = text;
-		this.INNER = new JPanel();
+		setLayout(new GridLayout(1, 1));
+		INPUT = input;
+		INNER = new JPanel();
 			INNER.setLayout(new BorderLayout());
-			JLabel label = new JLabel(text.toUpperCase());
-				label.setHorizontalAlignment(SwingConstants.LEFT);
-				label.setFont(MyFont.SEMIBOLD_FONT.deriveFont((float)lsize));
-				lh = label.getFontMetrics(label.getFont()).getHeight();
-			INNER.add(label, labelOnTop ? BorderLayout.NORTH : BorderLayout.SOUTH);
-				input.setFont(MyFont.REGULAR_FONT.deriveFont((float)isize));
-				ih = input.getFontMetrics(input.getFont()).getHeight() + 20;
-				UIToolbox.setSize(input, new Dimension(width + 20, ih));
-			INNER.add(input, BorderLayout.CENTER);
+			LABEL = new JLabel(text.toUpperCase());
+				LABEL.setHorizontalAlignment(SwingConstants.LEFT);
+				LABEL.setFont(MyFont.SEMIBOLD_FONT.deriveFont((float)lsize));
+				lh = LABEL.getFontMetrics(LABEL.getFont()).getHeight();
+			INNER.add(LABEL, labelOnTop ? BorderLayout.NORTH : BorderLayout.SOUTH);
+				INPUT.setFont(MyFont.REGULAR_FONT.deriveFont((float)isize));
+				ih = INPUT.getFontMetrics(INPUT.getFont()).getHeight() + 20;
+			INNER.add(INPUT, BorderLayout.CENTER);
 		UIToolbox.setSize(this, new Dimension(width + 20, ih + lh + 10));
 		UIToolbox.box(this, INNER);
 	}
@@ -49,26 +51,15 @@ public class InputField extends JPanel {
 		this(input, text, WIDTH);}
 
 	/**
-	 * Displays an icon beside the input field.
-	 * The icon can indicate an error, warning, information,
-	 * notification, help tip, etc.
+	 * Displays or hides error.
 	 * 
-	 * @param icon		the icon to display.
-	 * @param isIcon	flag for whether the icon string is an icon or normal text. (default: true)
-	 * @param rightIcon	flag for displaying the icon on the right, if false, display on the left. (default: true)
+	 * @param show	if true, display error, otherwise hide error.
 	 */
-	public void appendIcon(String icon, boolean isIcon, boolean rightIcon) {
-		JLabel errIcon = new JLabel();
-			errIcon.setFont((isIcon ? MyFont.ICON_FONT : MyFont.REGULAR_FONT).deriveFont((float)INPUT.getFont().getSize()));
-			errIcon.setText(isIcon && MyFont.ICONS.containsKey(icon) ? MyFont.ICONS.get(icon) : icon);
-			errIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		int width = errIcon.getFontMetrics(errIcon.getFont()).stringWidth(errIcon.getText()) + 20;
-		UIToolbox.setSize(INPUT, new Dimension(INPUT.getWidth() - width, INPUT.getHeight()));
-		UIToolbox.setSize(errIcon, new Dimension(width, INPUT.getHeight()));
-		INNER.add(errIcon, rightIcon ? BorderLayout.EAST : BorderLayout.WEST);
-	}
-	public void appendIcon(String icon) {
-		appendIcon(icon, true, true);}
+	public void showError(boolean show) {
+		INPUT.setBorder(show ? new LineBorder(Color.RED) : (new JTextField()).getBorder());
+		INPUT.setForeground(show ? Color.RED : null);
+		LABEL.setForeground(show ? Color.RED : null);
+	}	
 
     // FOR TESTING PURPOSES ONLY
 
@@ -79,15 +70,11 @@ public class InputField extends JPanel {
         JPanel inner = new JPanel();
 	        	inner.setLayout(new BoxLayout(inner, BoxLayout.PAGE_AXIS));
 	        	inner.add(new InputField(new JTextField(), "Student ID:"));
-	        	InputField inf = new InputField(new JPasswordField(), "PIN:");
-	        		inf.appendIcon("ERROR");
-	        	inner.add(inf);
+	        	inner.add(new InputField(new JPasswordField(), "PIN:"));
 	        	inner.setLayout(new BoxLayout(inner, BoxLayout.PAGE_AXIS));
 	        	inner.add(new InputField(new JComboBox<String>((new java.text.DateFormatSymbols()).getMonths()), "Months:"));
 	        	inner.add(new InputField(new JSpinner(), "Year:"));
-	        	InputField cash = new InputField(new JFormattedTextField(), "Amount:");
-	        		cash.appendIcon("$", false, false);
-	        	inner.add(cash);
+	        	inner.add(new InputField(new JFormattedTextField(), "Amount:"));
 	    frame.add(UIToolbox.box(new JPanel(), inner));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
