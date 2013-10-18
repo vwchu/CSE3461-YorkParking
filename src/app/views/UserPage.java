@@ -54,11 +54,12 @@ public class UserPage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView()  {
-		super.prepareView();
+	public void prepareView(Object... args)  {
+		super.prepareView(args);
 		USER_ID.setText("" + USER_OBJ.getID());
 		FIRST_NAME.setText(USER_OBJ.getFirstName());
 		SURNAME.setText(USER_OBJ.getSurName());
+		FIRST_NAME.requestFocusInWindow();
 	}
 
 	@Override

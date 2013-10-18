@@ -60,12 +60,13 @@ public class MultiPanel extends CardLayout {
 	 * Condition to add views: name exists and parent is set.
 	 * 
 	 * @param name		of the view to display
+	 * @param args		arguments need to display the view
 	 * @return			true if successfully added, otherwise false.			
 	 */
-	public boolean show(String name) {
+	public boolean show(String name, Object... args) {
 		if (parent != null && VIEWS.containsKey(name)) {
 			show(parent.getContentPane(), name);
-			VIEWS.get(name).prepareView();
+			VIEWS.get(name).prepareView(args);
 			return true;
 		}
 		return false;

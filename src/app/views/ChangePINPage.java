@@ -56,8 +56,8 @@ public class ChangePINPage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView() {
-		super.prepareView();
+	public void prepareView(Object... args) {
+		super.prepareView(args);
 		OLD_PIN.setText(""); OLD_PIN_FIELD.showError(false);
 		NEW_PIN.setText(""); NEW_PIN_FIELD.showError(false);
 		NEW_PIN2.setText(""); NEW_PIN2_FIELD.showError(false);

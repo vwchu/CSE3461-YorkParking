@@ -33,8 +33,8 @@ public class HomePage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView() {
-		super.prepareView();
+	public void prepareView(Object... args) {
+		super.prepareView(args);
 		if (USER_OBJ.hasFines()) {
 			PAY_NOW.setVisible(true);
 		} else {

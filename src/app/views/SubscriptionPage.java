@@ -47,8 +47,8 @@ public class SubscriptionPage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView() {
-		super.prepareView();
+	public void prepareView(Object... args) {
+		super.prepareView(args);
 		EMAIL_FIELD.showError(false);
 		UNSUBSCRIBE.setVisible(USER_OBJ.hasEmail());
 		EMAIL.setText(USER_OBJ.hasEmail() ? USER_OBJ.getEmail() : "");

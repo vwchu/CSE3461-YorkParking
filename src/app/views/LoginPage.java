@@ -40,7 +40,7 @@ public class LoginPage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView() {
+	public void prepareView(Object... args) {
 		USER.setText(""); USER_FIELD.showError(false);
 		PIN.setText(""); PIN_FIELD.showError(false);
 		USER.requestFocusInWindow();

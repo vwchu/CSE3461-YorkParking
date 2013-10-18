@@ -14,7 +14,7 @@ import javax.swing.*;
 public abstract class AbstractView extends JPanel implements ActionListener {
 
 	private final TitlePane TITLE = new TitlePane(); // Reference to title panel
-	protected User USER_OBJ = null;		 	         // Reference to observing user
+	protected User USER_OBJ = null;		 	         // FIXME
 
 	/**
 	 * Constructs a new view.
@@ -36,8 +36,10 @@ public abstract class AbstractView extends JPanel implements ActionListener {
 	/**
 	 * Prepare the view for displaying.
 	 * Invoked by MultiPanel.show before view is displayed.
+	 *
+	 * @param args		arguments needed to prepare the view 
 	 */
-	public void prepareView() {
+	public void prepareView(Object... args) {
 		TITLE.setUserTag(USER_OBJ);
 	}
 
@@ -66,6 +68,7 @@ public abstract class AbstractView extends JPanel implements ActionListener {
     		MultiPanel.SELF.add(new UserPage());
     		MultiPanel.SELF.add(new ChangePINPage());
     		MultiPanel.SELF.add(new SubscriptionPage());
+    		MultiPanel.SELF.add(new VehiclesPage());
         frame.pack();
         frame.setVisible(true);
 	}
