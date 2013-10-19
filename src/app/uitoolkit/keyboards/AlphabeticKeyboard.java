@@ -25,9 +25,8 @@ public class AlphabeticKeyboard extends Keyboard {
         {"CLEAR", "@", "SPACE", "_", ".COM", "PREV", "NEXT"}
     };
 
-	private static boolean ENABLE_SYMBOL;                                       // Flag for enabling symbols
 	private static final int KEYBOARD_WIDTH; 									// Total width of the keyboard in pixel
-	private static final String[] SYMBOLS = {"+", ".", "-", "@", "_"}; 	        // List of key symbols
+	private static final String[] SYMBOLS = {"+", ".", "-", "@", "_", ".COM"};  // List of key symbols
     private static final String[] ALPHABET = new String[26];					// List of alphabets, for shiftKey
     static {
     	KEYBOARD_WIDTH = (KEY_WIDTH + KEY_SPACING) * KEYS[0].length + KEY_SPACING;
@@ -35,6 +34,8 @@ public class AlphabeticKeyboard extends Keyboard {
     		ALPHABET[i] = "" + (char)('A' + i);
     	}
     }
+
+	private boolean ENABLE_SYMBOL;                                       		// Flag for enabling symbols
 
     /**
      * Create and layout the alphabetic (QWERTY) keyboard.

@@ -101,7 +101,9 @@ public abstract class Keyboard extends JPanel implements ActionListener, FocusLi
      */
 	public void setSymbolsEnabled(boolean b) {} // Do nothing
 
-	@Override public void focusLost(FocusEvent e) {} 			// Do nothing
+	@Override public void focusLost(FocusEvent e) {
+		this.setInputComponent(null);
+	}
 
 	@Override
 	public void focusGained(FocusEvent e) {
