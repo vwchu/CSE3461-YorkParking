@@ -49,49 +49,54 @@ public class User {
      *
      * @param fname		first name
      * @param sname		surname
+     * @return			true if the transaction was successful, otherwise false.
      */
-    public void setName(String fname, String sname) {
+    public boolean setName(String fname, String sname) {
         this.fname = fname;
         this.sname = sname;
-        //DBManager.updateName(id, fname, sname);
+        return DBManager.SELF.updateUser(this, "NAME");
     }
 
     /**
-     * Check if the given pin matches that stored in the
+     * Check if the given PIN matches that stored in the
      * database for the given user. Then changes the PIN
      * if the two given new pins match.
      * 
-     * @param pin		the given pin to check
-     * @param newpin	the 
+     * @param PIN		the given PIN to check
+     * @param newPIN	the new PIN
+     * @param newPIN2	the new PIN confirmed
      * @return			true, if valid, otherwise false.
      */
-    public boolean changePIN(int pin, int newpin, int newpin2) {
-    	//if (DBManager.authenticate(id, pin) == null || newpin != newpin2) {return false;}
-    	//DBManager.setPIN(id, newpin);
-    	return true;
+    public boolean changePIN(int PIN, int newPIN, int newPIN2) {
+    	if (DBManager.SELF.getUser(id, PIN) == null || newPIN != newPIN2) {
+    		return false;
+    	}
+    	return DBManager.SELF.updateUser(this, "PIN", PIN, newPIN);
     }
 
     /**
      * Update the user's email address
      *
      * @param email		subscription email address
+     * @return			true if the transaction was successful, otherwise false.
      */
-    public void setEmail(String email) {
+    public boolean setEmail(String email) {
         this.email = email;
-        //DBManager.updateEmail(id, email);
+        return DBManager.SELF.updateUser(this, "EMAIL");
     }
 
     /**
      * Update the user's outstanding fines.
      *
      * @param fines		the outstanding fines
+     * @return			true if the transaction was successful, otherwise false.
      */
-    public void setFines(double fines) {
+    public boolean setFines(double fines) {
     	if (fines < 0) {
     		throw new RuntimeException("Fines must be non-negative.");
     	}
     	this.fines = fines;
-    	//DBManager.updateFines(id, fines);
+    	return DBManager.SELF.updateUser(this, "FINES");
     }
 
     /**

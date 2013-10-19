@@ -19,10 +19,8 @@ DROP TABLE   IF EXISTS Permit;
 DROP TABLE   IF EXISTS Auto;
 DROP TABLE   IF EXISTS AutoMaker;
 DROP TABLE   IF EXISTS Insurer;
-DROP TABLE   IF EXISTS Session;
 DROP VIEW    IF EXISTS PPKPermit;
 DROP TRIGGER IF EXISTS outstandingFines;
-DROP TRIGGER IF EXISTS insertSession;
 DROP TRIGGER IF EXISTS insertVehicle;
 DROP TRIGGER IF EXISTS insertPermit;
 DROP TRIGGER IF EXISTS insertPPKPermit;
@@ -56,6 +54,7 @@ CREATE TABLE User (
     fname   VARCHAR(256),
     fines   DECIMAL(5, 2)   NOT NULL,   -- from elsewhere and unpaid permits
     email   VARCHAR(256),
+    lactive VARCHAR(256),               -- last active datetime
     PRIMARY KEY(uid ASC),
     CONSTRAINT uid_range
         CHECK (uid > 0 AND uid < 1000000000),
@@ -66,11 +65,11 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Vehicle (
-    plate   VARCHAR(10)     NOT NULL,   -- maybe alphanumeric
-    owner   BIGINT          NOT NULL,
-    make    VARCHAR(256)    NOT NULL,
-    model   VARCHAR(256)    NOT NULL,
-    year    INT,                        -- car model year
+    plate       VARCHAR(10)     NOT NULL,   -- maybe alphanumeric
+    owner       BIGINT          NOT NULL,
+    make        VARCHAR(256)    NOT NULL,
+    model       VARCHAR(256)    NOT NULL,
+    year        INT,                        -- car model year
     -- insurance
     insurer VARCHAR(256)    NOT NULL,
     policy  VARCHAR(256)    NOT NULL,   -- maybe alphanumeric
@@ -104,19 +103,6 @@ CREATE TABLE Permit (
         CHECK (start >= DATE(issued))
 );
 
--- table for logging sessions
-CREATE TABLE Session (
-    user    BIGINT          NOT NULL,
-    start   VARCHAR(256)    NOT NULL,
-    end     VARCHAR(256),
-    PRIMARY KEY(user ASC, start DESC),
-    FOREIGN KEY(user)
-        REFERENCES User(uid)
-        ON DELETE CASCADE               -- user deleted, no session
-    CONSTRAINT session_start            -- session start cannot be in future
-        CHECK (start <= DATETIME('now'))
-);
-
 
 -- Views
 -- ------------------------------------------------------------
@@ -146,24 +132,6 @@ CREATE TRIGGER outstandingFines
     BEGIN
         SELECT CASE WHEN (OLD.fines < NEW.fines AND OLD.fines > 0)
         THEN RAISE(ABORT, "outstanding fines") END;
-    END;
-
--- Trigger when insert a session into Session.
--- Check for and abort when there exist a session that is opened by
--- the user and unclosed. If session is older than a day, close the session,
--- and allow insertion of session.
-CREATE TRIGGER insertSession
-    BEFORE INSERT ON Session
-    BEGIN
-        UPDATE Session
-            SET end = DATETIME('now')
-            WHERE NEW.user = user AND end = NULL AND STRFTIME('%S', start) < STRFTIME('%S', 'now') - 3600;
-        SELECT CASE WHEN ((
-            SELECT COUNT(*)
-            FROM Session S
-            WHERE NEW.user = S.user AND S.end = NULL
-        ) > 0)
-        THEN RAISE(ABORT, "cannot open multiple sessions") END;
     END;
 
 -- Trigger when insert a vehicle into Vehicle.
