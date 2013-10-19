@@ -23,7 +23,8 @@ public class DBManager {
 	 * @param e		the exception
 	 */
 	private void error(Exception e) {
-		System.err.println(e.getClass().getName() + ": " + e.getMessage());;
+		System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		e.printStackTrace(System.err);
 	}
 
 	/**
@@ -72,6 +73,24 @@ public class DBManager {
     }
 
     // QUERIES
+
+    /**
+     * Query if the user exists in the database.
+     * 
+     * @param id 		the student ID to check
+     * @return			true if the user exists, otherwise false.
+     */
+    public boolean userExists(long id) {
+    	try {
+            PreparedStatement pstmt = SQL.USER_EXISTS.prepareStatement(connection);
+	            pstmt.setLong(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+        	error(e);
+        }
+    	return false;
+    }
 
     /**
      * Retrieves the user data from the database given a valid
@@ -352,30 +371,30 @@ public class DBManager {
     public boolean updateUser(User user, String op, Object... args) {
     	try {
             PreparedStatement pstmt = null;
-            if (op == "NAME") {
+            if (op.equals("NAME")) {
             	pstmt = SQL.SET_USER_NAME.prepareStatement(connection);
 	            pstmt.setLong(3, user.getID());
 	            pstmt.setString(1, user.getFirstName());
 	            pstmt.setString(2, user.getSurName());
-            } else if (op == "FINE") {
+            } else if (op.equals("FINE")) {
             	pstmt = SQL.SET_USER_FINES.prepareStatement(connection);
 	            pstmt.setLong(2, user.getID());
 	            pstmt.setDouble(1, user.getFines());
-            } else if (op == "EMAIL") {
+            } else if (op.equals("EMAIL")) {
             	pstmt = SQL.SET_USER_EMAIL.prepareStatement(connection);
 	            pstmt.setLong(2, user.getID());
 	            pstmt.setString(1, user.getEmail());
-            } else if (op == "LOGOUT") {
+            } else if (op.equals("LOGOUT")) {
             	pstmt = SQL.SET_USER_LASTACTIVE.prepareStatement(connection);
 	            pstmt.setLong(1, user.getID());
-            } else if (op == "PIN") {
+            } else if (op.equals("PIN")) {
             	if (args.length < 2) {
             		throw new IllegalArgumentException("Missing arguments: oldPIN, newPIN");
             	}
             	pstmt = SQL.SET_USER_PIN.prepareStatement(connection);
             	pstmt.setLong(2, user.getID());
-            	pstmt.setInt(1, ((Integer)args[0]).intValue());
-            	pstmt.setInt(3, ((Integer)args[1]).intValue());
+            	pstmt.setInt(3, ((Integer)args[0]).intValue());
+            	pstmt.setInt(1, ((Integer)args[1]).intValue());
             }
             return pstmt.executeUpdate() == 1;            
         } catch (Exception e) {
@@ -399,14 +418,14 @@ public class DBManager {
     public boolean updateVehicle(Vehicle vehicle, String op, Object... args) {
     	try {
             PreparedStatement pstmt = null;
-            if (op == "PLATE") {
+            if (op.equals("PLATE")) {
             	if (args.length < 1) {
             		throw new IllegalArgumentException("Missing arguments: new");
             	}
             	pstmt = SQL.SET_VEHICLE_PLATE.prepareStatement(connection);
 	            pstmt.setString(2, vehicle.getPlate());
 	            pstmt.setString(1, args[0].toString());
-            } else if (op == "INSURANCE") {
+            } else if (op.equals("INSURANCE")) {
             	pstmt = SQL.SET_VEHICLE_INSURANCE.prepareStatement(connection);
             	pstmt.setString(1, vehicle.getInsurer());
             	pstmt.setString(2, vehicle.getPolicy());

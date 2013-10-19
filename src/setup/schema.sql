@@ -65,11 +65,11 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Vehicle (
-    plate       VARCHAR(10)     NOT NULL,   -- maybe alphanumeric
-    owner       BIGINT          NOT NULL,
-    make        VARCHAR(256)    NOT NULL,
-    model       VARCHAR(256)    NOT NULL,
-    year        INT,                        -- car model year
+    plate   VARCHAR(10)     NOT NULL,   -- maybe alphanumeric
+    owner   BIGINT          NOT NULL,
+    make    VARCHAR(256)    NOT NULL,
+    model   VARCHAR(256)    NOT NULL,
+    year    INT,                        -- car model year
     -- insurance
     insurer VARCHAR(256)    NOT NULL,
     policy  VARCHAR(256)    NOT NULL,   -- maybe alphanumeric

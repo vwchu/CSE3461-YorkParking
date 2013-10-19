@@ -1,5 +1,6 @@
 package app.views;
 
+import app.Main;
 import app.helpers.*;
 import app.model.*;
 import app.uitoolkit.*;
@@ -14,6 +15,7 @@ public class SubscriptionPage extends AbstractView {
 	private final JTextField EMAIL = new JTextField(); 	// User's email address
 	private final SquareButton UNSUBSCRIBE;				// Unsubscribe from email
 	private final InputField EMAIL_FIELD;               // Input field for user's email address
+	private final HorizontalButton SUBMIT;				// the submit button
 
 	public SubscriptionPage() {
 		super("SUBSCRIPTION", "Subscription");
@@ -35,7 +37,7 @@ public class SubscriptionPage extends AbstractView {
 				navLeft.add(new HorizontalButton("HOME", "HOME", "Home", this));
 			nav.add(navLeft, BorderLayout.WEST);
 			JPanel navCenter = new JPanel(new GridLayout(1, 1));
-				navCenter.add(new HorizontalButton("SUBMIT", null, "Submit", this));
+				navCenter.add(SUBMIT = new HorizontalButton("SUBMIT", null, "Submit", this));
 				navCenter.setBorder(new EmptyBorder(5, 5, 5, 5));
 			nav.add(navCenter, BorderLayout.CENTER);
 			JPanel navRight = new JPanel();
@@ -47,12 +49,19 @@ public class SubscriptionPage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView(Object... args) {
-		super.prepareView(args);
+	public boolean prepareView(Object... args) {
+		if (!super.prepareView(args)) {return false;}
 		EMAIL_FIELD.showError(false);
-		UNSUBSCRIBE.setVisible(USER_OBJ.hasEmail());
-		EMAIL.setText(USER_OBJ.hasEmail() ? USER_OBJ.getEmail() : "");
+		UNSUBSCRIBE.setVisible(Main.USER.hasEmail());
+		if (Main.USER.hasEmail()) {
+			EMAIL.setText(Main.USER.getEmail());
+			SUBMIT.setText(SUBMIT.getText().replace("Subscribe", "Submit"));
+		} else {
+			EMAIL.setText(null);
+			SUBMIT.setText(SUBMIT.getText().replace("Submit", "Subscribe"));
+		}
 		EMAIL.requestFocusInWindow();
+		return true;
 	}
 
 	@Override
@@ -64,11 +73,11 @@ public class SubscriptionPage extends AbstractView {
 			if (!EmailFormatValidator.validate(email)) {
 				EMAIL_FIELD.showError(true);
 			} else {
-				USER_OBJ.setEmail(email.isEmpty() ? null : email);
+				Main.USER.setEmail(email.isEmpty() ? null : email);
 				MultiPanel.SELF.show("HOME");
 			}
 		} else if (name == "UNSUBSCRIBE") {
-			USER_OBJ.setEmail(null);
+			Main.USER.setEmail(null);
 			MultiPanel.SELF.show("HOME");
 		} else {
 			super.actionPerformed(e);

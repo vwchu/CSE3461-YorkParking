@@ -1,5 +1,6 @@
 package app.views;
 
+import app.Main;
 import app.helpers.*;
 import app.uitoolkit.*;
 import java.awt.*;
@@ -29,16 +30,12 @@ public class HomePage extends AbstractView {
 		JPanel nav = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 			nav.add(new HorizontalButton("EXIT", "EXIT", "Logout", this, true));
 		add(nav, BorderLayout.SOUTH);
-		PAY_NOW.setVisible(false);
 	}
 
 	@Override
-	public void prepareView(Object... args) {
-		super.prepareView(args);
-		if (USER_OBJ.hasFines()) {
-			PAY_NOW.setVisible(true);
-		} else {
-			PAY_NOW.setVisible(false);
-		}
+	public boolean prepareView(Object... args) {
+		if (!super.prepareView(args)) {return false;}
+		PAY_NOW.setVisible(Main.USER.hasFines());
+		return true;
 	}
 }

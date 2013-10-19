@@ -65,6 +65,7 @@ public class MultiPanel extends CardLayout {
 	 */
 	public boolean show(String name, Object... args) {
 		if (parent != null && VIEWS.containsKey(name)) {
+			System.out.println("SHOW VIEW: " + name);
 			show(parent.getContentPane(), name);
 			VIEWS.get(name).prepareView(args);
 			return true;

@@ -68,10 +68,7 @@ public class User {
      * @return			true, if valid, otherwise false.
      */
     public boolean changePIN(int PIN, int newPIN, int newPIN2) {
-    	if (DBManager.SELF.getUser(id, PIN) == null || newPIN != newPIN2) {
-    		return false;
-    	}
-    	return DBManager.SELF.updateUser(this, "PIN", PIN, newPIN);
+    	return newPIN == newPIN2 && DBManager.SELF.updateUser(this, "PIN", PIN, newPIN);
     }
 
     /**
@@ -118,5 +115,14 @@ public class User {
     		setFines(fines - payment);
     	}
         return change;
+    }
+
+    /**
+     * Logout this user.
+     *
+     * @return true if logged out successfully, otherwise false.
+     */
+    public boolean logout() {
+    	return DBManager.SELF.updateUser(this, "LOGOUT");
     }
 }

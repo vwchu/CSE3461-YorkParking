@@ -48,7 +48,7 @@ public class SQLiteConfig
     protected final int busyTimeout;
 
     /* Date storage class*/
-    public final static String DEFAULT_DATE_STRING_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+    public final static String DEFAULT_DATE_STRING_FORMAT = "yyyy-MM-dd HH:mm:ss"; // "yyyy-MM-dd HH:mm:ss.SSS";
     protected final DateClass dateClass;
     protected final DatePrecision datePrecision;
     protected final long dateMultiplier;

@@ -1,5 +1,6 @@
 package app.views;
 
+import app.Main;
 import app.helpers.*;
 import app.uitoolkit.*;
 import app.uitoolkit.keyboards.*;
@@ -21,6 +22,9 @@ public class ChangePINPage extends AbstractView {
 	private final InputField OLD_PIN_FIELD;		// Input Field for old PIN
 	private final InputField NEW_PIN_FIELD;		// Input Field for new PIN
 	private final InputField NEW_PIN2_FIELD;	// Input Field for confirming new PIN
+
+	// TODO: Check input of password fields to ensure
+	//       input is only numbers at 4 characters long.
 
 	public ChangePINPage() {
 		super("CHANGE_PIN", "Change PIN");
@@ -56,12 +60,13 @@ public class ChangePINPage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView(Object... args) {
-		super.prepareView(args);
+	public boolean prepareView(Object... args) {
+		if (!super.prepareView(args)) {return false;}
 		OLD_PIN.setText(""); OLD_PIN_FIELD.showError(false);
 		NEW_PIN.setText(""); NEW_PIN_FIELD.showError(false);
 		NEW_PIN2.setText(""); NEW_PIN2_FIELD.showError(false);
 		OLD_PIN.requestFocusInWindow();
+		return true;
 	}
 
 	@Override
@@ -69,13 +74,20 @@ public class ChangePINPage extends AbstractView {
 		JButton button = (JButton)e.getSource();
 		String name = button.getName();
 		
-		if (name == "BACK" || name == "SUBMIT") {
-			if (name == "SUBMIT") {
-				USER_OBJ.changePIN(
-					Integer.parseInt(OLD_PIN.getPassword().toString()),
-					Integer.parseInt(NEW_PIN.getPassword().toString()),
-					Integer.parseInt(NEW_PIN2.getPassword().toString()));
+		if (name.equals("SUBMIT")) {
+			boolean ok = Main.USER.changePIN(
+				Integer.parseInt(new String(OLD_PIN.getPassword())),
+				Integer.parseInt(new String(NEW_PIN.getPassword())),
+				Integer.parseInt(new String(NEW_PIN2.getPassword())));
+			if (ok) {
+				MultiPanel.SELF.show("USER");
+			} else {
+				OLD_PIN.setText(""); OLD_PIN_FIELD.showError(true);
+				NEW_PIN.setText(""); NEW_PIN_FIELD.showError(true);
+				NEW_PIN2.setText(""); NEW_PIN2_FIELD.showError(true);
+				OLD_PIN.requestFocusInWindow();
 			}
+		} else if (name.equals("BACK")) {			
 			MultiPanel.SELF.show("USER");
 		} else {
 			super.actionPerformed(e);

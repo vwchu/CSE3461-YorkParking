@@ -18,11 +18,8 @@ public class SquareButton extends JButton {
 	private static final int SIZE 	  	= 200;	// Button size (width and height)
 	private static final int ICON_SIZE  = 100;	// Icon font size
 	private static final int LABEL_SIZE = 16;	// Label font size
-	private static final String HTML =			// HTML for button formatting
-		"<html><body>"
-		+ "<center style=\"font-family: MyIcons; font-size: {ICON_SIZE}pt;\">{ICON}</center>"
-		+ "<br /><center style=\"font-family: OpenSansRegular; font-size: {LABEL_SIZE}pt;\">{LABEL}</center>"
-		+ "</body></html>";
+
+	private static final String HTML = UIToolbox.getHTML("/assets/htdocs/iconLabel.vertical.html");
 
 	/**
 	 * Construct a new button.

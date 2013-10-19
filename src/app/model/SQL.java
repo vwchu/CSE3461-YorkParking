@@ -10,6 +10,10 @@ import java.sql.*;
 enum SQL {
 
 	// ----- Queries -----
+	USER_EXISTS(
+		"SELECT uid " +
+        "FROM User " +
+        "WHERE uid = ?"),
 	GET_USER(
 		"SELECT fname, sname, email, fines, lactive " +
         "FROM User " +
@@ -19,12 +23,16 @@ enum SQL {
 	//    "FROM User U, User A " +
 	//    "WHERE A.uid = 'admin' AND pin = ?"),
     GET_VEHICLES_BY_USER(
-        "SELECT plate, make, model, year, insurer, policy, expiry " +
+        "SELECT plate, make, model, year, insurer, policy, " +
+            "DATETIME(expiry) AS expiry " +
         "FROM Vehicle " +
         "WHERE owner = ?"),
     GET_PERMITS_BY_USER(
 		"SELECT P.vehicle, V.make, V.model, V.year, V.insurer, V.policy, " +
-               "V.expiry, P.start, P.expiry AS end, P.issued " +
+			"DATETIME(V.expiry) AS expiry, " +
+			"DATETIME(P.start)  AS start, " +
+			"DATETIME(P.expiry) AS end, " +
+			"DATETIME(P.issued) AS issued " +
         "FROM Permit P, Vehicle V" +
         "WHERE P.vehicle = V.plate AND V.owner = ?" +
         "ORDER BY P.expiry DESC"),
@@ -43,9 +51,9 @@ enum SQL {
         "FROM Auto " +
         "WHERE make = ?"),
     GET_CURRENT_DATE(
-        "SELECT DATE('now')"),
+        "SELECT DATETIME('now')"),
     COMPUTE_EXPIRY_DATE(
-    	"SELECT DATE(JULIANDAY(?) + ?)"),
+    	"SELECT DATETIME(JULIANDAY(?) + ?)"),
 
     // ----- Add Entries -----
     //ADD_USER(

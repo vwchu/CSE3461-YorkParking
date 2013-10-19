@@ -1,5 +1,6 @@
 package app.views;
 
+import app.Main;
 import app.helpers.*;
 import app.uitoolkit.*;
 import app.uitoolkit.keyboards.*;
@@ -54,12 +55,13 @@ public class UserPage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView(Object... args)  {
-		super.prepareView(args);
-		USER_ID.setText("" + USER_OBJ.getID());
-		FIRST_NAME.setText(USER_OBJ.getFirstName());
-		SURNAME.setText(USER_OBJ.getSurName());
+	public boolean prepareView(Object... args)  {
+		if (!super.prepareView(args)) {return false;}
+		USER_ID.setText("" + Main.USER.getID());
+		FIRST_NAME.setText(Main.USER.getFirstName());
+		SURNAME.setText(Main.USER.getSurName());
 		FIRST_NAME.requestFocusInWindow();
+		return true;
 	}
 
 	@Override
@@ -67,8 +69,10 @@ public class UserPage extends AbstractView {
 		JButton button = (JButton)e.getSource();
 		String name = button.getName();
 		if (name == "SUBMIT") {
-			USER_OBJ.setName(FIRST_NAME.getText(), SURNAME.getText());
-			MultiPanel.SELF.show("HOME");
+			// TODO: Give user feedback of success or failure
+			if (Main.USER.setName(FIRST_NAME.getText(), SURNAME.getText())) {
+				MultiPanel.SELF.show("HOME");
+			}
 		} else if (name == "CHANGE_PIN") {
 			MultiPanel.SELF.show("CHANGE_PIN");
 		} else {

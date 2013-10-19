@@ -1,6 +1,8 @@
 package app.views;
 
+import app.Main;
 import app.helpers.*;
+import app.model.*;
 import app.uitoolkit.*;
 import app.uitoolkit.keyboards.*;
 import java.awt.*;
@@ -17,6 +19,11 @@ public class LoginPage extends AbstractView {
 	private final JPasswordField PIN;		// Access PIN field
 	private final InputField USER_FIELD;	// input field for user student ID
 	private final InputField PIN_FIELD;		// input filed for user PIN
+
+	// TODO: Setup timeout after idling for one minute and switch welcome screen.
+	// TODO: Check input of fields to ensure input is only numbers
+	//       and 9 characters long for user ID
+	//       and 4 characters long for PIN.
 
 	public LoginPage() {
 		super("LOGIN", "Login");
@@ -40,23 +47,36 @@ public class LoginPage extends AbstractView {
 	}
 
 	@Override
-	public void prepareView(Object... args) {
+	public boolean prepareView(Object... args) {
 		USER.setText(""); USER_FIELD.showError(false);
 		PIN.setText(""); PIN_FIELD.showError(false);
 		USER.requestFocusInWindow();
+		return false; // Unless
 	}	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton button = (JButton)e.getSource();
 		String name = button.getName();
 		if (name == "ENTER") {
-			//if (AppModel.initSession(USER.getText(), PIN.getPassword().toString())) {
+			// TODO: Format check needed
+			long id = Integer.parseInt(USER.getText());
+			int pin = Integer.parseInt(new String(PIN.getPassword()));
+			if ((Main.USER = DBManager.SELF.getUser(id, pin)) != null) {
+				System.out.println("LOGGED IN AS: " + Main.USER.getID());
 				MultiPanel.SELF.show("HOME");
-			//} else {
+			} else {
+				System.out.println("LOGIN ATTEMPT FAILED");
 				USER_FIELD.showError(true);
 				PIN_FIELD.showError(true);
-			//}
+				PIN.setText("");
+				if (!DBManager.SELF.userExists(id)) {
+					USER.setText("");
+					USER.requestFocusInWindow();
+				} else {
+					PIN.requestFocusInWindow();
+				}
+			}
 		}
 	}
 }
