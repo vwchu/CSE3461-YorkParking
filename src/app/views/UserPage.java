@@ -18,6 +18,8 @@ public class UserPage extends AbstractView {
 	private final JLabel USER_ID          = new JLabel();		// User ID
 	private final JTextField FIRST_NAME   = new JTextField();	// the user's first name field
 	private final JTextField SURNAME      = new JTextField();	// the user's surname field
+	private final InputField FNAME_FIELD;
+	private final InputField SNAME_FIELD;
 
 	public UserPage() {
 		super("USER", "My Profile");
@@ -27,8 +29,8 @@ public class UserPage extends AbstractView {
 				JPanel form = new JPanel(new GridLayout(2, 2, 20, 0));
 					form.add(new InputField(USER_ID, "Student ID", 40, 16, 300, false));
 					form.add(new JPanel()); // dummy
-					form.add(new InputField(FIRST_NAME, "Given Name", 40, 16, 300, false));
-					form.add(new InputField(SURNAME, "Surname", 40, 16, 300, false));
+					form.add(FNAME_FIELD = new InputField(FIRST_NAME, "Given Name", 40, 16, 300, false));
+					form.add(SNAME_FIELD = new InputField(SURNAME, "Surname", 40, 16, 300, false));
 				inner.add(form);
 				JPanel options = new JPanel();
 					options.add(new SquareButton("CHANGE_PIN", "KEY", "Change PIN", this));
@@ -60,6 +62,8 @@ public class UserPage extends AbstractView {
 		USER_ID.setText("" + Main.USER.getID());
 		FIRST_NAME.setText(Main.USER.getFirstName());
 		SURNAME.setText(Main.USER.getSurName());
+		FNAME_FIELD.showError(false);
+		SNAME_FIELD.showError(false);
 		FIRST_NAME.requestFocusInWindow();
 		return true;
 	}
@@ -69,9 +73,11 @@ public class UserPage extends AbstractView {
 		JButton button = (JButton)e.getSource();
 		String name = button.getName();
 		if (name == "SUBMIT") {
-			// TODO: Give user feedback of success or failure
 			if (Main.USER.setName(FIRST_NAME.getText(), SURNAME.getText())) {
 				MultiPanel.SELF.show("HOME");
+			} else {
+				FNAME_FIELD.showError(true);
+				SNAME_FIELD.showError(true);
 			}
 		} else if (name == "CHANGE_PIN") {
 			MultiPanel.SELF.show("CHANGE_PIN");

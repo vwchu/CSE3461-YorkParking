@@ -1,9 +1,8 @@
 package app;
 
 import java.awt.*;
-
+import java.awt.event.*;
 import javax.swing.*;
-
 import app.helpers.*;
 import app.model.*;
 import app.views.*;
@@ -15,14 +14,21 @@ public class Main {
 
 	public static User USER;
 
-	// TODO: Implement Window Close event to close DBManager before app terminates
-
 	public static void createAndShowGUI() {
     	UITheme.setLookAndFeel();
     	JFrame frame = new JFrame();
     	UIToolbox.fullscreen(frame);
     	frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowListener() {
+			@Override public void windowOpened(WindowEvent e) {}
+			@Override public void windowIconified(WindowEvent e) {}
+			@Override public void windowDeiconified(WindowEvent e) {}
+			@Override public void windowDeactivated(WindowEvent e) {}
+			@Override public void windowClosed(WindowEvent e) {}
+			@Override public void windowActivated(WindowEvent e) {}
+			@Override public void windowClosing(WindowEvent e) {DBManager.SELF.destroy();}
+		});
     	frame.setLayout(MultiPanel.SELF.setParent(frame));
     		MultiPanel.SELF.add(new LoginPage());
     		MultiPanel.SELF.add(new HomePage());

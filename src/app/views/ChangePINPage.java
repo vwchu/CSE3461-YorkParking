@@ -75,6 +75,7 @@ public class ChangePINPage extends AbstractView {
 		String name = button.getName();
 		
 		if (name.equals("SUBMIT")) {
+			// TODO: Format check needed
 			boolean ok = Main.USER.changePIN(
 				Integer.parseInt(new String(OLD_PIN.getPassword())),
 				Integer.parseInt(new String(NEW_PIN.getPassword())),
