@@ -2,6 +2,8 @@ package app.helpers;
 
 import java.awt.*;
 import java.io.*;
+import java.text.*;
+import java.util.*;
 import javax.swing.*;
 
 /**
@@ -101,5 +103,46 @@ public class UIToolbox {
         }
 		return html;
 	}    
+
+	/**
+	 * Fills the months into the combobox given the year.
+	 * Months and year are greater than or equal to current date.
+	 * 
+	 * @param monthComboBox		the combobox to fill
+	 * @param currentYear		constraint for current year
+	 */
+	public static void fillMonthComboBox(JComboBox<String> monthComboBox, boolean currentYear) {
+		DateFormatSymbols dfs = new DateFormatSymbols();
+		String[] months = dfs.getMonths();
+        for (int i = 0; i < months.length - 1; i++) {
+        	if (!currentYear || i >= Calendar.getInstance().get(Calendar.MONTH)) {
+        		monthComboBox.addItem(months[i]);
+        	}
+        }
+	}
+
+	/**
+	 * Fills the next N years into the spinner, given a start year.
+	 * 
+	 * @param yearSpinner		the spinner to fill
+	 * @param year				the start year
+	 * @param nyears			the N years beginning with the start year.
+	 */
+	public static void fillYearSpinner(JSpinner yearSpinner, int year, int nyears) {
+		String[] years = new String[nyears];
+		for (int i = 0; i < years.length; i++) years[i] = "" + (year + i);
+		SpinnerListModel yearsModel = new SpinnerListModel(years);
+		yearSpinner.setModel(yearsModel);
+	}
+
+	/**
+	 * Converts calendar to java.sql.Date
+	 * 
+	 * @param date		calendar object to convert
+	 * @return 			date converted to java.sql.Date
+	 */
+	public static java.sql.Date convertToSQLDate(Calendar date) {
+		return new java.sql.Date(date.getTime().getTime());
+	}
 
 }

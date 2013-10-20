@@ -56,7 +56,9 @@ public class InputField extends JPanel {
 	 * @param show	if true, display error, otherwise hide error.
 	 */
 	public void showError(boolean show) {
-		INPUT.setBorder(show ? new LineBorder(Color.RED) : (new JTextField()).getBorder());
+		if (INPUT instanceof JTextField) {
+			INPUT.setBorder(show ? new LineBorder(Color.RED) : (new JTextField()).getBorder());
+		}
 		INPUT.setForeground(show ? Color.RED : null);
 		LABEL.setForeground(show ? Color.RED : null);
 	}	

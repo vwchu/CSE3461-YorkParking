@@ -54,10 +54,14 @@ public class EditVehiclePage extends AbstractView {
 	@Override
 	public boolean prepareView(Object... args) {
 		if (!super.prepareView(args)) {return false;}
-		if (args.length < 1) {return false;}
-		VEHICLE = (Vehicle)args[0];
-		VEHICLE_INFO.setText(VEHICLE.getModelYear() + " " + VEHICLE.getMake() + " " + VEHICLE.getModel());
-		LICENSE_PLATE.setText(VEHICLE.getPlate());
+		if (args.length < 1) {
+			VEHICLE_INFO.setText(null);
+			LICENSE_PLATE.setText(null);
+		} else {
+			VEHICLE = (Vehicle)args[0];
+			VEHICLE_INFO.setText(VEHICLE.getModelYear() + " " + VEHICLE.getMake() + " " + VEHICLE.getModel());
+			LICENSE_PLATE.setText(VEHICLE.getPlate());
+		}
 		LP_FIELD.showError(false);
 		LICENSE_PLATE.requestFocusInWindow();
 		return true;
@@ -76,7 +80,7 @@ public class EditVehiclePage extends AbstractView {
 		} else if (name == "BACK") {
 			MultiPanel.SELF.show("VEHICLES");
 		} else if (name == "UPDATE_INSURANCE") {
-			MultiPanel.SELF.show("UPDATE_INSURANCE");
+			MultiPanel.SELF.show("UPDATE_INSURANCE", VEHICLE);
 		} else {
 			super.actionPerformed(e);
 		}

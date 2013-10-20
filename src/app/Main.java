@@ -30,6 +30,7 @@ public class Main {
     			MultiPanel.SELF.add(new ChangePINPage());
     		MultiPanel.SELF.add(new VehiclesPage());
     			MultiPanel.SELF.add(new EditVehiclePage());
+    			MultiPanel.SELF.add(new UpdateInsurance());
     		MultiPanel.SELF.add(new SubscriptionPage());
         frame.pack();
         frame.setVisible(true);

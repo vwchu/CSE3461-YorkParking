@@ -70,10 +70,10 @@ enum SQL {
     //    "VALUES (?, ?)"),
     ADD_VEHICLE(
         "INSERT INTO Vehicle(plate, owner, make, model, year, insurer, policy, expiry) " +
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"),
+        "VALUES (?, ?, ?, ?, ?, ?, ?, DATETIME(? / 1000, 'unixepoch'))"),
     ADD_PERMIT(
         "INSERT INTO PPKPermit(owner, vehicle, start, days) " +
-        "VALUES (?, ?, ?, ?)"),
+        "VALUES (?, ?, DATETIME(? / 1000, 'unixepoch'), ?)"),
 
     // ----- Update Entries -----
     SET_USER_NAME(
@@ -103,7 +103,7 @@ enum SQL {
         "WHERE plate = ?"),
     SET_VEHICLE_INSURANCE(
         "UPDATE Vehicle " +
-        "SET insurer = ?, policy = ?, expiry = ? " +
+        "SET insurer = ?, policy = ?, expiry = DATETIME(? / 1000, 'unixepoch') " +
         "WHERE plate = ?"),
 
     // ----- Delete Entries -----
