@@ -28,24 +28,25 @@ enum SQL {
         "FROM Vehicle " +
         "WHERE owner = ?"),
     GET_PERMITS_BY_USER(
-		"SELECT P.vehicle, V.make, V.model, V.year, V.insurer, V.policy, " +
+		"SELECT plate, make, model, year, insurer, policy, " +
 			"DATETIME(V.expiry) AS expiry, " +
-			"DATETIME(P.start)  AS start, " +
+			"DATETIME(start)  AS start, " +
 			"DATETIME(P.expiry) AS end, " +
-			"DATETIME(P.issued) AS issued " +
-        "FROM Permit P, Vehicle V" +
-        "WHERE P.vehicle = V.plate AND V.owner = ?" +
-        "ORDER BY P.expiry DESC"),
+			"DATETIME(issued) AS issued " +
+        "FROM Permit P, Vehicle V " +
+        "WHERE owner = ? AND P.vehicle = V.plate"),
 	GET_PERMIT_EXPIRY_BY_VEHICLE(
         "SELECT MAX(expiry) " +
-        "FROM Permit " +
-        "WHERE vehicle = ?"),
+      	    "FROM Permit " +
+            "WHERE vehicle = ? "),
     GET_INSURERS(
     	"SELECT * " +
     	"FROM Insurer"),
     GET_AUTOMAKERS(
     	"SELECT * " +
     	"FROM AutoMaker"),
+    GET_MAKE_MODELS(
+    	"SELECT * FROM Auto"),
     GET_MODELS_BY_MAKE(
         "SELECT model " +
         "FROM Auto " +

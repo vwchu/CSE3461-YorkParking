@@ -4,10 +4,14 @@ import app.Main;
 import app.helpers.*;
 import app.uitoolkit.*;
 import app.uitoolkit.keyboards.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 /**
  * This class provides a view that allowing users to 
@@ -23,9 +27,6 @@ public class ChangePINPage extends AbstractView {
 	private final InputField NEW_PIN_FIELD;		// Input Field for new PIN
 	private final InputField NEW_PIN2_FIELD;	// Input Field for confirming new PIN
 
-	// TODO: Check input of password fields to ensure
-	//       input is only numbers at 4 characters long.
-
 	public ChangePINPage() {
 		super("CHANGE_PIN", "Change PIN");
 		NumericKeyboard kb = new NumericKeyboard(null);
@@ -37,6 +38,21 @@ public class ChangePINPage extends AbstractView {
 					form.add(OLD_PIN_FIELD = new InputField(OLD_PIN,  "Old Pin", 40, 16, 500, false));
 					form.add(NEW_PIN_FIELD = new InputField(NEW_PIN,  "New Pin", 40, 16, 500, false));
 					form.add(NEW_PIN2_FIELD = new InputField(NEW_PIN2, "Retype New Pin", 40, 16, 500, false));
+					CaretListener cl = new CaretListener() {
+						@Override
+						public void caretUpdate(CaretEvent e) {
+							JPasswordField pf = (JPasswordField)e.getSource();
+							String text = new String(pf.getPassword());
+							try {
+								if (text.length() > 4) {
+									pf.setText(text.substring(0, 4));
+								}
+							} catch (Exception exe) {}
+						}
+					};
+					OLD_PIN.addCaretListener(cl);
+					NEW_PIN.addCaretListener(cl);
+					NEW_PIN2.addCaretListener(cl);
 				inner.add(form);
 				inner.add(kb);
 		add(UIToolbox.box(main, inner), BorderLayout.CENTER);
@@ -72,22 +88,26 @@ public class ChangePINPage extends AbstractView {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton button = (JButton)e.getSource();
-		String name = button.getName();
-		
+		String name = button.getName();		
 		if (name.equals("SUBMIT")) {
-			// TODO: Format check needed
-			boolean ok = Main.USER.changePIN(
-				Integer.parseInt(new String(OLD_PIN.getPassword())),
-				Integer.parseInt(new String(NEW_PIN.getPassword())),
-				Integer.parseInt(new String(NEW_PIN2.getPassword())));
-			if (ok) {
-				MultiPanel.SELF.show("USER");
-			} else {
-				OLD_PIN.setText(""); OLD_PIN_FIELD.showError(true);
-				NEW_PIN.setText(""); NEW_PIN_FIELD.showError(true);
-				NEW_PIN2.setText(""); NEW_PIN2_FIELD.showError(true);
-				OLD_PIN.requestFocusInWindow();
-			}
+			int oldPIN = 0, newPIN = 0, newPIN2 = 0;
+			try {
+				try {oldPIN = Integer.parseInt(new String(OLD_PIN.getPassword()));}
+					catch (Exception ex) {OLD_PIN_FIELD.showError(true); throw ex;}
+				try {newPIN = Integer.parseInt(new String(NEW_PIN.getPassword()));}
+					catch (Exception ex) {NEW_PIN_FIELD.showError(true); throw ex;}
+				try {newPIN2 = Integer.parseInt(new String(NEW_PIN2.getPassword()));}
+					catch (Exception ex) {NEW_PIN2_FIELD.showError(true); throw ex;}
+				boolean ok = Main.USER.changePIN(oldPIN, newPIN, newPIN2);
+				if (ok) {
+					MultiPanel.SELF.show("USER");
+				} else {
+					OLD_PIN.setText(""); OLD_PIN_FIELD.showError(true);
+					NEW_PIN.setText(""); NEW_PIN_FIELD.showError(true);
+					NEW_PIN2.setText(""); NEW_PIN2_FIELD.showError(true);
+					OLD_PIN.requestFocusInWindow();
+				}
+			} catch (Exception ex) {}
 		} else if (name.equals("BACK")) {			
 			MultiPanel.SELF.show("USER");
 		} else {

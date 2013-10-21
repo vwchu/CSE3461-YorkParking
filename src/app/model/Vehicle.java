@@ -11,21 +11,23 @@ public class Vehicle {
 	private String plate, make, model, insurer, policy;
 	private int year;
 	private Date expiry;
+	private final boolean inDatabase;
 
 	/**
 	 * Construct a new vehicle object.
-	 * 
-	 * @param owner		user who owns the vehicle
-	 * @param plate		the license plate
-	 * @param make		the manufacturer
-	 * @param model		the car model
-	 * @param year		model year
-	 * @param insurer	the insurance company
-	 * @param policy	the insurance policy
-	 * @param expiry	the expiry date of insurance
+	 * 	
+	 * @param owner			user who owns the vehicle
+	 * @param plate			the license plate
+	 * @param make			the manufacturer
+	 * @param model			the car model
+	 * @param year			model year
+	 * @param insurer		the insurance company
+	 * @param policy		the insurance policy
+	 * @param expiry		the expiry date of insurance
+	 * @param inDatabase	whether the vehicle is in the database
 	 */
 	public Vehicle(User user, String plate, String make, String model, int year,
-			String insurer, String policy, Date expiry) {
+			String insurer, String policy, Date expiry, boolean inDatabase) {
 		this.owner = user;
 		this.plate = plate;
 		this.make = make;
@@ -34,6 +36,10 @@ public class Vehicle {
 		this.insurer = insurer;
 		this.policy = policy;
 		this.expiry = expiry;
+		this.inDatabase = inDatabase;
+	}
+	public Vehicle(User user) {
+		this(user, null, null, null, -1, null, null, null, false);
 	}
 
 	// Getters
@@ -46,8 +52,23 @@ public class Vehicle {
 	public String getInsurer() {return insurer;}
 	public String getPolicy() {return policy;}
 	public Date   getExpiry() {return expiry;}
+	public boolean isInDatabase() {return inDatabase;}
 
 	// Setters
+
+	/**
+	 * Set the car make and model.
+	 * 
+	 * @param makeModel		the manufacturer and the car model
+	 * @param year			model year
+	 */
+	public void setMakeModel(MakeModel makeModel, int year) {
+		if (!isInDatabase()) {
+			this.make = makeModel.MAKE;
+			this.model = makeModel.MODEL;
+			this.year = year;
+		}
+	}	
 
 	/**
 	 * Update the vehicle's license plate.
@@ -57,7 +78,7 @@ public class Vehicle {
 	 * 					otherwise false.
 	 */
 	public boolean setPlate(String plate) {
-		boolean success = DBManager.SELF.updateVehicle(this, "PLATE", plate);
+		boolean success = !isInDatabase() || DBManager.SELF.updateVehicle(this, "PLATE", plate);
 		this.plate = plate;
 		return success;
 	}
@@ -75,7 +96,16 @@ public class Vehicle {
 		this.insurer = insurer;
 		this.policy = policy;
 		this.expiry = expiry;
-		return DBManager.SELF.updateVehicle(this, "INSURANCE");
+		return !isInDatabase() || DBManager.SELF.updateVehicle(this, "INSURANCE");
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other == null) {return false;}
+		if (other.getClass().getName() == this.getClass().getName()) {
+			Vehicle v = (Vehicle)other;
+			return getPlate().equals(v.getPlate());
+		}
+		return false;
+	}
 }

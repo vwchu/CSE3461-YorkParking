@@ -8,6 +8,7 @@ import app.uitoolkit.keyboards.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
 /**
  * This class provides a view that allows users
@@ -20,11 +21,8 @@ public class LoginPage extends AbstractView {
 	private final InputField USER_FIELD;	// input field for user student ID
 	private final InputField PIN_FIELD;		// input filed for user PIN
 
-	// TODO: Setup timeout after idling for one minute and switch welcome screen.
-	// TODO: Check input of fields to ensure input is only numbers
-	//       and 9 characters long for user ID
-	//       and 4 characters long for PIN.
-
+	// TODO: Set timeout
+	
 	public LoginPage() {
 		super("LOGIN", "Login");
 		NumericKeyboard kb = new NumericKeyboard(null);
@@ -33,8 +31,32 @@ public class LoginPage extends AbstractView {
 			JPanel inner = new JPanel();
 				inner.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 0));
 				JPanel form = new JPanel(new GridLayout(2, 1));
-					form.add(USER_FIELD = new InputField(USER = new JTextField(), "Student ID", 60, 16, 500, false));
-					form.add(PIN_FIELD = new InputField(PIN = new JPasswordField(), "Pin", 60, 16, 500, false));
+				USER = new JTextField();
+					USER.addCaretListener(new CaretListener() {
+						@Override
+						public void caretUpdate(CaretEvent e) {
+							String text = USER.getText();
+							try {
+								if (text.length() > 9) {
+									USER.setText(text.substring(0, 9));
+								}
+							} catch (Exception exe) {}
+						}
+					});
+				PIN = new JPasswordField();
+					PIN.addCaretListener(new CaretListener() {
+						@Override
+						public void caretUpdate(CaretEvent e) {
+							String text = new String(PIN.getPassword());
+							try {
+								if (text.length() > 4) {
+									PIN.setText(text.substring(0, 4));
+								}
+							} catch (Exception exe) {}
+						}
+					});
+					form.add(USER_FIELD = new InputField(USER, "Student ID", 60, 16, 500, false));
+					form.add(PIN_FIELD = new InputField(PIN, "Pin", 60, 16, 500, false));
 				inner.add(form);
 				inner.add(kb);
 		add(UIToolbox.box(main, inner), BorderLayout.CENTER);
@@ -45,38 +67,49 @@ public class LoginPage extends AbstractView {
 		USER.addFocusListener(kb);
 		PIN.addFocusListener(kb);
 	}
-
+	
 	@Override
 	public boolean prepareView(Object... args) {
 		USER.setText(""); USER_FIELD.showError(false);
 		PIN.setText(""); PIN_FIELD.showError(false);
 		USER.requestFocusInWindow();
-		return false; // Unless
-	}	
+		return false;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton button = (JButton)e.getSource();
 		String name = button.getName();
+		long id = 0;
+		int pin = 0;
 		if (name == "ENTER") {
-			// TODO: Format check needed
-			long id = Integer.parseInt(USER.getText());
-			int pin = Integer.parseInt(new String(PIN.getPassword()));
-			if ((Main.USER = DBManager.SELF.getUser(id, pin)) != null) {
-				System.out.println("LOGGED IN AS: " + Main.USER.getID());
-				MultiPanel.SELF.show("HOME");
-			} else {
-				System.out.println("LOGIN ATTEMPT FAILED");
-				USER_FIELD.showError(true);
-				PIN_FIELD.showError(true);
-				PIN.setText("");
-				if (!DBManager.SELF.userExists(id)) {
-					USER.setText("");
-					USER.requestFocusInWindow();
-				} else {
-					PIN.requestFocusInWindow();
+			try {
+				String username = USER.getText();
+				if (!username.isEmpty() && username.length() == 9) {
+					try {id = Integer.parseInt(USER.getText());}
+					catch (Exception ex) {USER_FIELD.showError(true); throw ex;} 
 				}
-			}
+				String password = new String(PIN.getPassword());
+				if (!password.isEmpty() && password.length() == 4) {
+					try {pin = Integer.parseInt(new String(PIN.getPassword()));}
+					catch (Exception ex) {USER_FIELD.showError(true); throw ex;} 
+				}	
+				if ((Main.USER = DBManager.SELF.getUser(id, pin)) != null) {
+					System.out.println("LOGGED IN AS: " + Main.USER.getID());
+					MultiPanel.SELF.show("HOME");
+				} else {
+					System.out.println("LOGIN ATTEMPT FAILED");
+					USER_FIELD.showError(true);
+					PIN_FIELD.showError(true);
+					PIN.setText("");
+					if (!DBManager.SELF.userExists(id)) {
+						USER.setText("");
+						USER.requestFocusInWindow();
+					} else {
+						PIN.requestFocusInWindow();
+					}
+				}
+			} catch (Exception ex) {}
 		}
 	}
 }

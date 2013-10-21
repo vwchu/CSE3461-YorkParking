@@ -1,9 +1,13 @@
 package app.helpers;
 
 import app.views.*;
+
 import java.awt.*;
 import java.util.*;
+
 import javax.swing.*;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 /**
  * This class facilitate switching between views (pages)
@@ -65,7 +69,7 @@ public class MultiPanel extends CardLayout {
 	 */
 	public boolean show(String name, Object... args) {
 		if (parent != null && VIEWS.containsKey(name)) {
-			System.out.println("SHOW VIEW: " + name);
+			System.out.println("SHOW VIEW: " + name + " :: " + Arrays.toString(args));
 			show(parent.getContentPane(), name);
 			VIEWS.get(name).prepareView(args);
 			return true;

@@ -16,6 +16,7 @@ public class SubscriptionPage extends AbstractView {
 	private final SquareButton UNSUBSCRIBE;				// Unsubscribe from email
 	private final InputField EMAIL_FIELD;               // Input field for user's email address
 	private final HorizontalButton SUBMIT;				// the submit button
+	private Permit PERMIT = null;
 
 	public SubscriptionPage() {
 		super("SUBSCRIPTION", "Subscription");
@@ -60,6 +61,11 @@ public class SubscriptionPage extends AbstractView {
 			EMAIL.setText(null);
 			SUBMIT.setText(SUBMIT.getText().replace("Submit", "Subscribe"));
 		}
+		if (args.length >= 1 && Main.USER.isFirstTime()) {
+			PERMIT = (Permit)args[0];
+		} else {
+			PERMIT = null;
+		}
 		EMAIL.requestFocusInWindow();
 		return true;
 	}
@@ -74,7 +80,11 @@ public class SubscriptionPage extends AbstractView {
 				EMAIL_FIELD.showError(true);
 			} else {
 				Main.USER.setEmail(email.isEmpty() ? null : email);
-				MultiPanel.SELF.show("HOME");
+				if (PERMIT != null) {
+					MultiPanel.SELF.show("PAY_NOW", PERMIT);
+				} else {
+					MultiPanel.SELF.show("HOME");
+				}
 			}
 		} else if (name == "UNSUBSCRIBE") {
 			Main.USER.setEmail(null);

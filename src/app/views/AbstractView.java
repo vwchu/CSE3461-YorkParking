@@ -9,17 +9,17 @@ import javax.swing.*;
 
 /**
  * Abstract implementation of a view (page) in the application.
- * Facilitates action listeners for button actions. 
+ * Facilitates action listeners for button actions.
  */
 public abstract class AbstractView extends JPanel implements ActionListener {
 
-	private final TitlePane TITLE = new TitlePane(); // Reference to title panel
+	protected final TitlePane TITLE = new TitlePane(); // Reference to title panel
 
 	/**
 	 * Constructs a new view.
 	 * Sets the title and add itself to the multi-panel controller.
-	 * 
-	 * @param tp		reference to the shared title pane 
+	 *
+	 * @param tp		reference to the shared title pane
 	 * @param name		the lookup name associated with the view
 	 * @param text		the title text
 	 */
@@ -36,13 +36,13 @@ public abstract class AbstractView extends JPanel implements ActionListener {
 	 * Prepare the view for displaying.
 	 * Invoked by MultiPanel.show before view is displayed.
 	 *
-	 * @param args		arguments needed to prepare the view 
+	 * @param args		arguments needed to prepare the view
 	 * @return 			true if logged in, otherwise false.
 	 */
 	public boolean prepareView(Object... args) {
 		if (Main.USER == null) {
-			//MultiPanel.SELF.show("WELCOME");
-			MultiPanel.SELF.show("LOGIN");
+			MultiPanel.SELF.show("WELCOME");
+			//MultiPanel.SELF.show("LOGIN");
 			return false;
 		}
 		TITLE.setUserTag(Main.USER);
@@ -57,8 +57,8 @@ public abstract class AbstractView extends JPanel implements ActionListener {
 			if (Main.USER.logout()) {
 				System.out.println("LOGOUT: " + Main.USER.getID());
 				Main.USER = null;
-				//MultiPanel.SELF.show("WELCOME");
-				MultiPanel.SELF.show("LOGIN");
+				MultiPanel.SELF.show("WELCOME");
+				//MultiPanel.SELF.show("LOGIN");
 			}
 		} else {
 			MultiPanel.SELF.show(name);

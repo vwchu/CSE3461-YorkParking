@@ -103,7 +103,7 @@ public class User {
      * @return			the amount of change.
      */
     public double payFines(double payment) {
-    	if (payment >= 0) {
+    	if (payment < 0) {
     		throw new RuntimeException("Payment must be non-negative.");
     	}
     	double change;

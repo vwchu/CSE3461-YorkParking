@@ -141,7 +141,8 @@ public class DBManager {
             		rs.getInt("year"),
             		rs.getString("insurer"),
             		rs.getString("policy"),
-            		rs.getDate("expiry")
+            		rs.getDate("expiry"),
+            		true
             	));
             }
         } catch (Exception e) {
@@ -172,11 +173,13 @@ public class DBManager {
                 		rs.getInt("year"),
                 		rs.getString("insurer"),
                 		rs.getString("policy"),
-                		rs.getDate("expiry")
+                		rs.getDate("expiry"),
+                		true
                 	),
             		rs.getDate("start"),
             		rs.getDate("end"),
-            		rs.getDate("issued")
+            		rs.getDate("issued"),
+            		true
             	));
             }
         } catch (Exception e) {
@@ -249,20 +252,39 @@ public class DBManager {
      * @param make		the car manufacturer
      * @return 			a list of the car models for given automaker.
      */
-    public List<String> getModelsByMake(String make) {
-    	List<String> models = new ArrayList<String>();
+    public List<MakeModel> getModelsByMake(String make) {
+    	List<MakeModel> models = new ArrayList<MakeModel>();
     	try {
     		PreparedStatement pstmt = SQL.GET_MODELS_BY_MAKE.prepareStatement(connection);
     			pstmt.setString(1, make);
     		ResultSet rs = pstmt.executeQuery();
     		while (rs.next()) {
-    			models.add(rs.getString(1));
+    			models.add(new MakeModel(make, rs.getString(1)));
     		}
     	} catch (Exception e) {
         	error(e);
         }
     	return models;
     }
+
+    /**
+     * Retrieves a list of all the makes and models.
+     * 
+     * @return a list of all the makes and models.
+     */
+    public List<MakeModel> getMakeModels() {
+    	List<MakeModel> automakers = new ArrayList<MakeModel>();
+    	try {
+    		PreparedStatement pstmt = SQL.GET_MAKE_MODELS.prepareStatement(connection);
+    		ResultSet rs = pstmt.executeQuery();
+    		while (rs.next()) {
+    			automakers.add(new MakeModel(rs.getString(1), rs.getString(2)));
+    		}
+    	} catch (Exception e) {
+        	error(e);
+        }
+    	return automakers;
+    }  
 
     /**
      * Get the current Date. 
@@ -324,7 +346,8 @@ public class DBManager {
 	    		pstmt.setString(6, vehicle.getInsurer());
 	    		pstmt.setString(7, vehicle.getPolicy());
 	    		pstmt.setDate(8, vehicle.getExpiry());
-    		return pstmt.executeUpdate() == 1;
+	    		pstmt.executeUpdate();
+	    	return true;
     	} catch (Exception e) {
         	error(e);
         }
@@ -339,12 +362,13 @@ public class DBManager {
      */
     public boolean addPermit(Permit permit) {
     	try {
-    		PreparedStatement pstmt = SQL.ADD_VEHICLE.prepareStatement(connection);
+    		PreparedStatement pstmt = SQL.ADD_PERMIT.prepareStatement(connection);
     			pstmt.setLong(1, permit.getVehicle().getOwner().getID());
     			pstmt.setString(2, permit.getVehicle().getPlate());
     			pstmt.setDate(3, permit.getStartDate());
     			pstmt.setInt(4, permit.getDaysLeft());
-    		return pstmt.executeUpdate() == 1;
+    			pstmt.executeUpdate();
+    		return true;
     	} catch (Exception e) {
         	error(e);
         }
@@ -376,7 +400,7 @@ public class DBManager {
 	            pstmt.setLong(3, user.getID());
 	            pstmt.setString(1, user.getFirstName());
 	            pstmt.setString(2, user.getSurName());
-            } else if (op.equals("FINE")) {
+            } else if (op.equals("FINES")) {
             	pstmt = SQL.SET_USER_FINES.prepareStatement(connection);
 	            pstmt.setLong(2, user.getID());
 	            pstmt.setDouble(1, user.getFines());
@@ -396,7 +420,7 @@ public class DBManager {
             	pstmt.setInt(3, ((Integer)args[0]).intValue());
             	pstmt.setInt(1, ((Integer)args[1]).intValue());
             }
-            return pstmt.executeUpdate() == 1;            
+            return pstmt.executeUpdate() == 1;
         } catch (Exception e) {
         	error(e);
         }

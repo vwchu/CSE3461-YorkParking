@@ -38,7 +38,7 @@ public class UITheme {
 		    // TODO: Configure theming colors. UIManager.put(property, new Color(...));
 		    // {@see http://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/_nimbusDefaults.html}
 
-
+		    
 
 		} catch (Exception e) {}
 	}

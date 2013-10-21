@@ -4,10 +4,12 @@ import app.Main;
 import app.helpers.*;
 import app.model.*;
 import app.uitoolkit.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.util.List;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
@@ -30,7 +32,7 @@ public class VehiclesPage extends AbstractView {
 				CAR_LIST = new JList<Vehicle>();
 					final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					CAR_LIST.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-					CAR_LIST.setLayoutOrientation(JList.VERTICAL_WRAP);
+					CAR_LIST.setLayoutOrientation(JList.VERTICAL);
 					CAR_LIST.setVisibleRowCount(-1);
 					CAR_LIST.setBorder(new LineBorder(Color.LIGHT_GRAY));
 					CAR_LIST.setOpaque(false);
@@ -61,9 +63,10 @@ public class VehiclesPage extends AbstractView {
 							EXPIRY_DATE.setText(dateFormat.format(vehicle.getExpiry()));							
 						}
 					});
-					new JScrollPane(CAR_LIST);
-					UIToolbox.setSize(CAR_LIST, new Dimension(300, 535));
-				inner.add(CAR_LIST);
+					JScrollPane carScroller = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+					carScroller.setViewportView(CAR_LIST);
+					UIToolbox.setSize(carScroller, new Dimension(300, 535));
+				inner.add(carScroller);
 				JPanel detailsPane = new JPanel(new BorderLayout());
 					detailsPane.setBorder(new LineBorder(Color.LIGHT_GRAY));
 					final int PADDING = 10;
@@ -82,6 +85,7 @@ public class VehiclesPage extends AbstractView {
 						controls.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
 						controls.add(new HorizontalButton("DELETE", "TRASH", "Delete", this, true));
 						controls.add(new HorizontalButton("EDIT", "EDIT", "Edit", this, true));
+						controls.add(new HorizontalButton("CREATE", "CAR", "New", this, 150, true));
 					detailsPane.add(controls, BorderLayout.SOUTH);
 				inner.add(detailsPane);
 			MAIN.add(DETAILS = UIToolbox.box(new JPanel(new GridBagLayout()), inner));
@@ -128,7 +132,17 @@ public class VehiclesPage extends AbstractView {
 			CAR_LIST.clearSelection();
 			CAR_LIST.setListData(vehicles.toArray(new Vehicle[vehicles.size()]));
 			CAR_LIST.requestFocusInWindow();
-			CAR_LIST.setSelectedIndex(0);
+			if (args.length >= 1) {
+				Vehicle vehicle = (Vehicle)args[0];
+				for (Vehicle v : vehicles) {
+					if (v.equals(vehicle)) {
+						CAR_LIST.setSelectedValue(v, true);
+					}
+				}
+			}
+			if (CAR_LIST.isSelectionEmpty()){
+				CAR_LIST.setSelectedIndex(0);
+			}
 		}
 		return true;
 	}
@@ -138,7 +152,9 @@ public class VehiclesPage extends AbstractView {
 		JButton button = (JButton)e.getSource();
 		String name = button.getName();
 		if (name == "EDIT") {			
-			MultiPanel.SELF.show("EDIT_VEHICLE", CAR_LIST.getSelectedValue());		
+			MultiPanel.SELF.show("EDIT_VEHICLE", CAR_LIST.getSelectedValue());
+		} else if (name == "CREATE") {			
+				MultiPanel.SELF.show("CREATE_VEHICLE", new Vehicle(Main.USER), false);
 		} else if (name == "DELETE") {
 			DBManager.SELF.deleteVehicle(CAR_LIST.getSelectedValue());
 			MultiPanel.SELF.show("VEHICLES");
