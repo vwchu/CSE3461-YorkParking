@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.*;
@@ -141,6 +140,10 @@ public class NewPermitPage extends AbstractView {
 		CAR_LIST.setListData(vehicles.toArray(new Vehicle[vehicles.size()]));
 		CAR_LIST.setSelectedIndex(0);
 		CAR_LIST.requestFocusInWindow();
+		if (CAR_LIST.getSelectedValue() == null) {
+			MultiPanel.SELF.show("CREATE_VEHICLE", new Vehicle(Main.USER));
+			return false;
+		}
 		// Get permit
 		if (args.length < 1) {
 			PERMIT = new Permit(CAR_LIST.getSelectedValue());
@@ -157,8 +160,10 @@ public class NewPermitPage extends AbstractView {
 			}
 		}
 		DAYS.setValue("" + PERMIT.getDaysLeft());
-		START_DATE.setText(PERMIT.getStartDate().toString());
-		EXPIRY_DATE.setText(PERMIT.getEndDate().toString());
+		if (PERMIT.getStartDate() != null) {
+			START_DATE.setText(PERMIT.getStartDate().toString());		
+			EXPIRY_DATE.setText(PERMIT.getEndDate().toString());
+		}
 		return true;
 	}
 

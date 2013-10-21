@@ -1,7 +1,6 @@
 package app.views;
 
 import app.helpers.*;
-import app.model.*;
 import app.uitoolkit.*;
 import java.awt.*;
 import java.awt.event.*;

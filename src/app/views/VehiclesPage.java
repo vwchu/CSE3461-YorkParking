@@ -90,13 +90,18 @@ public class VehiclesPage extends AbstractView {
 				inner.add(detailsPane);
 			MAIN.add(DETAILS = UIToolbox.box(new JPanel(new GridBagLayout()), inner));
 			DECK.addLayoutComponent(DETAILS, "DETAILS");
-			JPanel noVehicle = new JPanel();
-				noVehicle.add(new JLabel(UIToolbox.getHTML("/assets/htdocs/iconLabel.vertical.html")
-				    .replace("{ICON_SIZE}",  "200")
+			NO_VEHICLES = new JPanel(new GridLayout(1, 1));
+				JButton noVehicleButton = new JButton(UIToolbox.getHTML("/assets/htdocs/iconLabel.vertical.html")
+				    .replace("{ICON_SIZE}", "200")
 					.replace("{LABEL_SIZE}", "30")
-					.replace("{ICON}",       MyFont.ICONS.get("CAR"))
-					.replace("{LABEL}",      "You have no vehicles to view at this time.")));
-			MAIN.add(NO_VEHICLES = UIToolbox.box(new JPanel(new GridBagLayout()), noVehicle));
+					.replace("{ICON}", MyFont.ICONS.get("CAR"))
+					.replace("{LABEL}", "You have no vehicles to view at this time.<br/>Tap to create one."));
+				noVehicleButton.setName("NO_VEHICLES");
+				noVehicleButton.addActionListener(this);
+				noVehicleButton.setOpaque(false);
+				noVehicleButton.setContentAreaFilled(false);
+				NO_VEHICLES.add(noVehicleButton);
+			MAIN.add(NO_VEHICLES);
 			DECK.addLayoutComponent(NO_VEHICLES, "NO_VEHICLES");
 		add(MAIN, BorderLayout.CENTER);
 		JPanel nav = new JPanel(new BorderLayout());
@@ -127,6 +132,7 @@ public class VehiclesPage extends AbstractView {
 		List<Vehicle> vehicles = DBManager.SELF.getVehiclesByUser(Main.USER);
 		if (vehicles.isEmpty()) {
 			DECK.show(MAIN, "NO_VEHICLES");
+			return true;
 		} else {
 			DECK.show(MAIN, "DETAILS");
 			CAR_LIST.clearSelection();
@@ -153,7 +159,7 @@ public class VehiclesPage extends AbstractView {
 		String name = button.getName();
 		if (name == "EDIT") {			
 			MultiPanel.SELF.show("EDIT_VEHICLE", CAR_LIST.getSelectedValue());
-		} else if (name == "CREATE") {			
+		} else if (name == "CREATE" || name == "NO_VEHICLES") {			
 				MultiPanel.SELF.show("CREATE_VEHICLE", new Vehicle(Main.USER), false);
 		} else if (name == "DELETE") {
 			DBManager.SELF.deleteVehicle(CAR_LIST.getSelectedValue());
