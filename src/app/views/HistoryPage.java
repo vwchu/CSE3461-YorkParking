@@ -42,7 +42,17 @@ public class HistoryPage extends AbstractView {
 						public void valueChanged(ListSelectionEvent e) {
 							if (PERMITS.isSelectionEmpty()) {return;}
 							Permit permit = PERMITS.getSelectedValue();
-							// TODO
+							RECEIPT.setText(UIToolbox.getHTML("/assets/htdocs/permit.receipt.html")
+								.replace("{USER_ID}", "" + Main.USER.getID())
+								.replace("{FIRST_NAME}", Main.USER.getFirstName())
+								.replace("{SURNAME}", Main.USER.getSurName())
+								.replace("{LICENSE}", permit.getVehicle().getPlate())
+								.replace("{MAKE}", permit.getVehicle().getMake())
+								.replace("{MODEL}", permit.getVehicle().getModel())
+								.replace("{YEAR}", "" + permit.getVehicle().getModelYear())
+								.replace("{ISSUED_DATE}", permit.getIssueDate().toString())
+								.replace("{EXPIRY}", permit.getEndDate().toString())
+							);
 						}
 					});
 					JScrollPane permitScroller = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -51,8 +61,9 @@ public class HistoryPage extends AbstractView {
 				inner.add(permitScroller);
 				JPanel detailsPane = new JPanel(new BorderLayout());
 					detailsPane.setBorder(new LineBorder(Color.LIGHT_GRAY));
-					JPanel details = new JPanel(new GridLayout(1, 1));
-						RECEIPT.setBorder(new LineBorder(Color.LIGHT_GRAY));
+					JPanel details = new JPanel(new GridBagLayout());
+						details.setBorder(new LineBorder(Color.LIGHT_GRAY));
+						details.setBackground(Color.WHITE);
 						UIToolbox.setSize(RECEIPT, new Dimension(500, 535));
 						details.add(RECEIPT);
 					detailsPane.add(details, BorderLayout.CENTER);

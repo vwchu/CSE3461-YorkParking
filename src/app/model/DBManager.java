@@ -13,8 +13,8 @@ import java.util.*;
  */
 public class DBManager {
 
-	private static final String DB_ADDRESS = "jdbc:sqlite:src/assets/db/YorkParking.db"; // DEV-DB
-	//private static final String DB_ADDRESS = "jdbc:sqlite:YorkParking.db"; // PRODUCTION-DB // TODO
+	//private static final String DB_ADDRESS = "jdbc:sqlite:src/assets/db/YorkParking.db"; // DEV-DB
+	private static final String DB_ADDRESS = "jdbc:sqlite:YorkParking.db"; // PRODUCTION-DB
 	public static final DBManager SELF = new DBManager(DB_ADDRESS);
 	private Connection connection;
 
@@ -200,6 +200,44 @@ public class DBManager {
     	try {
             PreparedStatement pstmt = SQL.GET_PERMIT_EXPIRY_BY_VEHICLE.prepareStatement(connection);
             	pstmt.setString(1, vehicle.getPlate());
+            ResultSet rs = pstmt.executeQuery();
+            return rs.getDate(1);
+        } catch (Exception e) {
+        	error(e);
+        }
+    	return null;
+    }
+
+    /**
+     * Return the issued date of the given permit.
+     * 
+     * @param vehicle	the permit
+     * @return			the issued date
+     */
+    public Date getPermitIssuedDate(Permit permit) {
+    	try {
+            PreparedStatement pstmt = SQL.GET_PERMITS_ISSUED_DATE.prepareStatement(connection);
+            	pstmt.setString(1, permit.getVehicle().getPlate());
+            	pstmt.setDate(2, permit.getStartDate());
+            ResultSet rs = pstmt.executeQuery();
+            return rs.getDate(1);
+        } catch (Exception e) {
+        	error(e);
+        }
+    	return null;
+    }
+
+    /**
+     * Return the end date of the given permit.
+     * 
+     * @param vehicle	the permit
+     * @return			the end date
+     */
+    public Date getPermitEndDate(Permit permit) {
+    	try {
+            PreparedStatement pstmt = SQL.GET_PERMITS_END_DATE.prepareStatement(connection);
+            	pstmt.setString(1, permit.getVehicle().getPlate());
+            	pstmt.setDate(2, permit.getStartDate());
             ResultSet rs = pstmt.executeQuery();
             return rs.getDate(1);
         } catch (Exception e) {

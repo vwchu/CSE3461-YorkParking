@@ -42,7 +42,6 @@ public class PayNowPage extends AbstractView {
 							String amount = AMOUNT.getText();
 							try {
 								if (amount.isEmpty() || amount.charAt(0) != '$') {
-									AMOUNT.transferFocus();
 									AMOUNT.setText("$" + amount);
 								} else {
 									double amt = Double.parseDouble(AMOUNT.getText().substring(1));
@@ -111,11 +110,9 @@ public class PayNowPage extends AbstractView {
 		if (name == "DEFER" || name == "SUBMIT") {
 			if (name == "SUBMIT") {
 				Main.USER.payFines($AMOUNT - $CHANGE);
-				if (PERMIT != null) {
-					MultiPanel.SELF.show("RECEIPT", PERMIT);
-				} else {
-					MultiPanel.SELF.show("HOME");
-				}
+			}
+			if (PERMIT != null) {
+				MultiPanel.SELF.show("RECEIPT", PERMIT);
 			} else {
 				MultiPanel.SELF.show("HOME");
 			}

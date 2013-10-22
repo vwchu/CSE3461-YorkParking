@@ -6,11 +6,17 @@ import app.helpers.*;
 
 public class WelcomePage extends AbstractView {
 
+	/**
+	 * 
+	 */
 	public WelcomePage() {
 		super("WELCOME", null);
 		JButton start = new JButton();
-			start.setText("Tap to start"); // TODO
+			String image = this.getClass().getResource("/assets/images/logo.jpg").toString();
+			start.setText(UIToolbox.getHTML("/assets/htdocs/welcome.html")
+				.replace("{IMAGE}", image));
 			start.setOpaque(false);
+			start.setBorderPainted(false);
 			start.setContentAreaFilled(false);
 			start.addActionListener(this);
 		add(start);

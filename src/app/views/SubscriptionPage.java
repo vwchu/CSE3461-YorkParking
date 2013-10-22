@@ -5,8 +5,10 @@ import app.helpers.*;
 import app.model.*;
 import app.uitoolkit.*;
 import app.uitoolkit.keyboards.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -17,6 +19,8 @@ public class SubscriptionPage extends AbstractView {
 	private final InputField EMAIL_FIELD;               // Input field for user's email address
 	private final HorizontalButton SUBMIT;				// the submit button
 	private Permit PERMIT = null;
+	private final JPanel NAV;
+	private final CardLayout DECK;
 
 	public SubscriptionPage() {
 		super("SUBSCRIPTION", "Subscription");
@@ -33,7 +37,11 @@ public class SubscriptionPage extends AbstractView {
 			main.add(UIToolbox.box(new JPanel(new GridBagLayout()), inner), BorderLayout.CENTER);
 			main.add(kb, BorderLayout.SOUTH);
 		add(main, BorderLayout.CENTER);
-		JPanel nav = new JPanel(new BorderLayout());
+		NAV = new JPanel();
+		DECK = new CardLayout();
+		NAV.setLayout(DECK);
+		{
+			JPanel nav = new JPanel(new BorderLayout());
 			JPanel navLeft = new JPanel();
 				navLeft.add(new HorizontalButton("HOME", "HOME", "Home", this));
 			nav.add(navLeft, BorderLayout.WEST);
@@ -44,7 +52,26 @@ public class SubscriptionPage extends AbstractView {
 			JPanel navRight = new JPanel();
 				navRight.add(new HorizontalButton("EXIT", "EXIT", "Logout", this, true));
 			nav.add(navRight, BorderLayout.EAST);
-		add(nav, BorderLayout.SOUTH);
+			DECK.addLayoutComponent(nav, "NAV1");
+			NAV.add(nav);
+		}
+		{
+			JPanel nav = new JPanel(new BorderLayout());
+			JPanel navLeft = new JPanel();
+				navLeft.add(new HorizontalButton("HOME", "HOME", "Home", this));
+			nav.add(navLeft, BorderLayout.WEST);
+			JPanel navCenter = new JPanel(new GridLayout(1, 2));
+				navCenter.add(new HorizontalButton("SKIP", null, "Skip", this));
+				navCenter.add(new HorizontalButton("SUBMIT", null, "Subscribe", this));
+				navCenter.setBorder(new EmptyBorder(5, 5, 5, 5));
+			nav.add(navCenter, BorderLayout.CENTER);
+			JPanel navRight = new JPanel();
+				navRight.add(new HorizontalButton("EXIT", "EXIT", "Logout", this, true));
+			nav.add(navRight, BorderLayout.EAST);
+			DECK.addLayoutComponent(nav, "NAV2");
+			NAV.add(nav);
+		}
+		add(NAV, BorderLayout.SOUTH);
 		// attach event listeners
 		EMAIL.addFocusListener(kb);		
 	}
@@ -63,8 +90,10 @@ public class SubscriptionPage extends AbstractView {
 		}
 		if (args.length >= 1 && Main.USER.isFirstTime()) {
 			PERMIT = (Permit)args[0];
+			DECK.show(NAV, "NAV2");
 		} else {
 			PERMIT = null;
+			DECK.show(NAV, "NAV1");
 		}
 		EMAIL.requestFocusInWindow();
 		return true;
@@ -86,6 +115,8 @@ public class SubscriptionPage extends AbstractView {
 					MultiPanel.SELF.show("HOME");
 				}
 			}
+		} else if (name == "SKIP") {
+			MultiPanel.SELF.show("PAY_NOW", PERMIT);
 		} else if (name == "UNSUBSCRIBE") {
 			Main.USER.setEmail(null);
 			MultiPanel.SELF.show("HOME");

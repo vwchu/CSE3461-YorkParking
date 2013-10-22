@@ -67,7 +67,7 @@ public class LoginPage extends AbstractView {
 		USER.addFocusListener(kb);
 		PIN.addFocusListener(kb);
 	}
-	
+
 	@Override
 	public boolean prepareView(Object... args) {
 		USER.setText(""); USER_FIELD.showError(false);
@@ -93,7 +93,7 @@ public class LoginPage extends AbstractView {
 				if (!password.isEmpty() && password.length() == 4) {
 					try {pin = Integer.parseInt(new String(PIN.getPassword()));}
 					catch (Exception ex) {USER_FIELD.showError(true); throw ex;} 
-				}	
+				}
 				if ((Main.USER = DBManager.SELF.getUser(id, pin)) != null) {
 					System.out.println("LOGGED IN AS: " + Main.USER.getID());
 					MultiPanel.SELF.show("HOME");

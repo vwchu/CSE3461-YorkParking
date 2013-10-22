@@ -34,7 +34,8 @@ enum SQL {
 			"DATETIME(P.expiry) AS end, " +
 			"DATETIME(issued) AS issued " +
         "FROM Permit P, Vehicle V " +
-        "WHERE owner = ? AND P.vehicle = V.plate"),
+        "WHERE owner = ? AND P.vehicle = V.plate " +
+        "ORDER BY expiry DESC, plate"),
 	GET_PERMIT_EXPIRY_BY_VEHICLE(
         "SELECT MAX(expiry) " +
       	    "FROM Permit " +
@@ -55,6 +56,14 @@ enum SQL {
         "SELECT DATETIME('now')"),
     COMPUTE_EXPIRY_DATE(
     	"SELECT DATETIME(JULIANDAY(?) + ?)"),
+	GET_PERMITS_ISSUED_DATE(
+		"SELECT DATETIME(issued) AS issued " +
+        "FROM Permit P " +
+        "WHERE vehicle = ? AND start = DATETIME(? / 1000, 'unixepoch')"),
+	GET_PERMITS_END_DATE(
+		"SELECT DATETIME(expiry) AS expiry " +
+		"FROM Permit P " +
+		"WHERE vehicle = ? AND start = DATETIME(? / 1000, 'unixepoch')"),
 
     // ----- Add Entries -----
     //ADD_USER(

@@ -22,13 +22,14 @@ public class AlphaNumericKeyboard extends Keyboard {
 	/**
 	 * Create and layout the alphabetic (QWERTY) keyboard with
 	 * a numeric (number pad) keyboard.
-	 * 
-	 * @param field text input
+	 *
+	 * @param field        text input
+     * @param showDecimal  flag to show decimal point on number pad.
 	 */
-	public AlphaNumericKeyboard(JTextField field) {
+	public AlphaNumericKeyboard(JTextField field, boolean showDecimal) {
 		super(field);
         AK = new AlphabeticKeyboard(field);
-        NK = new NumericKeyboard(field, false, true);
+        NK = new NumericKeyboard(field, false, showDecimal);
         JPanel inner = new JPanel();
             inner.add(AK);
             	AK.setBorder(null);
@@ -52,10 +53,13 @@ public class AlphaNumericKeyboard extends Keyboard {
             ab.addActionListener(this);
         }
     } // AlphaNumericKeyboard
+    public AlphaNumericKeyboard(JTextField field) {
+        this(field, true);
+    }
 
     /**
      * Associates the text input with the keyboard.
-     *  
+     *
      * @param field 	text input to link to the keyboard.
      */
 	@Override
@@ -71,18 +75,18 @@ public class AlphaNumericKeyboard extends Keyboard {
 
     /**
      * Enables or disables the symbol keys on the keyboard.
-     * 
+     *
      * @param enable the symbol keys if true, else disable them.
      */
 	@Override
     public void setSymbolsEnabled(boolean enable) {
     	AK.setSymbolsEnabled(enable);
-    }	
+    }
 
     /**
      * Invoked when an action occurs.
      * Use the alphabetic keyboard's.
-     * 
+     *
      * @param event		the event object.
      */
 	@Override
@@ -92,7 +96,7 @@ public class AlphaNumericKeyboard extends Keyboard {
 
     // FOR TESTING PURPOSES ONLY
 
-    public static void main(String[] args) throws Exception {   
+    public static void main(String[] args) throws Exception {
     	UITheme.setLookAndFeel();
     	JFrame frame = new JFrame();
         frame.setLayout(new java.awt.GridLayout(2, 1));

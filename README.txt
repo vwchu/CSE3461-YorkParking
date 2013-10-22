@@ -1,3 +1,9 @@
+========================================
+YorkParking.app
+Alpha 0.1
+2013-10-22
+========================================
+
 cse13261, 211898400, Chu, Vincent
 cse21044, 207382468, Patel, Simitkumar
 cse13021, 210998565, Mangaru, David
@@ -10,6 +16,10 @@ Special Requirements: (optional)
 Our program assumes that the user only uses the on screen keyboard and 
 the numberpad provided by us and not the physical keyboard
 
+To run the application, place YorkParking.jar and YorkParking.db in the same
+directory. Then, from the terminal, run the command: java -jar YorkParking.jar
+
+You can find the source embedded within the YorkParking.jar.
 
 -------
 Design:
@@ -103,4 +113,23 @@ Simit:
 GUI Implementation, GUI Functionality
 
 David:
-GUI Implementation
+GUI Implementation, Documentation
+
+-----------------
+Technical Issues:
+-----------------
+
+Following are some of the key issues that delayed the submission of the 
+assignment. However, they have been fixed now.
+
+- We wanted to limit the number of characters that user can type in for 
+student number to 9 and PIN to 4. For that, we used the text formatting, 
+which did not work properly and crashed on us during testing phase.
+- We implemented GUI using modular approach, which was working fine when 
+used with individual screen but was breaking when put together for the 
+overall GUI.
+- We also had problem with keeping track of session between different 
+screens of the GUI for our overall multi-panel design.
+- Last, we faced some technical difficulties while trying to deploy the 
+project on prism computers. Server was responding very slowly and Eclipse 
+IDE was taking very long time to import the project.

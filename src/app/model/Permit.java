@@ -44,8 +44,18 @@ public class Permit {
 
 	public Vehicle getVehicle() {return vehicle;}
 	public Date getStartDate() {return startDate;}
-	public Date getEndDate() {return endDate;}
-	public Date getIssueDate() {return issueDate;}
+	public Date getEndDate() {
+		if (endDate == null) {
+			endDate = DBManager.SELF.getPermitEndDate(this);
+		}
+		return endDate;
+	}
+	public Date getIssueDate() {
+		if (issueDate == null) {
+			issueDate = DBManager.SELF.getPermitIssuedDate(this);
+		}
+		return issueDate;
+	}
 	public int getDaysLeft() {return days;}
 	public boolean isInDatabase() {return inDatabase;}
 

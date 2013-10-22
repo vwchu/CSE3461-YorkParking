@@ -21,7 +21,7 @@ public class LicensePage extends AbstractView {
 
 	public LicensePage() {
 		super("LICENSE", "Create Vehicle: 2 of 3");
-		AlphabeticKeyboard kb = new AlphabeticKeyboard(null);
+		AlphaNumericKeyboard kb = new AlphaNumericKeyboard(null, false);
 			kb.setSymbolsEnabled(false);
 		JPanel main = new JPanel(new BorderLayout());
 			JPanel inner = new JPanel(new FlowLayout(FlowLayout.LEFT, 50, 0));

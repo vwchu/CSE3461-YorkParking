@@ -1,9 +1,13 @@
 package app.views;
 
+import app.Main;
 import app.helpers.*;
+import app.model.*;
 import app.uitoolkit.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -20,6 +24,7 @@ public class ReceiptPage extends AbstractView {
 					JPanel details = new JPanel(new GridLayout(1, 1));
 						RECEIPT.setBorder(new LineBorder(Color.LIGHT_GRAY));
 						UIToolbox.setSize(RECEIPT, new Dimension(500, 535));
+						details.setBackground(Color.WHITE);
 						details.add(RECEIPT);
 					detailsPane.add(details, BorderLayout.CENTER);
 				inner.add(detailsPane);
@@ -42,7 +47,20 @@ public class ReceiptPage extends AbstractView {
 	@Override
 	public boolean prepareView(Object... args) {
 		if (!super.prepareView(args)) {return false;}
-		// TODO
+		if (args.length >= 1) {
+			Permit permit = (Permit)args[0];
+			RECEIPT.setText(UIToolbox.getHTML("/assets/htdocs/permit.receipt.html")
+					.replace("{USER_ID}", "" + Main.USER.getID())
+					.replace("{FIRST_NAME}", Main.USER.getFirstName())
+					.replace("{SURNAME}", Main.USER.getSurName())
+					.replace("{LICENSE}", permit.getVehicle().getPlate())
+					.replace("{MAKE}", permit.getVehicle().getMake())
+					.replace("{MODEL}", permit.getVehicle().getModel())
+					.replace("{YEAR}", "" + permit.getVehicle().getModelYear())
+					.replace("{ISSUED_DATE}", permit.getIssueDate().toString())
+					.replace("{EXPIRY}", permit.getEndDate().toString())
+				);
+		}
 		return true;
 	}
 

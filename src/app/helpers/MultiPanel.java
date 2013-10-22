@@ -1,13 +1,9 @@
 package app.helpers;
 
 import app.views.*;
-
 import java.awt.*;
 import java.util.*;
-
 import javax.swing.*;
-
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 /**
  * This class facilitate switching between views (pages)
