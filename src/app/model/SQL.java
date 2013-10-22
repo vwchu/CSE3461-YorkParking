@@ -37,9 +37,9 @@ enum SQL {
         "WHERE owner = ? AND P.vehicle = V.plate " +
         "ORDER BY expiry DESC, plate"),
 	GET_PERMIT_EXPIRY_BY_VEHICLE(
-        "SELECT MAX(expiry) " +
+        "SELECT DATETIME(MAX(expiry)) " +
       	    "FROM Permit " +
-            "WHERE vehicle = ? "),
+            "WHERE vehicle = ?"),
     GET_INSURERS(
     	"SELECT * " +
     	"FROM Insurer"),

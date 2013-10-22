@@ -13,8 +13,7 @@ import java.util.*;
  */
 public class DBManager {
 
-	//private static final String DB_ADDRESS = "jdbc:sqlite:src/assets/db/YorkParking.db"; // DEV-DB
-	private static final String DB_ADDRESS = "jdbc:sqlite:YorkParking.db"; // PRODUCTION-DB
+	private static final String DB_ADDRESS = "jdbc:sqlite:YorkParking.db";
 	public static final DBManager SELF = new DBManager(DB_ADDRESS);
 	private Connection connection;
 

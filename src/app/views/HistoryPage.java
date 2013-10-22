@@ -87,6 +87,7 @@ public class HistoryPage extends AbstractView {
 	@Override
 	public boolean prepareView(Object... args) {
 		if (!super.prepareView(args)) {return false;}
+		RECEIPT.setText(null);
 		List<Permit> permits = DBManager.SELF.getPermitsByUser(Main.USER);
 		PERMITS.clearSelection();
 		PERMITS.setListData(permits.toArray(new Permit[permits.size()]));

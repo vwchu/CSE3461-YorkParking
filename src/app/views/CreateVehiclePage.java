@@ -27,10 +27,6 @@ public class CreateVehiclePage extends AbstractView {
 			JPanel leftCenter = new JPanel();
 				leftCenter.setLayout(new BoxLayout(leftCenter, BoxLayout.PAGE_AXIS));
 				leftCenter.setAlignmentX(LEFT_ALIGNMENT);
-//				JLabel makeLabel = new JLabel("Make");
-//					makeLabel.setHorizontalTextPosition(SwingConstants.LEADING);
-//					makeLabel.setFont(MyFont.SEMIBOLD_FONT.deriveFont(20f));
-//				leftCenter.add(makeLabel);
 				MAKE.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 				MAKE.setLayoutOrientation(JList.VERTICAL);
 				MAKE.setBorder(new LineBorder(Color.LIGHT_GRAY));
@@ -61,17 +57,13 @@ public class CreateVehiclePage extends AbstractView {
 				makeScroller.setViewportView(MAKE);
 				UIToolbox.setSize(makeScroller, new Dimension(300, 300));
 				leftCenter.add(makeScroller);				
-				UIToolbox.fillYearSpinner(YEAR, 1900, Calendar.getInstance().get(Calendar.YEAR) - 1900 + 2);
+				UIToolbox.fillYearSpinner(YEAR, 1900, Calendar.getInstance().get(Calendar.YEAR) - 1900 + 1);
 				YEAR.setValue("" + Calendar.getInstance().get(Calendar.YEAR));
 				leftCenter.add(new InputField(YEAR,  "Year", 40, 16, 250, false));
 			centerPanel.add(leftCenter);
 			JPanel rightCenter = new JPanel();
 				rightCenter.setLayout(new BoxLayout(rightCenter, BoxLayout.PAGE_AXIS));
 				rightCenter.setAlignmentX(LEFT_ALIGNMENT);
-//				JLabel modelLabel = new JLabel("Model");
-//					modelLabel.setHorizontalTextPosition(SwingConstants.LEADING);
-//					modelLabel.setFont(MyFont.SEMIBOLD_FONT.deriveFont(20f));
-//				rightCenter.add(modelLabel);
 				MODEL.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 				MODEL.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 				MODEL.setVisibleRowCount(-1);
@@ -137,7 +129,7 @@ public class CreateVehiclePage extends AbstractView {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton button = (JButton)e.getSource();

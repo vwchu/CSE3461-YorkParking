@@ -47,6 +47,7 @@ public class ReceiptPage extends AbstractView {
 	@Override
 	public boolean prepareView(Object... args) {
 		if (!super.prepareView(args)) {return false;}
+		RECEIPT.setText(null);
 		if (args.length >= 1) {
 			Permit permit = (Permit)args[0];
 			RECEIPT.setText(UIToolbox.getHTML("/assets/htdocs/permit.receipt.html")

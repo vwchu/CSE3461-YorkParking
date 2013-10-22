@@ -24,6 +24,7 @@ public class NewPermitPage extends AbstractView {
 	private final JLabel START_DATE, EXPIRY_DATE;
 	private final JList<Vehicle> CAR_LIST;
 	private final HorizontalButton SUBMIT;
+	private final InputField EXPIRY_DATE_FIELD;
 	private Permit PERMIT = null;
 
 	public NewPermitPage() {
@@ -95,13 +96,21 @@ public class NewPermitPage extends AbstractView {
 						details.add(new InputField(DAYS = new JSpinner(), "Days", 40, 16, WIDTH, false));
 						UIToolbox.fillYearSpinner(DAYS, 1, 2000);
 						details.add(new InputField(START_DATE = new JLabel(), "Start Date", 40, 16, WIDTH, false));
-						details.add(new InputField(EXPIRY_DATE = new JLabel(), "Make", 40, 16, WIDTH, false));
+						details.add(EXPIRY_DATE_FIELD =new InputField(EXPIRY_DATE = new JLabel(), "End Date", 40, 16, WIDTH, false));
 						DAYS.addChangeListener(new ChangeListener() {
 							@Override
 							public void stateChanged(ChangeEvent e) {
 								int days = Integer.parseInt((String)DAYS.getValue());
 								PERMIT.setDaysLeft(days);
 								EXPIRY_DATE.setText(PERMIT.getEndDate().toString());
+								Vehicle vehicle = CAR_LIST.getSelectedValue();
+								if (vehicle != null) {
+									if (PERMIT.getEndDate().before(vehicle.getExpiry())) {
+										EXPIRY_DATE_FIELD.showError(false);
+									} else {
+										EXPIRY_DATE_FIELD.showError(true);
+									}
+								}
 							}
 						});
 					detailsPane.add(details, BorderLayout.CENTER);
