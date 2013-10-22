@@ -19,6 +19,18 @@ the numberpad provided by us and not the physical keyboard
 To run the application, place YorkParking.jar and YorkParking.db in the same
 directory. Then, from the terminal, run the command: java -jar YorkParking.jar
 
+To log into the application, you can use the following test accounts:
+
+USER ID		PIN	LAST NAME	FIRST NAME
+----------	-----	----------	----------
+123456789	1234	Smith		Susan
+987654321	5678	Jones		John Paul
+132435465	3578	McIvar		Alan
+543247531	2854	Jones		Alan
+654827164	5864	McGQuinty	Ernie
+456864324	4965	Eves		Dalton
+457642455	2164	Jagger		Michael
+
 You can find the source embedded within the YorkParking.jar.
 
 -------
