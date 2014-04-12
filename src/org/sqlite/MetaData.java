@@ -1456,7 +1456,7 @@ class MetaData implements DatabaseMetaData
             }
 
             rs.close();
-    
+
             ResultSet fk = null;
             String target = table.toLowerCase();
             // find imported keys for each table
@@ -1464,7 +1464,7 @@ class MetaData implements DatabaseMetaData
                 try {
                     fk = stat.executeQuery("pragma foreign_key_list('" + escape(tbl) + "')");
                 } catch (SQLException e) {
-                    if (e.getErrorCode() == Codes.SQLITE_DONE) 
+                    if (e.getErrorCode() == Codes.SQLITE_DONE)
                         continue; // expected if table has no foreign keys
 
                     throw e;
@@ -1569,7 +1569,7 @@ class MetaData implements DatabaseMetaData
             .append("ptn as PKTABLE_NAME, pcn as PKCOLUMN_NAME, ")
             .append(quote(catalog)).append(" as FKTABLE_CAT, ")
             .append(quote(schema)).append(" as FKTABLE_SCHEM, ")
-            .append(quote(table)).append(" as FKTABLE_NAME, ") 
+            .append(quote(table)).append(" as FKTABLE_NAME, ")
             .append("fcn as FKCOLUMN_NAME, ks as KEY_SEQ, ur as UPDATE_RULE, dr as DELETE_RULE, '' as FK_NAME, '' as PK_NAME, ")
             .append(Integer.toString(importedKeyInitiallyDeferred)).append(" as DEFERRABILITY from (");
 
@@ -1939,7 +1939,7 @@ class MetaData implements DatabaseMetaData
          * @throws SQLException
          */
         @SuppressWarnings("resource")
-		public PrimaryKeyFinder(String table) throws SQLException {
+        public PrimaryKeyFinder(String table) throws SQLException {
             this.table = table;
 
             if (table == null || table.trim().length() == 0) {
@@ -2015,67 +2015,67 @@ class MetaData implements DatabaseMetaData
         close();
     }
 
-	@Override
-	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public RowIdLifetime getRowIdLifetime() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public RowIdLifetime getRowIdLifetime() throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public ResultSet getSchemas(String catalog, String schemaPattern)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ResultSet getSchemas(String catalog, String schemaPattern)
+            throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean supportsStoredFunctionsUsingCallSyntax() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean supportsStoredFunctionsUsingCallSyntax() throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean autoCommitFailureClosesAllResultSets() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean autoCommitFailureClosesAllResultSets() throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public ResultSet getClientInfoProperties() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ResultSet getClientInfoProperties() throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public ResultSet getFunctions(String catalog, String schemaPattern,
-			String functionNamePattern) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ResultSet getFunctions(String catalog, String schemaPattern,
+            String functionNamePattern) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public ResultSet getPseudoColumns(String catalog, String schemaPattern,
-			String tableNamePattern, String columnNamePattern)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ResultSet getPseudoColumns(String catalog, String schemaPattern,
+            String tableNamePattern, String columnNamePattern)
+            throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean generatedKeyAlwaysReturned() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean generatedKeyAlwaysReturned() throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

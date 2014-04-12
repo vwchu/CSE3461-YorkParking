@@ -16,29 +16,29 @@ import javax.swing.*;
  */
 public class AlphaNumericKeyboard extends Keyboard {
 
-	private final AlphabeticKeyboard AK;	// reference to alphabetic keyboard
-	private final NumericKeyboard NK;		// reference to numeric keyboard
+    private final AlphabeticKeyboard AK;    // reference to alphabetic keyboard
+    private final NumericKeyboard NK;        // reference to numeric keyboard
 
-	/**
-	 * Create and layout the alphabetic (QWERTY) keyboard with
-	 * a numeric (number pad) keyboard.
-	 *
-	 * @param field        text input
+    /**
+     * Create and layout the alphabetic (QWERTY) keyboard with
+     * a numeric (number pad) keyboard.
+     *
+     * @param field        text input
      * @param showDecimal  flag to show decimal point on number pad.
-	 */
-	public AlphaNumericKeyboard(JTextField field, boolean showDecimal) {
-		super(field);
+     */
+    public AlphaNumericKeyboard(JTextField field, boolean showDecimal) {
+        super(field);
         AK = new AlphabeticKeyboard(field);
         NK = new NumericKeyboard(field, false, showDecimal);
         JPanel inner = new JPanel();
             inner.add(AK);
-            	AK.setBorder(null);
+                AK.setBorder(null);
             inner.add(NK);
-            	NK.setBorder(null);
+                NK.setBorder(null);
             inner.setOpaque(false);
         UIToolbox.box(this, inner);
         for (String key : AK.BLOOKUP.keySet()) {
-        	AbstractButton ab = AK.BLOOKUP.get(key);
+            AbstractButton ab = AK.BLOOKUP.get(key);
             BLOOKUP.put(key, ab);
             ab.removeActionListener(AK);
             ab.addActionListener(this);
@@ -60,16 +60,16 @@ public class AlphaNumericKeyboard extends Keyboard {
     /**
      * Associates the text input with the keyboard.
      *
-     * @param field 	text input to link to the keyboard.
+     * @param field     text input to link to the keyboard.
      */
-	@Override
+    @Override
     public void setInputComponent(JTextField field) {
         // Check to protect against null pointer exception
-		// when super constructor calls method via polymorphism before
-		// AK and NK initialized in constructor
-		if (AK != null && NK != null) {
-        	AK.setInputComponent(field);
-        	NK.setInputComponent(field);
+        // when super constructor calls method via polymorphism before
+        // AK and NK initialized in constructor
+        if (AK != null && NK != null) {
+            AK.setInputComponent(field);
+            NK.setInputComponent(field);
         }
     }
 
@@ -78,27 +78,27 @@ public class AlphaNumericKeyboard extends Keyboard {
      *
      * @param enable the symbol keys if true, else disable them.
      */
-	@Override
+    @Override
     public void setSymbolsEnabled(boolean enable) {
-    	AK.setSymbolsEnabled(enable);
+        AK.setSymbolsEnabled(enable);
     }
 
     /**
      * Invoked when an action occurs.
      * Use the alphabetic keyboard's.
      *
-     * @param event		the event object.
+     * @param event        the event object.
      */
-	@Override
-	public void actionPerformed(ActionEvent event) {
-		AK.actionPerformed(event);
-	}
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        AK.actionPerformed(event);
+    }
 
     // FOR TESTING PURPOSES ONLY
 
     public static void main(String[] args) throws Exception {
-    	UITheme.setLookAndFeel();
-    	JFrame frame = new JFrame();
+        UITheme.setLookAndFeel();
+        JFrame frame = new JFrame();
         frame.setLayout(new java.awt.GridLayout(2, 1));
         JTextField tf = new JTextField();
         tf.setFont(MyFont.LIGHT_FONT.deriveFont((float)36));

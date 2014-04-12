@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2007 David Crawshaw <david@zentus.com>
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -458,7 +458,7 @@ public class SQLiteConnection implements Connection
     }
 
     /**
-     * @throws SQLException 
+     * @throws SQLException
      * @see java.sql.Connection#getMetaData()
      */
     public DatabaseMetaData getMetaData() throws SQLException {
@@ -623,7 +623,7 @@ public class SQLiteConnection implements Connection
         return new PrepStmt(this, sql);
     }
 
-    /** 
+    /**
      * @return One of "native" or "unloaded".
      */
     String getDriverVersion() {
@@ -665,109 +665,109 @@ public class SQLiteConnection implements Connection
         throw new SQLException("unsupported by SQLite");
     }
 
-	@Override
-	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public Clob createClob() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Clob createClob() throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Blob createBlob() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Blob createBlob() throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public NClob createNClob() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public NClob createNClob() throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public SQLXML createSQLXML() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public SQLXML createSQLXML() throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean isValid(int timeout) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isValid(int timeout) throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public void setClientInfo(String name, String value)
-			throws SQLClientInfoException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setClientInfo(String name, String value)
+            throws SQLClientInfoException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void setClientInfo(Properties properties)
-			throws SQLClientInfoException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public String getClientInfo(String name) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void setClientInfo(Properties properties)
+            throws SQLClientInfoException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public Properties getClientInfo() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public Array createArrayOf(String typeName, Object[] elements)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getClientInfo(String name) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void setSchema(String schema) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public Properties getClientInfo() throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public String getSchema() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Array createArrayOf(String typeName, Object[] elements)
+            throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void abort(Executor executor) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setSchema(String schema) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void setNetworkTimeout(Executor executor, int milliseconds)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public int getNetworkTimeout() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public String getSchema() throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void abort(Executor executor) throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void setNetworkTimeout(Executor executor, int milliseconds)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public int getNetworkTimeout() throws SQLException {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

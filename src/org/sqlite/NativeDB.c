@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2007 David Crawshaw <david@zentus.com>
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -301,9 +301,9 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved)
     if (!aclass) return JNI_ERR;
     aclass = (*env)->NewGlobalRef(env, aclass);
 
-	pclass = (*env)->FindClass(env, "org/sqlite/DB$ProgressObserver");
-	if(!pclass) return JNI_ERR;
-	pclass = (*env)->NewGlobalRef(env, pclass);
+    pclass = (*env)->FindClass(env, "org/sqlite/DB$ProgressObserver");
+    if(!pclass) return JNI_ERR;
+    pclass = (*env)->NewGlobalRef(env, pclass);
 
     return JNI_VERSION_1_2;
 }
@@ -321,7 +321,7 @@ JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB_shared_1cache(
 JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB_enable_1load_1extension(
         JNIEnv *env, jobject this, jboolean enable)
 {
-	return sqlite3_enable_load_extension(gethandle(env, this), enable ? 1 : 0);
+    return sqlite3_enable_load_extension(gethandle(env, this), enable ? 1 : 0);
 }
 
 
@@ -339,7 +339,7 @@ JNIEXPORT void JNICALL Java_org_sqlite_NativeDB__1open(
     }
 
     str = (*env)->GetStringUTFChars(env, file, 0);
-    ret = sqlite3_open_v2(str, &db, flags, NULL); 
+    ret = sqlite3_open_v2(str, &db, flags, NULL);
     if (ret) {
         throw_errorcode(env, this, ret);
         sqlite3_close(db);
@@ -393,16 +393,16 @@ JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB__1exec(
     const char *strsql;
     char* errorMsg;
     int status;
-	
-	if(!db)
-	{
-		throw_errorcode(env, this, 21);
-		return 21;
-	}
+
+    if(!db)
+    {
+        throw_errorcode(env, this, 21);
+        return 21;
+    }
 
     strsql = (*env)->GetStringUTFChars(env, sql, 0);
     status = sqlite3_exec(db, strsql, 0, 0, &errorMsg);
-    
+
     (*env)->ReleaseStringUTFChars(env, sql, strsql);
 
     if (status != SQLITE_OK) {
@@ -760,7 +760,7 @@ JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB_destroy_1function(
 {
     jint ret = 0;
     const char* strname = (*env)->GetStringUTFChars(env, name, 0);
-    
+
     ret = sqlite3_create_function(
         gethandle(env, this), strname, -1, SQLITE_UTF16, 0, 0, 0, 0
     );
@@ -856,10 +856,10 @@ void reportProgress(JNIEnv* env, jobject func, int remaining, int pageCount) {
   if (!mth) {
       mth = (*env)->GetMethodID(env, pclass, "progress", "(II)V");
   }
-  
-  if(!func) 
+
+  if(!func)
     return;
-        
+
   (*env)->CallVoidMethod(env, func, mth, remaining, pageCount);
 }
 
@@ -869,7 +869,7 @@ void reportProgress(JNIEnv* env, jobject func, int remaining, int pageCount) {
 ** by zFilename. This function copies 5 database pages from pDb to
 ** zFilename, then unlocks pDb and sleeps for 250 ms, then repeats the
 ** process until the entire database is backed up.
-** 
+**
 ** The third argument passed to this function must be a pointer to a progress
 ** function. After each set of 5 pages is backed up, the progress function
 ** is invoked with two integer parameters: the number of pages left to
@@ -877,7 +877,7 @@ void reportProgress(JNIEnv* env, jobject func, int remaining, int pageCount) {
 ** may be used, for example, to update a GUI progress bar.
 **
 ** While this function is running, another thread may use the database pDb, or
-** another process may access the underlying database file via a separate 
+** another process may access the underlying database file via a separate
 ** connection.
 **
 ** If the backup process is successfully completed, SQLITE_OK is returned.
@@ -885,10 +885,10 @@ void reportProgress(JNIEnv* env, jobject func, int remaining, int pageCount) {
 */
 
 JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB_backup(
-  JNIEnv *env, jobject this, 
+  JNIEnv *env, jobject this,
   jstring zDBName,
-  jstring zFilename,      	  /* Name of file to back up to */
-  jobject observer			  /* Progress function to invoke */     
+  jstring zFilename,            /* Name of file to back up to */
+  jobject observer              /* Progress function to invoke */
 )
 {
   int rc;                     /* Function return code */
@@ -902,7 +902,7 @@ JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB_backup(
 
   dFileName = (*env)->GetStringUTFChars(env, zFilename, 0);
   dDBName = (*env)->GetStringUTFChars(env, zDBName, 0);
-  
+
   /* Open the database file identified by dFileName. */
   rc = sqlite3_open(dFileName, &pFile);
   if( rc==SQLITE_OK ){
@@ -910,25 +910,25 @@ JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB_backup(
     /* Open the sqlite3_backup object used to accomplish the transfer */
     pBackup = sqlite3_backup_init(pFile, "main", pDb, dDBName);
     if( pBackup ){
-	  while((rc = sqlite3_backup_step(pBackup,100))==SQLITE_OK ){}
+      while((rc = sqlite3_backup_step(pBackup,100))==SQLITE_OK ){}
 
       /* Release resources allocated by backup_init(). */
       (void)sqlite3_backup_finish(pBackup);
     }
     rc = sqlite3_errcode(pFile);
   }
-  
+
   /* Close the database connection opened on database file zFilename
   ** and return the result of this function. */
   (void)sqlite3_close(pFile);
   return rc;
-} 
+}
 
 JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB_restore(
-  JNIEnv *env, jobject this, 
+  JNIEnv *env, jobject this,
   jstring zDBName,
-  jstring zFilename,      	  /* Name of file to back up to */
-  jobject observer			  /* Progress function to invoke */     
+  jstring zFilename,            /* Name of file to back up to */
+  jobject observer              /* Progress function to invoke */
 )
 {
   int rc;                     /* Function return code */
@@ -951,22 +951,22 @@ JNIEXPORT jint JNICALL Java_org_sqlite_NativeDB_restore(
     /* Open the sqlite3_backup object used to accomplish the transfer */
     pBackup = sqlite3_backup_init(pDb, dDBName, pFile, "main");
     if( pBackup ){
-	    while( (rc = sqlite3_backup_step(pBackup,100))==SQLITE_OK
-    	      || rc==SQLITE_BUSY  ){
-     	 	if( rc==SQLITE_BUSY ){
-        		if( nTimeout++ >= 3 ) break;
-	        	sqlite3_sleep(100);
-    		}
-	    }
+        while( (rc = sqlite3_backup_step(pBackup,100))==SQLITE_OK
+              || rc==SQLITE_BUSY  ){
+              if( rc==SQLITE_BUSY ){
+                if( nTimeout++ >= 3 ) break;
+                sqlite3_sleep(100);
+            }
+        }
       /* Release resources allocated by backup_init(). */
       (void)sqlite3_backup_finish(pBackup);
     }
     rc = sqlite3_errcode(pFile);
   }
-  
+
   /* Close the database connection opened on database file zFilename
   ** and return the result of this function. */
   (void)sqlite3_close(pFile);
   return rc;
-} 
+}
 

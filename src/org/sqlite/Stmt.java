@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2007 David Crawshaw <david@zentus.com>
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
  * copyright notice and this permission notice appear in all copies.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -64,7 +64,7 @@ class Stmt extends Unused implements Statement, Codes
 
     /**
      * Calls sqlite3_step() and sets up results. Expects a clean stmt.
-     * @return True if the ResultSet has at least one row; false otherwise. 
+     * @return True if the ResultSet has at least one row; false otherwise.
      * @throws SQLException If the given SQL statement is null or no database is open.
      */
     protected boolean exec() throws SQLException {
@@ -88,7 +88,7 @@ class Stmt extends Unused implements Statement, Codes
      * Executes SQL statement and throws SQLExceptions if the given SQL
      * statement is null or no database is open.
      * @param sql SQL statement.
-     * @return True if the ResultSet has at least one row; false otherwise. 
+     * @return True if the ResultSet has at least one row; false otherwise.
      * @throws SQLException If the given SQL statement is null or no database is open.
      */
     protected boolean exec(String sql) throws SQLException {
@@ -154,7 +154,7 @@ class Stmt extends Unused implements Statement, Codes
         internalClose();
 
         SQLExtension ext = ExtendedCommand.parse(sql);
-        if (ext != null) { 
+        if (ext != null) {
             ext.execute(db);
 
             return false;
@@ -210,14 +210,14 @@ class Stmt extends Unused implements Statement, Codes
         int changes = 0;
         SQLExtension ext = ExtendedCommand.parse(sql);
         if (ext != null) {
-            // execute extended command 
+            // execute extended command
             ext.execute(db);
         }
         else {
             try {
                 changes = db.total_changes();
 
-                // directly invokes the exec API to support multiple SQL statements 
+                // directly invokes the exec API to support multiple SQL statements
                 int statusCode = db._exec(sql);
                 if (statusCode != SQLITE_OK)
                     throw DB.newSQLException(statusCode, "");
@@ -498,46 +498,46 @@ class Stmt extends Unused implements Statement, Codes
         }
     }
 
-	@Override
-	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean isClosed() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isClosed() throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public void setPoolable(boolean poolable) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setPoolable(boolean poolable) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public boolean isPoolable() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
 
-	@Override
-	public void closeOnCompletion() throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public boolean isPoolable() throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean isCloseOnCompletion() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public void closeOnCompletion() throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public boolean isCloseOnCompletion() throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

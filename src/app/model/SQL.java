@@ -9,45 +9,45 @@ import java.sql.*;
  */
 enum SQL {
 
-	// ----- Queries -----
-	USER_EXISTS(
-		"SELECT uid " +
+    // ----- Queries -----
+    USER_EXISTS(
+        "SELECT uid " +
         "FROM User " +
         "WHERE uid = ?"),
-	GET_USER(
-		"SELECT fname, sname, email, fines, lactive " +
+    GET_USER(
+        "SELECT fname, sname, email, fines, lactive " +
         "FROM User " +
         "WHERE uid = ? AND pin = ?"),
-	//GET_USERS(
-	//    "SELECT U.sname, U.pin, U.fname, U.fines, U.email, U.lactive " +
-	//    "FROM User U, User A " +
-	//    "WHERE A.uid = 'admin' AND pin = ?"),
+    //GET_USERS(
+    //    "SELECT U.sname, U.pin, U.fname, U.fines, U.email, U.lactive " +
+    //    "FROM User U, User A " +
+    //    "WHERE A.uid = 'admin' AND pin = ?"),
     GET_VEHICLES_BY_USER(
         "SELECT plate, make, model, year, insurer, policy, " +
             "DATETIME(expiry) AS expiry " +
         "FROM Vehicle " +
         "WHERE owner = ?"),
     GET_PERMITS_BY_USER(
-		"SELECT plate, make, model, year, insurer, policy, " +
-			"DATETIME(V.expiry) AS expiry, " +
-			"DATETIME(start)  AS start, " +
-			"DATETIME(P.expiry) AS end, " +
-			"DATETIME(issued) AS issued " +
+        "SELECT plate, make, model, year, insurer, policy, " +
+            "DATETIME(V.expiry) AS expiry, " +
+            "DATETIME(start)  AS start, " +
+            "DATETIME(P.expiry) AS end, " +
+            "DATETIME(issued) AS issued " +
         "FROM Permit P, Vehicle V " +
         "WHERE owner = ? AND P.vehicle = V.plate " +
         "ORDER BY expiry DESC, plate"),
-	GET_PERMIT_EXPIRY_BY_VEHICLE(
+    GET_PERMIT_EXPIRY_BY_VEHICLE(
         "SELECT DATETIME(MAX(expiry)) " +
-      	    "FROM Permit " +
+              "FROM Permit " +
             "WHERE vehicle = ?"),
     GET_INSURERS(
-    	"SELECT * " +
-    	"FROM Insurer"),
+        "SELECT * " +
+        "FROM Insurer"),
     GET_AUTOMAKERS(
-    	"SELECT * " +
-    	"FROM AutoMaker"),
+        "SELECT * " +
+        "FROM AutoMaker"),
     GET_MAKE_MODELS(
-    	"SELECT * FROM Auto"),
+        "SELECT * FROM Auto"),
     GET_MODELS_BY_MAKE(
         "SELECT model " +
         "FROM Auto " +
@@ -55,20 +55,20 @@ enum SQL {
     GET_CURRENT_DATE(
         "SELECT DATETIME('now')"),
     COMPUTE_EXPIRY_DATE(
-    	"SELECT DATETIME(JULIANDAY(?) + ?)"),
-	GET_PERMITS_ISSUED_DATE(
-		"SELECT DATETIME(issued) AS issued " +
+        "SELECT DATETIME(JULIANDAY(?) + ?)"),
+    GET_PERMITS_ISSUED_DATE(
+        "SELECT DATETIME(issued) AS issued " +
         "FROM Permit P " +
         "WHERE vehicle = ? AND start = DATETIME(? / 1000, 'unixepoch')"),
-	GET_PERMITS_END_DATE(
-		"SELECT DATETIME(expiry) AS expiry " +
-		"FROM Permit P " +
-		"WHERE vehicle = ? AND start = DATETIME(? / 1000, 'unixepoch')"),
+    GET_PERMITS_END_DATE(
+        "SELECT DATETIME(expiry) AS expiry " +
+        "FROM Permit P " +
+        "WHERE vehicle = ? AND start = DATETIME(? / 1000, 'unixepoch')"),
 
     // ----- Add Entries -----
     //ADD_USER(
-	//    "INSERT INTO User(uid, pin, fname, sname, fines) " +
-	//    "VALUES (?, ?, ?, ?, ?)"),
+    //    "INSERT INTO User(uid, pin, fname, sname, fines) " +
+    //    "VALUES (?, ?, ?, ?, ?)"),
     //ADD_INSURER(
     //    "INSERT INTO Insurer(name) " +
     //    "VALUES (?)"),
@@ -103,9 +103,9 @@ enum SQL {
         "SET email = ? " +
         "WHERE uid = ?"),
     SET_USER_LASTACTIVE(
-    	"UPDATE User " +
-    	"SET lactive = DATETIME('now')" +
-    	"WHERE uid = ?"),
+        "UPDATE User " +
+        "SET lactive = DATETIME('now')" +
+        "WHERE uid = ?"),
 
     SET_VEHICLE_PLATE(
         "UPDATE Vehicle " +
@@ -118,9 +118,9 @@ enum SQL {
 
     // ----- Delete Entries -----
 
-	//DEL_USER(
-	//    "DELETE FROM User " +
-	//    "WHERE uid = ?"),
+    //DEL_USER(
+    //    "DELETE FROM User " +
+    //    "WHERE uid = ?"),
     DEL_VEHICLE(
         "DELETE FROM Vehicle " +
         "WHERE plate = ?")
@@ -132,7 +132,7 @@ enum SQL {
     /**
      * The private constructor of the statements.
      *
-     * @param sql 			the SQL parameterized string.
+     * @param sql             the SQL parameterized string.
      */
     private SQL(String sql) {
         this.STATEMENT = sql + ";";
@@ -141,10 +141,10 @@ enum SQL {
     /**
      * Return the prepared statement for given database connection.
      *
-     * @param conn 			the JDBC connection to the database.
-     * @return 				the prepared statement for given database connection.
+     * @param conn             the JDBC connection to the database.
+     * @return                 the prepared statement for given database connection.
      * @throws SQLException if a database access error occurs or
-     * 						this method is called on a closed connection
+     *                         this method is called on a closed connection
      */
     public PreparedStatement prepareStatement(Connection conn) throws SQLException {
         return conn.prepareStatement(STATEMENT);

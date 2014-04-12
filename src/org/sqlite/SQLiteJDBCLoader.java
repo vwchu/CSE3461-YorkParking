@@ -19,7 +19,7 @@
 // SQLite.java
 // Since: 2007/05/10
 //
-// $URL$ 
+// $URL$
 // $Author$
 //--------------------------------------
 package org.sqlite;
@@ -41,14 +41,14 @@ import java.util.Properties;
  * Set the system properties, org.sqlite.lib.path, org.sqlite.lib.name,
  * appropriately so that the SQLite JDBC driver can find *.dll, *.jnilib and
  * *.so files, according to the current OS (win, linux, mac).
- * 
+ *
  * The library files are automatically extracted from this project's package
  * (JAR).
- * 
+ *
  * usage: call {@link #initialize()} before using SQLite JDBC driver.
- * 
+ *
  * @author leo
- * 
+ *
  */
 public class SQLiteJDBCLoader
 {
@@ -66,14 +66,14 @@ public class SQLiteJDBCLoader
 
     /**
      * @return True if the SQLite JDBC driver is set to pure Java mode; false otherwise.
-     * @deprecated Pure Java no longer supported 
+     * @deprecated Pure Java no longer supported
      */
     static boolean getPureJavaFlag() {
         return Boolean.parseBoolean(System.getProperty("sqlite.purejava", "false"));
     }
 
     /**
-     * Checks if the SQLite JDBC driver is set to pure Java mode. 
+     * Checks if the SQLite JDBC driver is set to pure Java mode.
      * @return True if the SQLite JDBC driver is set to pure Java mode; false otherwise.
      * @deprecated Pure Java nolonger supported
      */
@@ -82,7 +82,7 @@ public class SQLiteJDBCLoader
     }
 
     /**
-     * Checks if the SQLite JDBC driver is set to native mode. 
+     * Checks if the SQLite JDBC driver is set to native mode.
      * @return True if the SQLite JDBC driver is set to native Java mode; false otherwise.
      */
     public static boolean isNativeMode() throws Exception {
@@ -222,7 +222,7 @@ public class SQLiteJDBCLoader
         if (sqliteNativeLibraryName == null) {
             sqliteNativeLibraryName = System.mapLibraryName("sqlitejdbc");
             if (sqliteNativeLibraryName != null && sqliteNativeLibraryName.endsWith("dylib")) {
-            	sqliteNativeLibraryName = sqliteNativeLibraryName.replace("dylib", "jnilib");
+                sqliteNativeLibraryName = sqliteNativeLibraryName.replace("dylib", "jnilib");
             }
         }
 
@@ -243,7 +243,7 @@ public class SQLiteJDBCLoader
 
         // temporary library folder
         String tempFolder = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
-        // Try extracting the library from jar 
+        // Try extracting the library from jar
         if (extractAndLoadLibraryFile(sqliteNativeLibraryPath, sqliteNativeLibraryName, tempFolder)) {
             extracted = true;
             return;

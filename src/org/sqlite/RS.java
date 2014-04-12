@@ -415,7 +415,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
         switch(db.column_type(stmt.pointer, markCol(col))) {
             case SQLITE_NULL:
                 return null;
-    
+
             case SQLITE_TEXT:
                 try {
                     return new Date(stmt.conn.dateFormat.parse(db.column_text(stmt.pointer, markCol(col))).getTime());
@@ -426,10 +426,10 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
 
                     throw error;
                 }
-    
+
             case SQLITE_FLOAT:
                 return new Date(julianDateToCalendar(db.column_double(stmt.pointer, markCol(col))).getTimeInMillis());
-    
+
             default: //SQLITE_INTEGER:
                 return new Date(db.column_long(stmt.pointer, markCol(col)) * stmt.conn.dateMultiplier);
         }
@@ -444,7 +444,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
         switch (db.column_type(stmt.pointer, markCol(col))) {
             case SQLITE_NULL:
                 return null;
-    
+
             case SQLITE_TEXT:
                 try {
                     DateFormat dateFormat = (DateFormat) stmt.conn.dateFormat.clone();
@@ -458,11 +458,11 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
 
                     throw error;
                 }
-    
+
             case SQLITE_FLOAT:
                 return new Date(julianDateToCalendar(db.column_double(stmt.pointer, markCol(col)), cal).getTimeInMillis());
-    
-            default: // SQLITE_INTEGER: 
+
+            default: // SQLITE_INTEGER:
                 cal.setTimeInMillis(db.column_long(stmt.pointer, markCol(col)) * stmt.conn.dateMultiplier);
                 return new Date(cal.getTime().getTime());
         }
@@ -579,7 +579,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
         switch (db.column_type(stmt.pointer, markCol(col))) {
             case SQLITE_NULL:
                 return null;
-    
+
             case SQLITE_TEXT:
                 try {
                     return new Time(stmt.conn.dateFormat.parse(db.column_text(stmt.pointer, markCol(col))).getTime());
@@ -590,10 +590,10 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
 
                     throw error;
                 }
-    
+
             case SQLITE_FLOAT:
                 return new Time(julianDateToCalendar(db.column_double(stmt.pointer, markCol(col))).getTimeInMillis());
-    
+
             default:// SQLITE_INTEGER
                 return new Time(db.column_long(stmt.pointer, markCol(col)) * stmt.conn.dateMultiplier);
         }
@@ -622,7 +622,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
 
                     throw error;
                 }
-    
+
             case SQLITE_FLOAT:
                 return new Time(julianDateToCalendar(db.column_double(stmt.pointer, markCol(col)), cal).getTimeInMillis());
 
@@ -653,7 +653,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
         switch (db.column_type(stmt.pointer, markCol(col))) {
             case SQLITE_NULL:
                 return null;
-    
+
             case SQLITE_TEXT:
                 try {
                     return new Timestamp(stmt.conn.dateFormat.parse(db.column_text(stmt.pointer, markCol(col))).getTime());
@@ -664,10 +664,10 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
 
                     throw error;
                 }
-    
+
             case SQLITE_FLOAT:
                 return new Timestamp(julianDateToCalendar(db.column_double(stmt.pointer, markCol(col))).getTimeInMillis());
-    
+
             default: //SQLITE_INTEGER:
                 return new Timestamp(db.column_long(stmt.pointer, markCol(col)) * stmt.conn.dateMultiplier);
         }
@@ -684,7 +684,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
         switch (db.column_type(stmt.pointer, markCol(col))) {
             case SQLITE_NULL:
                 return null;
-    
+
             case SQLITE_TEXT:
                 try {
                     DateFormat dateFormat = (DateFormat)stmt.conn.dateFormat.clone();
@@ -698,10 +698,10 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
 
                     throw error;
                 }
-            
+
             case SQLITE_FLOAT:
                 return new Timestamp(julianDateToCalendar(db.column_double(stmt.pointer, markCol(col)), cal).getTimeInMillis());
-    
+
             default: //SQLITE_INTEGER
                 cal.setTimeInMillis(db.column_long(stmt.pointer, markCol(col)) * stmt.conn.dateMultiplier);
 
@@ -880,7 +880,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
             if ("DATE".equals(typeName) || "DATETIME".equals(typeName)) {
                 return Types.DATE;
             }
-    
+
             if (valueType == SQLITE_INTEGER ||
                 "INT".equals(typeName) ||
                 "INTEGER".equals(typeName) ||
@@ -905,7 +905,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
             if ("REAL".equals(typeName)) {
                 return Types.REAL;
             }
-    
+
             if (valueType == SQLITE_FLOAT ||
                 "FLOAT".equals(typeName)) {
                 return Types.FLOAT;
@@ -925,7 +925,7 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
             if ("DATE".equals(typeName) || "DATETIME".equals(typeName)) {
                 return Types.DATE;
             }
-    
+
             if (valueType == SQLITE_TEXT ||
                 "VARCHAR".equals(typeName) ||
                 "VARYING CHARACTER".equals(typeName) ||
@@ -1215,347 +1215,347 @@ final class RS extends Unused implements ResultSet, ResultSetMetaData, Codes
         throw e;
     }
 
-	@Override
-	public <T> T unwrap(Class<T> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public RowId getRowId(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public RowId getRowId(int columnIndex) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public RowId getRowId(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public RowId getRowId(String columnLabel) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void updateRowId(int columnIndex, RowId x) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateRowId(int columnIndex, RowId x) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateRowId(String columnLabel, RowId x) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public int getHoldability() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void updateRowId(String columnLabel, RowId x) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public boolean isClosed() throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
 
-	@Override
-	public void updateNString(int columnIndex, String nString)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public int getHoldability() throws SQLException {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public void updateNString(String columnLabel, String nString)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public boolean isClosed() throws SQLException {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public void updateNClob(int columnIndex, NClob nClob) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateNString(int columnIndex, String nString)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateNClob(String columnLabel, NClob nClob)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public NClob getNClob(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void updateNString(String columnLabel, String nString)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public NClob getNClob(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public SQLXML getSQLXML(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void updateNClob(int columnIndex, NClob nClob) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public SQLXML getSQLXML(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
 
-	@Override
-	public void updateSQLXML(int columnIndex, SQLXML xmlObject)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateNClob(String columnLabel, NClob nClob)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateSQLXML(String columnLabel, SQLXML xmlObject)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public String getNString(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public NClob getNClob(int columnIndex) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public String getNString(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public NClob getNClob(String columnLabel) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Reader getNCharacterStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public SQLXML getSQLXML(int columnIndex) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Reader getNCharacterStream(String columnLabel) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public SQLXML getSQLXML(String columnLabel) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void updateNCharacterStream(int columnIndex, Reader x, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateSQLXML(int columnIndex, SQLXML xmlObject)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateNCharacterStream(String columnLabel, Reader reader,
-			long length) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateAsciiStream(int columnIndex, InputStream x, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateSQLXML(String columnLabel, SQLXML xmlObject)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateBinaryStream(int columnIndex, InputStream x, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateCharacterStream(int columnIndex, Reader x, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public String getNString(int columnIndex) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void updateAsciiStream(String columnLabel, InputStream x, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public String getNString(String columnLabel) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void updateBinaryStream(String columnLabel, InputStream x,
-			long length) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public Reader getNCharacterStream(int columnIndex) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void updateCharacterStream(String columnLabel, Reader reader,
-			long length) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public Reader getNCharacterStream(String columnLabel) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void updateBlob(int columnIndex, InputStream inputStream, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateNCharacterStream(int columnIndex, Reader x, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateBlob(String columnLabel, InputStream inputStream,
-			long length) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateClob(int columnIndex, Reader reader, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateNCharacterStream(String columnLabel, Reader reader,
+            long length) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateClob(String columnLabel, Reader reader, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateNClob(int columnIndex, Reader reader, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateAsciiStream(int columnIndex, InputStream x, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateNClob(String columnLabel, Reader reader, long length)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateNCharacterStream(int columnIndex, Reader x)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateBinaryStream(int columnIndex, InputStream x, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateNCharacterStream(String columnLabel, Reader reader)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateAsciiStream(int columnIndex, InputStream x)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateCharacterStream(int columnIndex, Reader x, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateBinaryStream(int columnIndex, InputStream x)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateCharacterStream(int columnIndex, Reader x)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateAsciiStream(String columnLabel, InputStream x, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateAsciiStream(String columnLabel, InputStream x)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateBinaryStream(String columnLabel, InputStream x)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateBinaryStream(String columnLabel, InputStream x,
+            long length) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateCharacterStream(String columnLabel, Reader reader)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateBlob(int columnIndex, InputStream inputStream)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateCharacterStream(String columnLabel, Reader reader,
+            long length) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateBlob(String columnLabel, InputStream inputStream)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateClob(int columnIndex, Reader reader) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateBlob(int columnIndex, InputStream inputStream, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateClob(String columnLabel, Reader reader)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void updateNClob(int columnIndex, Reader reader) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void updateBlob(String columnLabel, InputStream inputStream,
+            long length) throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void updateNClob(String columnLabel, Reader reader)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void updateClob(int columnIndex, Reader reader, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
 
-	@Override
-	public <T> T getObject(String columnLabel, Class<T> type)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    }
+
+    @Override
+    public void updateClob(String columnLabel, Reader reader, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateNClob(int columnIndex, Reader reader, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateNClob(String columnLabel, Reader reader, long length)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateNCharacterStream(int columnIndex, Reader x)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateNCharacterStream(String columnLabel, Reader reader)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateAsciiStream(int columnIndex, InputStream x)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateBinaryStream(int columnIndex, InputStream x)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateCharacterStream(int columnIndex, Reader x)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateAsciiStream(String columnLabel, InputStream x)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateBinaryStream(String columnLabel, InputStream x)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateCharacterStream(String columnLabel, Reader reader)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateBlob(int columnIndex, InputStream inputStream)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateBlob(String columnLabel, InputStream inputStream)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateClob(int columnIndex, Reader reader) throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateClob(String columnLabel, Reader reader)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateNClob(int columnIndex, Reader reader) throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void updateNClob(String columnLabel, Reader reader)
+            throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public <T> T getObject(String columnLabel, Class<T> type)
+            throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

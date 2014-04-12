@@ -13,7 +13,7 @@ cse13021, 210998565, Mangaru, David
 Special Requirements: (optional)
 ---------------------
 
-Our program assumes that the user only uses the on screen keyboard and 
+Our program assumes that the user only uses the on screen keyboard and
 the numberpad provided by us and not the physical keyboard
 
 To run the application, place YorkParking.jar and YorkParking.db in the same
@@ -21,15 +21,15 @@ directory. Then, from the terminal, run the command: java -jar YorkParking.jar
 
 To log into the application, you can use the following test accounts:
 
-USER ID		PIN	LAST NAME	FIRST NAME
-----------	-----	----------	----------
-123456789	1234	Smith		Susan
-987654321	5678	Jones		John Paul
-132435465	3578	McIvar		Alan
-543247531	2854	Jones		Alan
-654827164	5864	McGQuinty	Ernie
-456864324	4965	Eves		Dalton
-457642455	2164	Jagger		Michael
+USER ID        PIN    LAST NAME    FIRST NAME
+----------    -----    ----------    ----------
+123456789    1234    Smith        Susan
+987654321    5678    Jones        John Paul
+132435465    3578    McIvar        Alan
+543247531    2854    Jones        Alan
+654827164    5864    McGQuinty    Ernie
+456864324    4965    Eves        Dalton
+457642455    2164    Jagger        Michael
 
 You can find the source embedded within the YorkParking.jar.
 
@@ -42,19 +42,19 @@ the JFC/Swing components that you did, and why did you organise them
 that way? Briefly justify your design.)
 
 The software design that we used for the user interface was Multipanel,
-which was implemented using Card Layout from AWT. It was chosen to be 
+which was implemented using Card Layout from AWT. It was chosen to be
 multipanel because that allows for easy transitions between screens.
-Each card is stateless in itself and state is transferred between the 
-cards. However, Main class is implemented as a Singleton that keeps 
+Each card is stateless in itself and state is transferred between the
+cards. However, Main class is implemented as a Singleton that keeps
 track of the sessions and user information.
 
-For the user interface, We chose to make the components (Buttons, 
-TextFields, etc.) large taking into account that someone might have 
+For the user interface, We chose to make the components (Buttons,
+TextFields, etc.) large taking into account that someone might have
 large fingers.
 
-In our design, we have many screens to collect information. As a result, 
+In our design, we have many screens to collect information. As a result,
 the user is never presented with a lot of information at one time.
-They are only required to enter a little amount of information for 
+They are only required to enter a little amount of information for
 the particular screen.
 
 We chose to use a combination of text fields and labels to present
@@ -77,14 +77,14 @@ Additional Features: (optional)
 --------------------
 
 We implemented a database to store all the information about users.
-Database is stored on a local file (included in JAR). Local database engine 
-SQLite was used to retrieve and/or manipulate the data. 
+Database is stored on a local file (included in JAR). Local database engine
+SQLite was used to retrieve and/or manipulate the data.
 
-Advantages of using database is that it allows users to edit information 
+Advantages of using database is that it allows users to edit information
 about themselves, and their existing vehicles. Additionally, it allows users
 add vehicles to the database (for newer makes and models).
 
-User Interface changes based on what information is already available 
+User Interface changes based on what information is already available
 The user is not presented with the same screens if previous information
 is available.
 
@@ -108,18 +108,18 @@ Communications:
             - Define display panels
             - Define SQL schema
 2013-10-03  Email: <V Chu>, <D Mangaru> and <S Patel>
-	    - Members send completed tasks to each other
+        - Members send completed tasks to each other
 2013-10-13  Meeting: <V Chu>, <D Mangaru> and <S Patel>
-	    - Complete UI Screens
+        - Complete UI Screens
 2013-10-20  Meeting: <V Chu>, <D Mangaru> and <S Patel>
-	    - Final implementations of GUI back end
+        - Final implementations of GUI back end
 
 -----------------
 Responsibilities:
 -----------------
 
 Vincent:
-Database, GUI Functionality, and Testing 
+Database, GUI Functionality, and Testing
 
 Simit:
 GUI Implementation, GUI Functionality
