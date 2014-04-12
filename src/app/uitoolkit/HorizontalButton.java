@@ -16,11 +16,11 @@ public class HorizontalButton extends JButton {
     private static final int HEIGHT     = 50;    // Button size (width and height)
     private static final int ICON_SIZE  = 20;    // Icon font size
     private static final int LABEL_SIZE = 18;    // Label font size
-    private static final String HTML =            // HTML for button formatting
+    private static final String HTML =           // HTML for button formatting
         "<html><body>"
         + "{PART1}{SPACE}{PART2}"
         + "</body></html>";
-    private static final String PART =            // HTML for each part (icon and label)
+    private static final String PART =           // HTML for each part (icon and label)
         "<span style=\"font-family: {FONT}; font-size: {SIZE}pt; line-height: {HEIGHT};\">{TEXT}</span>";
 
     /**
@@ -28,7 +28,7 @@ public class HorizontalButton extends JButton {
      *
      * @param name        of the button. Used to reference in it.
      * @param icon        to show in the center of the button. (large)
-     * @param label        to show in the bottom-left of the button
+     * @param label       to show in the bottom-left of the button
      * @param listener    to perform an action when clicked.
      * @param size        the width and height of the button
      */

@@ -13,8 +13,8 @@ import javax.swing.border.*;
 
 public class LicensePage extends AbstractView {
 
-    private final JLabel VEHICLE_INFO = new JLabel();            // Vehicle (make, model, model year) information
-    private final JTextField LICENSE_PLATE= new JTextField();     // Vehicle's license plate
+    private final JLabel VEHICLE_INFO = new JLabel();           // Vehicle (make, model, model year) information
+    private final JTextField LICENSE_PLATE= new JTextField();   // Vehicle's license plate
     private final InputField LP_FIELD;                          // Vehicle's license plate input field
     private Vehicle VEHICLE;
     private boolean fromNewPermit = true;

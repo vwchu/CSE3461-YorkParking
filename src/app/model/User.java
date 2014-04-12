@@ -6,19 +6,19 @@ package app.model;
 public class User {
 
     private long id;                    // user student ID
-    private String fname, sname, email;    // first name, surname, email address
-    private double fines;                // outstanding fines
+    private String fname, sname, email; // first name, surname, email address
+    private double fines;               // outstanding fines
     private boolean ftime;              // first time using the application
 
     /**
      * Construct a new user object.
      *
-     * @param id        user student ID
-     * @param fname        first name
-     * @param sname        surname (last name)
-     * @param email        email address, maybe null
-     * @param fines        outstanding fines
-     * @param ftime     first time using the application
+     * @param id            user student ID
+     * @param fname         first name
+     * @param sname         surname (last name)
+     * @param email         email address, maybe null
+     * @param fines         outstanding fines
+     * @param ftime         first time using the application
      */
     public User(long id, String fname, String sname, String email, double fines, boolean ftime) {
         this.id = id;
@@ -47,9 +47,9 @@ public class User {
     /**
      * Update the user's first and last names
      *
-     * @param fname        first name
-     * @param sname        surname
-     * @return            true if the transaction was successful, otherwise false.
+     * @param fname         first name
+     * @param sname         surname
+     * @return              true if the transaction was successful, otherwise false.
      */
     public boolean setName(String fname, String sname) {
         this.fname = fname;
@@ -62,10 +62,10 @@ public class User {
      * database for the given user. Then changes the PIN
      * if the two given new pins match.
      *
-     * @param PIN        the given PIN to check
-     * @param newPIN    the new PIN
-     * @param newPIN2    the new PIN confirmed
-     * @return            true, if valid, otherwise false.
+     * @param PIN           the given PIN to check
+     * @param newPIN        the new PIN
+     * @param newPIN2       the new PIN confirmed
+     * @return              true, if valid, otherwise false.
      */
     public boolean changePIN(int PIN, int newPIN, int newPIN2) {
         return newPIN == newPIN2 && DBManager.SELF.updateUser(this, "PIN", PIN, newPIN);
@@ -74,8 +74,8 @@ public class User {
     /**
      * Update the user's email address
      *
-     * @param email        subscription email address
-     * @return            true if the transaction was successful, otherwise false.
+     * @param email         subscription email address
+     * @return              true if the transaction was successful, otherwise false.
      */
     public boolean setEmail(String email) {
         this.email = email;
@@ -85,8 +85,8 @@ public class User {
     /**
      * Update the user's outstanding fines.
      *
-     * @param fines        the outstanding fines
-     * @return            true if the transaction was successful, otherwise false.
+     * @param fines         the outstanding fines
+     * @return              true if the transaction was successful, otherwise false.
      */
     public boolean setFines(double fines) {
         if (fines < 0) {
@@ -99,8 +99,8 @@ public class User {
     /**
      * Pay down the outstanding fines.
      *
-     * @param payment    the amount paid.
-     * @return            the amount of change.
+     * @param payment       the amount paid.
+     * @return              the amount of change.
      */
     public double payFines(double payment) {
         if (payment < 0) {

@@ -6,9 +6,6 @@ import app.helpers.*;
 
 public class WelcomePage extends AbstractView {
 
-    /**
-     *
-     */
     public WelcomePage() {
         super("WELCOME", null);
         JButton start = new JButton();

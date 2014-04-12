@@ -23,8 +23,8 @@ public class ChangePINPage extends AbstractView {
     private final JPasswordField  NEW_PIN      = new JPasswordField(4); // Field for new PIN
     private final JPasswordField  NEW_PIN2     = new JPasswordField(4); // Field for confirming new PIN
 
-    private final InputField OLD_PIN_FIELD;        // Input Field for old PIN
-    private final InputField NEW_PIN_FIELD;        // Input Field for new PIN
+    private final InputField OLD_PIN_FIELD;     // Input Field for old PIN
+    private final InputField NEW_PIN_FIELD;     // Input Field for new PIN
     private final InputField NEW_PIN2_FIELD;    // Input Field for confirming new PIN
 
     public ChangePINPage() {

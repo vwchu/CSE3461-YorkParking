@@ -16,10 +16,10 @@ import javax.swing.event.*;
  */
 public class LoginPage extends AbstractView {
 
-    private final JTextField USER;            // User student ID field
-    private final JPasswordField PIN;        // Access PIN field
+    private final JTextField USER;          // User student ID field
+    private final JPasswordField PIN;       // Access PIN field
     private final InputField USER_FIELD;    // input field for user student ID
-    private final InputField PIN_FIELD;        // input filed for user PIN
+    private final InputField PIN_FIELD;     // input filed for user PIN
 
     // TODO: Set timeout
 

@@ -16,12 +16,12 @@ public class Vehicle {
     /**
      * Construct a new vehicle object.
      *
-     * @param owner            user who owns the vehicle
-     * @param plate            the license plate
-     * @param make            the manufacturer
-     * @param model            the car model
-     * @param year            model year
-     * @param insurer        the insurance company
+     * @param owner         user who owns the vehicle
+     * @param plate         the license plate
+     * @param make          the manufacturer
+     * @param model         the car model
+     * @param year          model year
+     * @param insurer       the insurance company
      * @param policy        the insurance policy
      * @param expiry        the expiry date of insurance
      * @param inDatabase    whether the vehicle is in the database
@@ -59,8 +59,8 @@ public class Vehicle {
     /**
      * Set the car make and model.
      *
-     * @param makeModel        the manufacturer and the car model
-     * @param year            model year
+     * @param makeModel     the manufacturer and the car model
+     * @param year          model year
      */
     public void setMakeModel(MakeModel makeModel, int year) {
         if (!isInDatabase()) {
@@ -73,9 +73,9 @@ public class Vehicle {
     /**
      * Update the vehicle's license plate.
      *
-     * @param plate        the new license plate.
-     * @return            if true, successfully update the license plate;
-     *                     otherwise false.
+     * @param plate         the new license plate.
+     * @return              if true, successfully update the license plate;
+     *                      otherwise false.
      */
     public boolean setPlate(String plate) {
         boolean success = !isInDatabase() || DBManager.SELF.updateVehicle(this, "PLATE", plate);
@@ -86,11 +86,11 @@ public class Vehicle {
     /**
      * Update the vehicle's insurance policy.
      *
-     * @param insurer    the vehicle's insurer
-     * @param policy    the policy number
-     * @param expiry    the expiry date of the policy
-     * @return            if true, successfully update the insurance;
-     *                     otherwise false.
+     * @param insurer       the vehicle's insurer
+     * @param policy        the policy number
+     * @param expiry        the expiry date of the policy
+     * @return              if true, successfully update the insurance;
+     *                      otherwise false.
      */
     public boolean updateInsurance(String insurer, String policy, Date expiry) {
         this.insurer = insurer;

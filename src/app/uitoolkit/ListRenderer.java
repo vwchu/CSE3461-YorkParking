@@ -44,7 +44,7 @@ public abstract class ListRenderer<T> extends JLabel implements ListCellRenderer
     /**
      * Generates and returns the HTML text in the label
      *
-     * @param value        the object value corresponding to the list item
+     * @param value       the object value corresponding to the list item
      * @return            the HTML text
      */
     public abstract String getHTML(T value);

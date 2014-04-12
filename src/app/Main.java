@@ -27,6 +27,16 @@ public class Main {
                 DBManager.SELF.destroy();
             }
         });
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override public boolean dispatchKeyEvent(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    DBManager.SELF.destroy();
+                    System.exit(0);
+                }
+                return false;
+            }
+        });
         frame.setLayout(MultiPanel.SELF.setParent(frame));
             MultiPanel.SELF.add(new WelcomePage());
             MultiPanel.SELF.add(new LoginPage());

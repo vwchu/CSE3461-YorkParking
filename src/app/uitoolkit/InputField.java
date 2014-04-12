@@ -15,7 +15,7 @@ public class InputField extends JPanel {
 
     private static final int LABEL_SIZE = 14;    // label font size
     private static final int INPUT_SIZE = 24;    // input field font size
-    private static final int WIDTH         = 300;    // total width of this component
+    private static final int WIDTH      = 300;   // total width of this component
 
     public final JPanel INNER;        // reference to the inner panel
     public final JLabel LABEL;        // reference to the label object

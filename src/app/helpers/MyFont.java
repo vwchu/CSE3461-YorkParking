@@ -17,10 +17,10 @@ public class MyFont {
     private static final MyFont my;                                                         // Reference to singleton instance
     private static final String FONT_PATH           = "/assets/fonts";                      // Folder path to fonts files
     private static final String REGULAR_FONT_URI    = FONT_PATH + "/OpenSans-Regular.ttf";  // TrueType fonts: OpenSans Regular
-    private static final String LIGHT_FONT_URI      = FONT_PATH + "/OpenSans-Light.ttf";       // TrueType fonts: OpenSans Light
-    private static final String SEMIBOLD_FONT_URI   = FONT_PATH + "/OpenSans-Semibold.ttf";    // TrueType fonts: OpenSans Semibold
+    private static final String LIGHT_FONT_URI      = FONT_PATH + "/OpenSans-Light.ttf";    // TrueType fonts: OpenSans Light
+    private static final String SEMIBOLD_FONT_URI   = FONT_PATH + "/OpenSans-Semibold.ttf"; // TrueType fonts: OpenSans Semibold
     private static final String BOLD_FONT_URI       = FONT_PATH + "/OpenSans-Bold.ttf";     // TrueType fonts: OpenSans Bold
-    private static final String ICON_FONT_URI       = FONT_PATH + "/MyIcons.ttf";             // TrueType fonts: MyIcons
+    private static final String ICON_FONT_URI       = FONT_PATH + "/MyIcons.ttf";           // TrueType fonts: MyIcons
 
     // Setup the fonts families
     public static final Font REGULAR_FONT;

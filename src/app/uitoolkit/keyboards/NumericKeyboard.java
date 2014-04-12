@@ -10,7 +10,7 @@ import javax.swing.*;
 /**
  * Implements a numeric keyboard.
  *
- *    [CE, BKSP]
+ *  [CE, BKSP]
  *  [7,  8, 9]
  *  [4,  5, 6]
  *  [1,  2, 3]
@@ -30,11 +30,11 @@ public class NumericKeyboard extends Keyboard {
     /**
      * Create and layout the numeric keyboard.
      *
-     * @param field             text input associated with the keyboard.
-     * @param showControls         flag for enabling or disabling the controls
-     *                             (clear, backspace) on the keyboard. Default: true.
-     * @param showDecimalPoint     flag for enabling or disabling the decimal point
-     *                             button on the keyboard. Default: false.
+     * @param field                 text input associated with the keyboard.
+     * @param showControls          flag for enabling or disabling the controls
+     *                              (clear, backspace) on the keyboard. Default: true.
+     * @param showDecimalPoint      flag for enabling or disabling the decimal point
+     *                              button on the keyboard. Default: false.
      */
     public NumericKeyboard(JTextField field, boolean showControls, boolean showDecimalPoint) {
         super(field);

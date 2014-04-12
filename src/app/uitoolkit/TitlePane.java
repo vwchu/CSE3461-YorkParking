@@ -12,14 +12,14 @@ import javax.swing.border.*;
  */
 public class TitlePane extends JPanel {
 
-    private static final int HORIZONTAL_MARGIN = 100;                // Horizontal padding on the left and right edges
+    private static final int HORIZONTAL_MARGIN = 100;               // Horizontal padding on the left and right edges
     private static final int PADDING           = 20;                // Internal padding
     private static final int SUBTITLE_SIZE     = 20;                // Font size of the subtitle
     private static final int TITLE_SIZE        = 60;                // Font size of the title
     private static final String SUBTITLE_TEXT  = "York Parking";    // Text for the subtitle
-    private static String HTML                 = null;                // HTML for about label
+    private static String HTML                 = null;              // HTML for about label
 
-    private final JLabel TITLE;        // label of the title of the view.
+    private final JLabel TITLE;       // label of the title of the view.
     private final JLabel USER_TAG;    // label of the name of the user logged in.
 
     /**

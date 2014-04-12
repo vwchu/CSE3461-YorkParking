@@ -21,15 +21,17 @@ directory. Then, from the terminal, run the command: java -jar YorkParking.jar
 
 To log into the application, you can use the following test accounts:
 
-USER ID        PIN    LAST NAME    FIRST NAME
-----------    -----    ----------    ----------
+USER ID      PIN     LAST NAME    FIRST NAME
+----------   -----   ----------   ----------
 123456789    1234    Smith        Susan
 987654321    5678    Jones        John Paul
-132435465    3578    McIvar        Alan
+132435465    3578    McIvar       Alan
 543247531    2854    Jones        Alan
 654827164    5864    McGQuinty    Ernie
-456864324    4965    Eves        Dalton
-457642455    2164    Jagger        Michael
+456864324    4965    Eves         Dalton
+457642455    2164    Jagger       Michael
+
+To exit the application, press ESC.
 
 You can find the source embedded within the YorkParking.jar.
 
@@ -108,11 +110,11 @@ Communications:
             - Define display panels
             - Define SQL schema
 2013-10-03  Email: <V Chu>, <D Mangaru> and <S Patel>
-        - Members send completed tasks to each other
+            - Members send completed tasks to each other
 2013-10-13  Meeting: <V Chu>, <D Mangaru> and <S Patel>
-        - Complete UI Screens
+            - Complete UI Screens
 2013-10-20  Meeting: <V Chu>, <D Mangaru> and <S Patel>
-        - Final implementations of GUI back end
+            - Final implementations of GUI back end
 
 -----------------
 Responsibilities:

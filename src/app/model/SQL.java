@@ -38,8 +38,8 @@ enum SQL {
         "ORDER BY expiry DESC, plate"),
     GET_PERMIT_EXPIRY_BY_VEHICLE(
         "SELECT DATETIME(MAX(expiry)) " +
-              "FROM Permit " +
-            "WHERE vehicle = ?"),
+        "FROM Permit " +
+        "WHERE vehicle = ?"),
     GET_INSURERS(
         "SELECT * " +
         "FROM Insurer"),
@@ -132,7 +132,7 @@ enum SQL {
     /**
      * The private constructor of the statements.
      *
-     * @param sql             the SQL parameterized string.
+     * @param sql               the SQL parameterized string.
      */
     private SQL(String sql) {
         this.STATEMENT = sql + ";";
@@ -141,10 +141,10 @@ enum SQL {
     /**
      * Return the prepared statement for given database connection.
      *
-     * @param conn             the JDBC connection to the database.
-     * @return                 the prepared statement for given database connection.
-     * @throws SQLException if a database access error occurs or
-     *                         this method is called on a closed connection
+     * @param conn              the JDBC connection to the database.
+     * @return                  the prepared statement for given database connection.
+     * @throws SQLException     if a database access error occurs or
+     *                          this method is called on a closed connection
      */
     public PreparedStatement prepareStatement(Connection conn) throws SQLException {
         return conn.prepareStatement(STATEMENT);

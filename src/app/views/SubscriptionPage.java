@@ -14,10 +14,10 @@ import javax.swing.border.*;
 
 public class SubscriptionPage extends AbstractView {
 
-    private final JTextField EMAIL = new JTextField();     // User's email address
-    private final SquareButton UNSUBSCRIBE;                // Unsubscribe from email
+    private final JTextField EMAIL = new JTextField();  // User's email address
+    private final SquareButton UNSUBSCRIBE;             // Unsubscribe from email
     private final InputField EMAIL_FIELD;               // Input field for user's email address
-    private final HorizontalButton SUBMIT;                // the submit button
+    private final HorizontalButton SUBMIT;              // the submit button
     private Permit PERMIT = null;
     private final JPanel NAV;
     private final CardLayout DECK;

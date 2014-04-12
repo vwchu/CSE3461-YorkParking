@@ -18,11 +18,11 @@ public class Permit {
     /**
      * Construct a new Permit Object
      *
-     * @param vehicle        the vehicle assigned to this permit
-     * @param startDate        the start date of the permit
-     * @param endDate        the end date of the permit
-     * @param issueDate        the date and time the permit was issued
-     * @param inDatabase    whether the vehicle is in the Database
+     * @param vehicle           the vehicle assigned to this permit
+     * @param startDate         the start date of the permit
+     * @param endDate           the end date of the permit
+     * @param issueDate         the date and time the permit was issued
+     * @param inDatabase        whether the vehicle is in the Database
      */
     public Permit(Vehicle vehicle, Date startDate, Date endDate, Date issueDate, boolean inDatabase) {
         this.vehicle = vehicle;

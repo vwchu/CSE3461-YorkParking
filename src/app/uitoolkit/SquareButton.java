@@ -15,9 +15,9 @@ public class SquareButton extends JButton {
 
     // Default values
 
-    private static final int SIZE           = 200;    // Button size (width and height)
+    private static final int SIZE       = 200;    // Button size (width and height)
     private static final int ICON_SIZE  = 100;    // Icon font size
-    private static final int LABEL_SIZE = 16;    // Label font size
+    private static final int LABEL_SIZE = 16;     // Label font size
 
     private static final String HTML = UIToolbox.getHTML("/assets/htdocs/iconLabel.vertical.html");
 
@@ -26,7 +26,7 @@ public class SquareButton extends JButton {
      *
      * @param name        of the button. Used to reference in it.
      * @param icon        to show in the center of the button. (large)
-     * @param label        to show in the bottom-left of the button
+     * @param label       to show in the bottom-left of the button
      * @param listener    to perform an action when clicked.
      * @param size        the width and height of the button
      */

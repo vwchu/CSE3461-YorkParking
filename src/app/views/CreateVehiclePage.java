@@ -15,9 +15,9 @@ import javax.swing.event.*;
 
 public class CreateVehiclePage extends AbstractView {
 
-    private final JList<String>        MAKE     = new JList<String>();
-    private final JList<MakeModel>    MODEL     = new JList<MakeModel>();
-    private final JSpinner            YEAR    = new JSpinner();
+    private final JList<String>    MAKE    = new JList<String>();
+    private final JList<MakeModel> MODEL   = new JList<MakeModel>();
+    private final JSpinner         YEAR    = new JSpinner();
     private Vehicle VEHICLE;
     private boolean fromNewPermit = true;
 

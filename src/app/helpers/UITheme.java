@@ -12,8 +12,8 @@ public class UITheme {
 
     private UITheme() { } // static class, no constructor
 
-    public static final Color FG_COLOR             = Color.BLACK;                // Text color
-    public static final Color BG_COLOR             = Color.WHITE;                // Background color
+    public static final Color FG_COLOR             = Color.BLACK;                 // Text color
+    public static final Color BG_COLOR             = Color.WHITE;                 // Background color
     public static final Color BORDER_COLOR         = Color.LIGHT_GRAY;            // Border color
     public static final Color HOVER_FG_COLOR       = FG_COLOR;                    // Text color (hovered)
     public static final Color HOVER_BG_COLOR       = BG_COLOR;                    // Background color (hovered)

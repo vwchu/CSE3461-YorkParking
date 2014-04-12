@@ -20,7 +20,7 @@ import javax.swing.event.*;
 public class InsurancePage extends AbstractView {
 
     private final JComboBox<String> INSURER = new JComboBox<String>();
-    private final JTextField POLICY           = new JTextField();
+    private final JTextField POLICY         = new JTextField();
     private final JComboBox<String> MONTH   = new JComboBox<String>();
     private final JSpinner YEAR             = new JSpinner();
     private Vehicle VEHICLE;

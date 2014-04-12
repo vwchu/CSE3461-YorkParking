@@ -67,9 +67,9 @@ public abstract class Keyboard extends JPanel implements ActionListener, FocusLi
     /**
      * Style the keyboard button.
      *
-     * @param ab     button to style.
-     * @param key     text on the button.
-     * @param caps     if true, upper case, else lower case. Default: false
+     * @param ab        button to style.
+     * @param key       text on the button.
+     * @param caps      if true, upper case, else lower case. Default: false
      */
     protected void setKeyLookAndFeel(AbstractButton ab, String key, boolean caps) {
         Font font = MyFont.REGULAR_FONT;
