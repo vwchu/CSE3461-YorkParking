@@ -1,5 +1,5 @@
 ========================================
-YorkParking.app
+CSE3461-YorkParking
 Alpha 0.2.1
 2014.04.12
 ========================================
@@ -128,4 +128,3 @@ GUI Implementation, GUI Functionality
 
 David:
 GUI Implementation, Documentation
-
