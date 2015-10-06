@@ -3,6 +3,7 @@ package app.helpers;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.UIManager.*;
+import javax.swing.plaf.nimbus.*;
 
 /**
  * This class defines the theme colors of the
@@ -38,7 +39,19 @@ public class UITheme {
             // TODO: Configure theming colors. UIManager.put(property, new Color(...));
             // {@see http://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/_nimbusDefaults.html}
 
-
+            final NimbusLookAndFeel laf = new NimbusLookAndFeel();
+            UIManager.setLookAndFeel(laf);
+            UIDefaults defaults = laf.getDefaults();
+            defaults.put("List[Selected].textForeground",
+                laf.getDerivedColor("nimbusLightBackground", 0.0f, 0.0f, 0.0f, 0, false));
+            defaults.put("List[Selected].textBackground",
+                laf.getDerivedColor("nimbusSelectionBackground", 0.0f, 0.0f, 0.0f, 0, false));
+            defaults.put("List[Disabled+Selected].textBackground",
+                laf.getDerivedColor("nimbusSelectionBackground", 0.0f, 0.0f, 0.0f, 0, false));
+            defaults.put("List[Disabled].textForeground",
+                laf.getDerivedColor("nimbusDisabledText", 0.0f, 0.0f, 0.0f, 0, false));
+            defaults.put("List:\"List.cellRenderer\"[Disabled].background",
+                laf.getDerivedColor("nimbusSelectionBackground", 0.0f, 0.0f, 0.0f, 0, false));
 
         } catch (Exception e) {}
     }

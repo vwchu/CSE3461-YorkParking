@@ -21,7 +21,7 @@ public class LoginPage extends AbstractView {
     private final InputField USER_FIELD;    // input field for user student ID
     private final InputField PIN_FIELD;     // input filed for user PIN
 
-    // TODO: Set timeout
+    private Timeout timeout = null;
 
     public LoginPage() {
         super("LOGIN", "Login");
@@ -66,18 +66,41 @@ public class LoginPage extends AbstractView {
         // attach event listeners
         USER.addFocusListener(kb);
         PIN.addFocusListener(kb);
+        this.addMouseMotionListener(new MouseAdapter() {
+            void reset() {
+                if (timeout != null) {
+                    timeout.reset();
+                }
+            }
+            @Override public void mousePressed(MouseEvent e) {reset();}
+            @Override public void mouseClicked(MouseEvent e) {reset();}
+            @Override public void mouseWheelMoved(MouseWheelEvent e) {reset();}
+            @Override public void mouseMoved(MouseEvent e) {reset();}
+            @Override public void mouseDragged(MouseEvent e) {reset();}
+        });
     }
 
     @Override
     public boolean prepareView(Object... args) {
+        if (timeout != null) {
+            timeout.stop();
+        }
         USER.setText(""); USER_FIELD.showError(false);
         PIN.setText(""); PIN_FIELD.showError(false);
         USER.requestFocusInWindow();
+        timeout = new Timeout(new Runnable() {
+            @Override public void run() {
+                MultiPanel.SELF.show("WELCOME");
+            }
+        }, 10 * 1000).start();
         return false;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (timeout != null) {
+            timeout.reset();
+        }
         JButton button = (JButton)e.getSource();
         String name = button.getName();
         long id = 0;
@@ -96,6 +119,9 @@ public class LoginPage extends AbstractView {
                 }
                 if ((Main.USER = DBManager.SELF.getUser(id, pin)) != null) {
                     System.out.println("LOGGED IN AS: " + Main.USER.getID());
+                    if (timeout != null) {
+                        timeout.stop();
+                    }
                     MultiPanel.SELF.show("HOME");
                 } else {
                     System.out.println("LOGIN ATTEMPT FAILED");

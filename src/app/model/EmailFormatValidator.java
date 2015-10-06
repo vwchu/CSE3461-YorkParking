@@ -44,7 +44,7 @@ public class EmailFormatValidator {
         };
         for (Object[] test : tests) {
             String teststr = (String)test[0];
-            boolean valid = (boolean)test[1];
+            boolean valid = (Boolean)test[1];
             boolean passed = EmailFormatValidator.validate(teststr) == valid;
             System.out.printf("%-30s%10s%10s\n",
                 teststr,
