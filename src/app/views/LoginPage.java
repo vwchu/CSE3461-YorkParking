@@ -92,7 +92,7 @@ public class LoginPage extends AbstractView {
             @Override public void run() {
                 MultiPanel.SELF.show("WELCOME");
             }
-        }, 10 * 1000).start();
+        }, 60 * 1000).start();
         return false;
     }
 
