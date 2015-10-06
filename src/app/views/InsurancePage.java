@@ -4,11 +4,9 @@ import app.helpers.*;
 import app.model.*;
 import app.uitoolkit.*;
 import app.uitoolkit.keyboards.*;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
@@ -23,6 +21,8 @@ public class InsurancePage extends AbstractView {
     private final JTextField POLICY         = new JTextField();
     private final JComboBox<String> MONTH   = new JComboBox<String>();
     private final JSpinner YEAR             = new JSpinner();
+    private final InputField INSURER_FIELD;
+    private final InputField POLICY_FIELD;
     private Vehicle VEHICLE;
     private HorizontalButton SUBMIT;
     private CardLayout DECK;
@@ -37,8 +37,8 @@ public class InsurancePage extends AbstractView {
             JPanel inner = new JPanel();
                 inner.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 0));
                 JPanel form = new JPanel(new GridLayout(3, 1));
-                    form.add(new InputField(INSURER,  "Insurer", 40, 16, 500, false));
-                    form.add(new InputField(POLICY,  "Policy No.", 40, 16, 500, false));
+                    form.add(INSURER_FIELD = new InputField(INSURER,  "Insurer", 40, 16, 500, false));
+                    form.add(POLICY_FIELD = new InputField(POLICY,  "Policy No.", 40, 16, 500, false));
                     JPanel expiryDate = new JPanel(new GridLayout(1, 2));
                         expiryDate.add(YEAR);
                         expiryDate.add(MONTH);
@@ -139,6 +139,8 @@ public class InsurancePage extends AbstractView {
         } else {
             fromNewPermit = false;
         }
+        POLICY_FIELD.showError(false);
+        INSURER_FIELD.showError(false);
         INSURER.requestFocusInWindow();
         return true;
     }
@@ -166,7 +168,10 @@ public class InsurancePage extends AbstractView {
                 date.set(Calendar.SECOND, date.getActualMaximum(Calendar.SECOND));
                 date.set(Calendar.MILLISECOND, 0);
                 date.set(Calendar.ZONE_OFFSET, 0);
-            if (VEHICLE.updateInsurance((String)INSURER.getSelectedItem(),
+            if (POLICY.getText().isEmpty()) {
+                POLICY_FIELD.showError(true);
+                POLICY.requestFocusInWindow();
+            } else if (VEHICLE.updateInsurance((String)INSURER.getSelectedItem(),
                     POLICY.getText(), UIToolbox.convertToSQLDate(date))) {
                 if (name == "SUBMIT") {
                     MultiPanel.SELF.show("EDIT_VEHICLE", VEHICLE, fromNewPermit);

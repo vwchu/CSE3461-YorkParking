@@ -78,6 +78,9 @@ public class Vehicle {
      *                      otherwise false.
      */
     public boolean setPlate(String plate) {
+        if (plate.isEmpty()) {
+            return false;
+        }
         boolean success = !isInDatabase() || DBManager.SELF.updateVehicle(this, "PLATE", plate);
         this.plate = plate;
         return success;
@@ -93,6 +96,9 @@ public class Vehicle {
      *                      otherwise false.
      */
     public boolean updateInsurance(String insurer, String policy, Date expiry) {
+        if (policy.isEmpty()) {
+            return false;
+        }
         this.insurer = insurer;
         this.policy = policy;
         this.expiry = expiry;

@@ -22,12 +22,34 @@ public class PayNowPage extends AbstractView {
     private final JLabel CHANGE = new JLabel();
     private final JLabel OUTSTANDING = new JLabel();
     private Permit PERMIT = null;
-    private double $AMOUNT, $CHANGE, $OUTSTANDING;
+    private double $AMOUNT = 0, $CHANGE, $OUTSTANDING;
 
     public PayNowPage() {
         super("PAY_NOW", "Pay Now");
         AMOUNT.setColumns(5);
-        NumericKeyboard kb = new NumericKeyboard(null, true, true);
+        NumericKeyboard kb = new NumericKeyboard(null, true, true) {
+            @Override public void actionPerformed(ActionEvent event) {
+                AbstractButton ab = (AbstractButton)event.getSource();
+                String name = ab.getName();
+                String add = ab.getText();
+                String text = field.getText();
+                if (("$0.00".equals(text) || text.matches("\\$0+"))  
+                        && !name.equals("CE") 
+                        && !name.equals("BKSP") 
+                        && field.getSelectedText() == null) {
+                    if (".".equals(add)) {add = "0.";}
+                    field.setText("$" + add);
+                    field.setCaretPosition(1 + add.length());
+                } else if ("$0.".equals(text) && ".".equals(add)) {
+                    // do nothing
+                } else if (("$".equals(text) || text.isEmpty()) && ".".equals(add)) {
+                    field.setText("$0.");
+                    field.setCaretPosition(3);
+                } else {
+                    super.actionPerformed(event);
+                }
+            }
+        };
         JPanel main = new JPanel();
             main.setLayout(new GridBagLayout());
             JPanel inner = new JPanel();

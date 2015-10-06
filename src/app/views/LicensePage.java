@@ -79,6 +79,7 @@ public class LicensePage extends AbstractView {
                 MultiPanel.SELF.show("INSURANCE", VEHICLE, fromNewPermit);
             } else {
                 LP_FIELD.showError(true);
+                LICENSE_PLATE.requestFocusInWindow();
             }
         } else if (name == "PREV") {
             MultiPanel.SELF.show("CREATE_VEHICLE", VEHICLE, fromNewPermit);

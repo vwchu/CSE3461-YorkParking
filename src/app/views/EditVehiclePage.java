@@ -20,7 +20,7 @@ public class EditVehiclePage extends AbstractView {
 
     public EditVehiclePage() {
         super("EDIT_VEHICLE", "Edit Vehicle");
-        AlphabeticKeyboard kb = new AlphabeticKeyboard(null);
+        AlphaNumericKeyboard kb = new AlphaNumericKeyboard(null, false);
             kb.setSymbolsEnabled(false);
         JPanel main = new JPanel(new BorderLayout());
             JPanel inner = new JPanel(new FlowLayout(FlowLayout.LEFT, 50, 0));
@@ -86,6 +86,7 @@ public class EditVehiclePage extends AbstractView {
                 }
             } else {
                 LP_FIELD.showError(true);
+                LICENSE_PLATE.requestFocusInWindow();
             }
         } else if (name == "BACK") {
             if (fromNewPermit) {
