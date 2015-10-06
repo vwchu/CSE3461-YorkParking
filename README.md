@@ -8,6 +8,8 @@ Permit Kiosk. Like most kiosks, interaction is via a touch screen. The
 system’s keyboard is not used. For this assignment, we were required to use
 point-and-click operations with the mouse to simulate a touch screen.
 
+![alt text](assets/screens.png "Screenshots")
+
 For more details, see: https://bitbucket.org/vwchu/cse3461-yorkparking/downloads/01.html
 
 ### Note
