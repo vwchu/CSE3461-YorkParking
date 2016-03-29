@@ -100,8 +100,6 @@ Remember, no keyboard!
 10. Please make sure the first three lines of the readme.txt are formatted
     exactly as shown in the template file; namely,
 
-    ```
-    LoginID, StudentID, LastName, FirstName(s)
-    LoginID, StudentID, LastName, FirstName(s)
-    LoginID, StudentID, LastName, FirstName(s)
-    ```
+        LoginID, StudentID, LastName, FirstName(s)
+        LoginID, StudentID, LastName, FirstName(s)
+        LoginID, StudentID, LastName, FirstName(s)
