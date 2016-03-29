@@ -16,31 +16,25 @@ machine).
 Our Parking Permit Kiosk is a system for use on the campus of York University to
 issue vehicle parking permits to students. The following is required as input:
 
-    ```
     Student Number – a 9-digit number (validated against database)
     PIN - 4-digit personal identification number (validated against database)
     Email address - optional, used to send parking news to clients
     Vehicle and Insurance Information - (see below)
     Expiry Date – month and year that permit expires
-    ```
 
 The system maintains a simple database of students at the university. For our
 purpose, the database is a text file named [students.txt](assets/students.txt).
 It contains one line for each student. Each line contains five comma-delimited
 fields:
 
-    ```
     <student number>,<PIN>,<family name>,<given name>,<status>
-    ```
 
 For example,
 
-    ```
     123456789, 1234, Smith, Susan, ok
     987654321, 5678,Jones, John Paul, arrears
     132435465, 3475, McIvar, Alan, ok
     etc.
-    ```
 
 The first four fields are obvious enough. The fifth field contains either “ok”
 or “arrears”, the latter indicating that the student has outstanding parking
@@ -53,13 +47,11 @@ A student vehicle must be insured by a registered insurance company in order to
 receive a parking permit. A separate database stores all the names of registered
 insurance companies, for example:
 
-    ```
     Co-operators Insurance Company of Canada
     State Farm Underwriters Incorporated
     Allstate International Insurance Company Ltd.
     Metropolitan Life Insurance Company
     etc.
-    ```
 
 For our purposes, the database is a text file named
 [companies.txt](assets/companies.txt). The user should identify the company with
