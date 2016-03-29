@@ -10,7 +10,7 @@ point-and-click operations with the mouse to simulate a touch screen.
 
 ![screenshots](assets/screens.png)
 
-![workflow](assets/workflow.png)
+![workflow](assets/workflow.gif)
 
 For more details, see: https://bitbucket.org/vwchu/cse3461-yorkparking/downloads/01.html
 
