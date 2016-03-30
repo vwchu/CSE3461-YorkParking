@@ -67,6 +67,7 @@ on the system’s display via a popup window. We’ll assume this is the equival
 to printing the permit.
 
 Remember, no keyboard!
+
 ----------------------------------------
 
 **Notes:**
